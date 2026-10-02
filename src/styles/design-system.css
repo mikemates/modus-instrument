@@ -1,0 +1,7 @@
+/* Stylesheet for the Design System bundle. Token VALUES come from the Design System page's own
+   tokens.css, so the theme is imported by reference only and edits made on the page show through. */
+@import "tailwindcss";
+@import "./tokens.reference.css";
+@import "./base.css";
+@source "../components";
+@source "../patterns";

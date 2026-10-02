@@ -1,0 +1,49 @@
+/* House base styles and the few utilities Tailwind doesn't have. Colours and type come from tokens only. */
+@layer base {
+  html {
+    background: var(--color-ground);
+    color: var(--color-ink);
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+  body { margin: 0; font-size: 14px; line-height: 1.55; }
+  :focus-visible { outline: 2px solid var(--color-focus); outline-offset: 3px; }
+  ::selection { background: var(--color-violet-100); color: var(--color-violet-900); }
+  h1, h2, h3, h4 { text-wrap: balance; }
+  p { text-wrap: pretty; }
+}
+
+/* Uppercase annotation voice (FIG numbers, eyebrows, tags, table heads). */
+@utility mi-label {
+  font-size: var(--text-label);
+  line-height: var(--text-label--line-height);
+  letter-spacing: var(--text-label--letter-spacing);
+  font-weight: 600;
+  text-transform: uppercase;
+}
+/* 16px dot grid behind hero panels. */
+@utility mi-dots {
+  background-image: radial-gradient(circle, var(--color-dot) 1px, transparent 1.4px);
+  background-size: 16px 16px;
+}
+/* Diagonal hatch for image placeholders. */
+@utility mi-hatch {
+  background-image: repeating-linear-gradient(135deg, var(--color-hairline) 0 1px, transparent 1px 12px);
+}
+/* Fades the product-as-illustration panel into its ground. */
+@utility mi-fade {
+  -webkit-mask-image: linear-gradient(180deg, #000 45%, transparent 96%);
+  mask-image: linear-gradient(180deg, #000 45%, transparent 96%);
+}
+@utility tabular { font-variant-numeric: tabular-nums; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

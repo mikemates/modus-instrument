@@ -1,0 +1,48 @@
+<!-- @dsCard height=288 -->
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Modus Instrument — cover</title>
+<style>
+  html, body { margin: 0; height: 100%; background: var(--color-ground); }
+  .cover { position: relative; width: 960px; height: 288px; overflow: hidden; background: var(--color-ground); font-family: var(--font-body); }
+  .cover svg { position: absolute; inset: 0; }
+  .slab { fill: var(--color-action); }
+  .lilac { fill: var(--color-violet-300); }
+  .inkb { fill: var(--color-ink); }
+  .pop { fill: var(--color-signal); }
+  .tile { rx: var(--radius-panel); ry: var(--radius-panel); }
+  .dot { fill: var(--color-ground); }
+  .text { position: absolute; left: 40px; bottom: 36px; width: 420px; display: flex; flex-direction: column; gap: 12px; }
+  .name { margin: 0; font-size: 72px; line-height: 0.95; font-weight: 400; letter-spacing: -0.04em; color: var(--color-ink); }
+  .tag { margin: 0; font-size: 14px; line-height: 1.4; color: var(--color-ink-2); }
+</style>
+</head>
+<body>
+<div class="cover">
+  <svg width="960" height="288" viewBox="0 0 960 288" aria-hidden="true">
+    <!-- blocks: color-action 248×320 slab, color-violet-300 240×152, color-ink 112×160, color-signal 120×160; gaps space-2 (8px); corners radius-panel
+         arrangement: one tall slab with three satellites, flush to the right, bleeding off the top, right and bottom edges
+         pattern: a dot grid at space-4 (16px) pitch, cut out of the slab in color-ground — the Instrument's dot-grid panels ("precise, technical, a 4px grid")
+         steps: space-2 gaps, space-4 pitch, 24 dots (4 × 6), radius-panel tiles -->
+    <rect class="slab tile" x="480" y="-16" width="248" height="320"/>
+    <rect class="lilac tile" x="736" y="-16" width="240" height="152"/>
+    <rect class="inkb tile" x="736" y="144" width="112" height="160"/>
+    <rect class="pop tile" x="856" y="144" width="120" height="160"/>
+    <g>
+      <circle class="dot" cx="512" cy="160" r="2.5"/><circle class="dot" cx="528" cy="160" r="2.5"/><circle class="dot" cx="544" cy="160" r="2.5"/><circle class="dot" cx="560" cy="160" r="2.5"/>
+      <circle class="dot" cx="512" cy="176" r="2.5"/><circle class="dot" cx="528" cy="176" r="2.5"/><circle class="dot" cx="544" cy="176" r="2.5"/><circle class="dot" cx="560" cy="176" r="2.5"/>
+      <circle class="dot" cx="512" cy="192" r="2.5"/><circle class="dot" cx="528" cy="192" r="2.5"/><circle class="dot" cx="544" cy="192" r="2.5"/><circle class="dot" cx="560" cy="192" r="2.5"/>
+      <circle class="dot" cx="512" cy="208" r="2.5"/><circle class="dot" cx="528" cy="208" r="2.5"/><circle class="dot" cx="544" cy="208" r="2.5"/><circle class="dot" cx="560" cy="208" r="2.5"/>
+      <circle class="dot" cx="512" cy="224" r="2.5"/><circle class="dot" cx="528" cy="224" r="2.5"/><circle class="dot" cx="544" cy="224" r="2.5"/><circle class="dot" cx="560" cy="224" r="2.5"/>
+      <circle class="dot" cx="512" cy="240" r="2.5"/><circle class="dot" cx="528" cy="240" r="2.5"/><circle class="dot" cx="544" cy="240" r="2.5"/><circle class="dot" cx="560" cy="240" r="2.5"/>
+    </g>
+  </svg>
+  <div class="text">
+    <p class="name">Modus<br>Instrument</p>
+    <p class="tag">Dense, annotated instruments on warm paper — the Modus UI foundation for insight work.</p>
+  </div>
+</div>
+</body>
+</html>
