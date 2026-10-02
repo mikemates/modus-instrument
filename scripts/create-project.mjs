@@ -125,10 +125,11 @@ Follows Modus Experience Standards v0.1, except: the default UI foundation is Ba
 
 ## Design system
 - Modus Instrument — the brand book, tokens and live components: https://claude.ai/artifact/34AemeyKUpp1dyAc4TDoKv (read its README before designing a screen).
-- \`tokens/tokens.json\` is the only place colours, type, spacing, radii and shadows are defined. \`npm run tokens\` regenerates \`src/styles/tokens.css\`; never edit that file by hand.
+- \`tokens/tokens.json\` is the only place colours, type, spacing, radii, shadows and layout values are defined. \`npm run tokens\` regenerates \`src/styles/tokens.css\`; never edit that file by hand.
 - Use the token utilities (\`bg-panel\`, \`text-ink-2\`, \`text-statement\`, \`rounded-panel\`, \`border-hairline\`) — never a hex value or a one-off size for something a token covers.
 - Two themes: Paper (default) and Ink (dark), set by \`data-theme\` on \`<html>\`. Check both.
 - Violet is the signal: one per exhibit. The primary button is \`bg-action\`, one per view.
+- Pages are one composed column: wrap content in \`mi-frame\` and never run it edge to edge. Reading text and fields stop at \`mi-measure\`.
 - Build interactive UI from \`src/components\` (Base UI underneath) before hand-building anything.
 
 ## Ground rules

@@ -18,7 +18,7 @@ Vite 8 + React 19 + TypeScript + Tailwind v4 + Base UI (`@base-ui/react`) + Manr
 Follows Modus Experience Standards v0.1, except: the default UI foundation is Base UI + Modus Instrument tokens instead of shadcn-style components on Radix (DEC-001).
 
 ## Where things live
-- `tokens/tokens.json` — the ONLY place colours, type, spacing, radii and shadows are defined, each with a usage note and a value per theme.
+- `tokens/tokens.json` — the ONLY place colours, type, spacing, radii, shadows and layout values are defined, each with a usage note; colours carry a Paper and an Ink value.
 - `scripts/build-tokens.mjs` — generates `src/styles/tokens.css` (the app's Tailwind theme) and `src/styles/tokens.reference.css` (for the Design System bundle). Never edit either by hand; `npm run dev` and `npm run build` regenerate them.
 - `design-system/assets/Logos/` — the official Modus Create logo SVGs (wordmark, glyph; black, white). `npm run logo` copies their geometry into `src/components/logo-paths.ts` for the `Logo` component; never edit that file or redraw the logo.
 - `src/components/` — the foundation: Logo, Button, Label, Tag, Card, EvidenceMeter, StatTile, TextField, SegmentedTabs, Switch, Slider, ThemeToggle, Skeleton, EmptyState, ErrorState, Icons.

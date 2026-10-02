@@ -27,7 +27,7 @@ Use the Paper / Ink switch in the top bar to change theme. Press ⌘K to open As
 
 ## What's inside
 
-- `tokens/tokens.json` — every colour, type style, space, radius and shadow, with a usage note and a Paper and Ink value. Change the look here.
+- `tokens/tokens.json` — every colour, type style, space, radius, shadow and layout value, with a usage note; colours carry a Paper and an Ink value. Change the look here.
 - `design-system/assets/Logos/` — the official Modus Create logo files.
 - `src/components/` — Logo, Button, Label, Tag, Card, EvidenceMeter, StatTile, TextField, SegmentedTabs, Switch, Slider, ThemeToggle, Skeleton, EmptyState, ErrorState, Icons.
 - `src/patterns/` — InsightCard, OpportunityCard, Figure, TopBar, ChapterRail, AskPalette, ValueStream, ServiceBlueprint, CapabilityMatrix, HarveyBall, BenchmarkBars, RoiModel.

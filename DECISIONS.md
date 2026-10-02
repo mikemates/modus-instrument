@@ -15,8 +15,9 @@ Direction A's dense, shared-border panels, annotated exhibits (FIG labels) and d
 Manrope (variable, 200–800, OFL) for display, body and labels. Body copy is sans, not serif. Uppercase tracked labels replace a monospace for annotations.
 
 ## DEC-004 — Modus violet roles [Brand]
-**Status:** decided; primary-action role superseded by DEC-014 · **Date:** 2026-10-01
+**Status:** decided (primary-action role superseded) · **Date:** 2026-10-01
 Violet 500 `#8135F9` is the signal (the one thing to look at, one per exhibit); violet 900 `#26035D` fills the primary action in Paper; violet 700 `#4D05C1` is violet text. Replaces the cobalt accent of Direction B. [Assumption] The ramp was sampled from the brand colour bar image — confirm exact hexes against the Modus brand guidelines.
+Primary-action role replaced by DEC-014 because violet 900 read close to black on Paper; the button is violet 500 in both themes.
 
 ## DEC-005 — Two themes: Paper (default) and Ink [Experience]
 **Status:** decided · **Date:** 2026-10-01
@@ -49,6 +50,7 @@ Mike set up https://github.com/mikemates/modus-instrument as the backup and the 
 ## DEC-012 — Pages use the full width of the window [Experience]
 **Status:** superseded by DEC-013 · **Date:** 2026-10-02
 Mike likes how the reference sites use the whole browser. Replaces the 1440px content cap the first build used (never logged). Content now runs edge to edge inside fluid margins (`layout-gutter`: 16px on phones, a fixed 96px from 2400px wide) up to `layout-frame` (2400px); only panoramic displays reach the cap, where the page centres. Reading text and form fields keep `layout-measure` (620px); card galleries add columns (`mi-tiles`, cards at least `layout-tile`); exhibits take the extra room; the POV headline scales up to display-xl. The values are tokens (a new `layout` family), so the margins or the cap change in one place. Checked at 390, 1440, 1920, 2560 and 3440px in Paper and Ink, with no sideways scrolling.
+Replaced by DEC-013 because it lost the composition's intentionality and flow (DEC-013 has the diagnosis).
 
 ## DEC-013 — One composed column that grows on big monitors [Experience]
 **Status:** decided · **Date:** 2026-10-02
