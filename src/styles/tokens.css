@@ -20,8 +20,8 @@
   --color-signal-soft: rgba(129, 53, 249, 0.08);
   --color-signal-line: rgba(129, 53, 249, 0.40);
   --color-on-signal: #ffffff;
-  --color-action: #26035d;
-  --color-action-hover: #4d05c1;
+  --color-action: #8135f9;
+  --color-action-hover: #6a24e0;
   --color-on-action: #ffffff;
   --color-focus: #8135f9;
   --color-mark: #8e877a;
@@ -117,8 +117,6 @@
   --color-signal-soft: rgba(154, 99, 255, 0.12);
   --color-signal-line: rgba(154, 99, 255, 0.45);
   --color-on-signal: #0e0c12;
-  --color-action: #8135f9;
-  --color-action-hover: #6a24e0;
   --color-focus: #c09bfb;
   --color-mark: #77708a;
   --color-mark-soft: #3b3648;

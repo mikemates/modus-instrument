@@ -15,7 +15,7 @@ Direction A's dense, shared-border panels, annotated exhibits (FIG labels) and d
 Manrope (variable, 200–800, OFL) for display, body and labels. Body copy is sans, not serif. Uppercase tracked labels replace a monospace for annotations.
 
 ## DEC-004 — Modus violet roles [Brand]
-**Status:** decided · **Date:** 2026-10-01
+**Status:** decided; primary-action role superseded by DEC-014 · **Date:** 2026-10-01
 Violet 500 `#8135F9` is the signal (the one thing to look at, one per exhibit); violet 900 `#26035D` fills the primary action in Paper; violet 700 `#4D05C1` is violet text. Replaces the cobalt accent of Direction B. [Assumption] The ramp was sampled from the brand colour bar image — confirm exact hexes against the Modus brand guidelines.
 
 ## DEC-005 — Two themes: Paper (default) and Ink [Experience]
@@ -53,6 +53,10 @@ Mike likes how the reference sites use the whole browser. Replaces the 1440px co
 ## DEC-013 — One composed column that grows on big monitors [Experience]
 **Status:** decided · **Date:** 2026-10-02
 Replaces DEC-012. On seeing full width, Mike said it "lost some of its intentionality and flow". Diagnosis, from renders at 1710, 1920 and 2560px: (1) the POV headline lost its three-line stack and read as two sentences; (2) cards went from index cards (~315px) to wide strips (~670px), flattening the page's vertical rhythm; (3) proportions drifted with the window because some parts stayed fixed (text, rail, fields) while others stretched (cards, exhibits); (4) a bug stretched the search field to 620px. Mike chose, from three rendered options, to keep the original composition and let it grow: `layout-column` is 1440px on laptops and, from 1680px-wide windows, grows with 120px margins up to 1920px; `layout-hero` grows with it (64px → 85px) so the headline keeps its stack; galleries are back to fixed columns (3 on desktop); the TopBar is back to a full-bleed bar. Kept from DEC-012: reading text and form fields stop at `layout-measure` (620px); the inline Ask palette at 720px. Fixed: a field's own width class now wins over the measure. Checked at 390, 1280, 1440, 1470, 1710, 1920, 2560 and 3440px in Paper and Ink: laptops identical to the original, headline three lines at every desktop width, no sideways scroll, and the build matches the chosen render at 2560px.
+
+## DEC-014 — The primary button is bright violet in Paper too [Brand]
+**Status:** decided · **Date:** 2026-10-02
+Mike asked for Paper's primary button colour to be as bright as Ink's. The variable was one token: Paper's `color-action` was violet 900 (#26035D), which reads close to black on warm paper, so the brand violet only appeared in small marks. `color-action` is now violet 500 (#8135F9) in both themes, and `color-action-hover` is #6A24E0 in both (one step darker). Checked: white text 5.5:1 on the button and 7.1:1 on hover; the focus ring keeps its 3px gap and 4.8:1 against the paper; rendered the hero, states and kit in Paper beside Ink at 1440px. Knock-on: the Design System cover used `color-action` for its dark slab, which would have matched the violet block beside it, so the slab now uses `color-violet-900` directly.
 
 ## Open questions
 - ~~[Open question] The official Modus logo asset~~ — resolved by DEC-007 (2026-10-02).

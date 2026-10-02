@@ -20,7 +20,7 @@ Build from the components in `components/bundle.js` (namespace `ModusInstrument`
 - Text: `color-ink` for primary, `color-ink-2` for descriptions and quotes, `color-ink-3` for labels and captions. All three pass 4.5:1 on ground, panel, raised and both tints in both themes. On `color-inset` use `color-ink` or `color-ink-2` only.
 - Two-tone headlines: finish the sentence in `color-ink-3` ("Claims start fast and finish slow. <ink-3>21 of 22 days are waiting, not work.</ink-3>"). Hierarchy comes from value, not weight.
 - `color-signal` (Modus violet 500) marks the one thing to look at: the bottleneck bar, the selected ring, the active tab, the current chapter. One signal per exhibit. Use `color-signal-text` when violet is text.
-- `color-action` fills the single primary button per view, with `color-on-action` text. In Paper it is violet 900; in Ink it is violet 500.
+- `color-action` fills the single primary button per view, with `color-on-action` text. It is Modus violet 500 in both themes, so the primary action is the brightest thing on the page; hover steps down to `color-action-hover`.
 - `color-positive` and `color-negative` carry meaning only with an icon or a word. Pain points pair `color-negative` with the warning triangle.
 - Neutral data marks use `color-mark`. `color-mark-soft` is only for decorative marks inside product-as-illustration panels.
 - Tints: `color-tint-violet` heads Build-new opportunities, `color-tint-mist` heads Evolve-ways-of-working ones. The `color-violet-*` ramp is for brand moments (CTA bands, covers), not UI states.
