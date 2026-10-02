@@ -32,15 +32,15 @@ export function App() {
         }
       />
 
-      <main className="mx-auto flex max-w-[1440px] flex-col gap-24 px-4 pb-24 pt-10 sm:px-8 lg:px-16">
+      <main className="mi-frame flex flex-col gap-24 pb-24 pt-10">
         {/* Hero: A's shared-border panel on B's paper */}
         <Card as="section" className="mi-dots grid grid-cols-1 overflow-hidden lg:grid-cols-[minmax(0,2fr)_minmax(0,1fr)]">
           <div className="flex flex-col gap-6 border-b border-hairline bg-panel/80 p-6 sm:p-10 lg:border-b-0 lg:border-r">
             <div className="flex justify-between"><Label>Fig 1.0 — POV headline</Label><Label>Illustrative data</Label></div>
-            <h1 className="m-0 text-[clamp(40px,5vw,64px)] font-normal leading-[1.03] tracking-[-0.04em] text-ink">
+            <h1 className="m-0 text-[length:var(--layout-hero)] font-normal leading-[1.03] tracking-[-0.04em] text-ink">
               Claims start fast and finish slow. <span className="text-ink-3">21 of 22 days are waiting, not work.</span>
             </h1>
-            <p className="m-0 max-w-[620px] text-body-l text-ink-2">
+            <p className="m-0 mi-measure text-body-l text-ink-2">
               Twelve adjuster interviews and five ride-alongs point to the same pattern: the first hour of a claim is quick; the next three weeks are queues — documents, reserves and an approval step nobody owns.
             </p>
             <div className="flex flex-wrap gap-3">
@@ -59,7 +59,7 @@ export function App() {
           </div>
         </Card>
 
-        <div className="grid grid-cols-1 gap-12 lg:grid-cols-[280px_minmax(0,1fr)]">
+        <div className="grid grid-cols-1 gap-12 lg:grid-cols-[var(--layout-rail)_minmax(0,1fr)]">
           <aside className="lg:sticky lg:top-24 lg:self-start"><ChapterRail chapters={s.chapters} /></aside>
           <div className="flex min-w-0 flex-col gap-24">
             <Section id="heard" eyebrow="01 · What we heard" title="Three insights carry the story">
@@ -134,7 +134,7 @@ export function App() {
       </main>
 
       <footer className="border-t border-hairline">
-        <div className="mx-auto flex max-w-[1440px] flex-wrap justify-between gap-3 px-4 py-6 text-xs text-ink-2 sm:px-8 lg:px-16">
+        <div className="mi-frame flex flex-wrap justify-between gap-3 py-6 text-xs text-ink-2">
           <span className="flex items-center gap-2.5"><Logo variant="glyph" className="h-4" />Modus Instrument 0.1 · Confidential — prepared for [Prospect]</span>
           <span>Sample content — figures are illustrative</span>
         </div>

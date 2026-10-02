@@ -46,6 +46,14 @@ In Paper, `color-ink-3` on `color-inset` measures 4.26:1, below the 4.5:1 text f
 **Status:** decided · **Date:** 2026-10-02
 Mike set up https://github.com/mikemates/modus-instrument as the backup and the place other projects pull from. The Mac copy stays the working copy (DEC-009); each save is pushed there. `package-lock.json` is committed on purpose so every machine and Vercel install the same versions.
 
+## DEC-012 — Pages use the full width of the window [Experience]
+**Status:** superseded by DEC-013 · **Date:** 2026-10-02
+Mike likes how the reference sites use the whole browser. Replaces the 1440px content cap the first build used (never logged). Content now runs edge to edge inside fluid margins (`layout-gutter`: 16px on phones, a fixed 96px from 2400px wide) up to `layout-frame` (2400px); only panoramic displays reach the cap, where the page centres. Reading text and form fields keep `layout-measure` (620px); card galleries add columns (`mi-tiles`, cards at least `layout-tile`); exhibits take the extra room; the POV headline scales up to display-xl. The values are tokens (a new `layout` family), so the margins or the cap change in one place. Checked at 390, 1440, 1920, 2560 and 3440px in Paper and Ink, with no sideways scrolling.
+
+## DEC-013 — One composed column that grows on big monitors [Experience]
+**Status:** decided · **Date:** 2026-10-02
+Replaces DEC-012. On seeing full width, Mike said it "lost some of its intentionality and flow". Diagnosis, from renders at 1710, 1920 and 2560px: (1) the POV headline lost its three-line stack and read as two sentences; (2) cards went from index cards (~315px) to wide strips (~670px), flattening the page's vertical rhythm; (3) proportions drifted with the window because some parts stayed fixed (text, rail, fields) while others stretched (cards, exhibits); (4) a bug stretched the search field to 620px. Mike chose, from three rendered options, to keep the original composition and let it grow: `layout-column` is 1440px on laptops and, from 1680px-wide windows, grows with 120px margins up to 1920px; `layout-hero` grows with it (64px → 85px) so the headline keeps its stack; galleries are back to fixed columns (3 on desktop); the TopBar is back to a full-bleed bar. Kept from DEC-012: reading text and form fields stop at `layout-measure` (620px); the inline Ask palette at 720px. Fixed: a field's own width class now wins over the measure. Checked at 390, 1280, 1440, 1470, 1710, 1920, 2560 and 3440px in Paper and Ink: laptops identical to the original, headline three lines at every desktop width, no sideways scroll, and the build matches the chosen render at 2560px.
+
 ## Open questions
 - ~~[Open question] The official Modus logo asset~~ — resolved by DEC-007 (2026-10-02).
 - [Open question] Exact Modus violet hexes — sampled from an image (DEC-004); confirm against the Modus Create brand guidelines.

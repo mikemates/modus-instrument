@@ -84,14 +84,14 @@ export function App() {
         </span>
         <ThemeToggle />
       </header>
-      <main className="mx-auto flex max-w-[1440px] flex-col gap-10 px-4 py-10 sm:px-8 lg:px-16">
+      <main className="mi-frame flex flex-col gap-10 py-10">
         <Card as="section" className="mi-dots grid grid-cols-1 overflow-hidden lg:grid-cols-[minmax(0,2fr)_minmax(0,1fr)]">
           <div className="flex flex-col gap-6 border-b border-hairline bg-panel/80 p-6 sm:p-10 lg:border-b-0 lg:border-r">
             <Label>Fig 1.0 — Headline</Label>
-            <h1 className="m-0 text-[clamp(40px,5vw,64px)] font-normal leading-[1.03] tracking-[-0.04em]">
+            <h1 className="m-0 text-[length:var(--layout-hero)] font-normal leading-[1.03] tracking-[-0.04em]">
               Say the claim first. <span className="text-ink-3">Then the evidence.</span>
             </h1>
-            <p className="m-0 max-w-[620px] text-body-l text-ink-2">This project starts on Modus Instrument: Paper and Ink themes, Manrope, and violet as the one signal.</p>
+            <p className="m-0 mi-measure text-body-l text-ink-2">This project starts on Modus Instrument: Paper and Ink themes, Manrope, and violet as the one signal.</p>
             <div className="flex flex-wrap gap-3">
               <Button iconEnd={<Icons.ArrowRight />}>Start here</Button>
               <Button variant="secondary">Secondary action</Button>

@@ -93,6 +93,14 @@
   --text-figure-m--font-weight: 400;
 }
 
+:root {
+  --layout-column: clamp(1440px, calc(100vw - 240px), 1920px);
+  --layout-gutter: clamp(16px, 5vw, 64px);
+  --layout-measure: 620px;
+  --layout-rail: 280px;
+  --layout-hero: clamp(40px, 5vw, max(64px, min((100vw - 240px) / 22.5, 85px)));
+}
+
 [data-theme="ink"] {
   --color-ground: #0e0c12;
   --color-panel: #15131b;

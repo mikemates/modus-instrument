@@ -36,8 +36,18 @@ Build from the components in `components/bundle.js` (namespace `ModusInstrument`
 
 - Make structure visible: panels that share hairlines, FIG labels on exhibits, the 16px dot grid (`mi-dots`) behind hero panels.
 - Long pages are chapters with a sticky ChapterRail; number chapters only because they are a real sequence.
-- Spacing is a 4px scale (`space-1` … `space-24`, the same as Tailwind's unit): 24px card padding, 20px grid gaps, 64px page gutters on desktop, 16px minimum on phones.
+- Spacing is a 4px scale (`space-1` … `space-24`, the same as Tailwind's unit): 24px card padding, 20px grid gaps. The page column and its padding are `layout-column` and `layout-gutter` (below).
 - The product or the data is the illustration. Use real exhibits (a value stream, a blueprint) instead of stock imagery, 3D or gradients. Photography is workshop documentary only; until it exists, use the hatched placeholder (`mi-hatch`) labelled with what goes there.
+
+### Width
+
+- Every page is one composed column, designed at 1440px and centred. Wrap page content in `mi-frame` (`layout-column`, padded by `layout-gutter`). Never run page content edge to edge: the composition is the point.
+- On big monitors the whole column grows: 1440px on laptops; from 1680px-wide windows it grows with 120px margins, up to 1920px. Its proportions hold because the headline grows with it.
+- The POV headline uses `layout-hero` (40px on phones, 64px on laptops, up to 85px) so it keeps its three-line stack, the consequence in `color-ink-3` closing it.
+- Card galleries keep fixed column counts: one on phones, two on tablets, three on desktop. Cards stay index-card proportions; never stretch them into strips.
+- Reading text and form fields stop at `layout-measure` (620px, `mi-measure`); the Ask palette at 720px.
+- The TopBar is the one full-bleed element: a bar across the window with its own padding.
+- From 1024px wide, the chapter rail keeps `layout-rail` (280px) beside the content.
 
 ### Corners, borders, elevation
 

@@ -10,6 +10,7 @@ The Design System artifact is generated from this repo by `npm run ds:build` (ou
 - Send `components/index.d.ts` as `text/plain`; `.ts` is not a served type.
 - The logo SVGs are uploaded assets, not files: re-upload changed ones and update `assetGroups.Logos` in the index with the new blob ids.
 - The Design System page compiles colours, radii, shadows and `--font-*` itself, but turns type styles into classes rather than `--text-*` variables. That is why `tokens.reference.css` carries the text sizes as a static block; don't remove it.
+- Token families beyond colour, type, spacing, radius and shadow (the `layout` family) become plain `:root` variables, both on the Design System page and in the app's `tokens.css`. `mi-frame` and `mi-measure` in the bundle depend on them, and the page drops any value containing `var()`, so layout values are written out in full (see `layout-hero`).
 - Previews can only use Tailwind classes that appear somewhere in `src/`. Use an inline `style` for one-off sizes.
 **Why it matters:** each trap either fails the publish or silently breaks the previews.
 **What to do about it:** follow these steps on every republish, then render a few previews in Paper and Ink before calling it done.

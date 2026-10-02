@@ -222,7 +222,7 @@ export function AskPalette(props: AskPaletteProps) {
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
   }, [props.inline]);
-  if (props.inline) return <div className={props.className}><AskPanel {...props} /></div>;
+  if (props.inline) return <div className={cn('w-full max-w-[720px]', props.className)}><AskPanel {...props} /></div>;
   return (
     <Dialog.Root open={open} onOpenChange={setOpen}>
       <Dialog.Trigger className="inline-flex h-8 cursor-pointer items-center gap-2 rounded-pill border border-control-edge px-3.5 text-[13px] font-semibold text-ink hover:bg-raised focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-focus">

@@ -29,6 +29,7 @@ Follows Modus Experience Standards v0.1, except: the default UI foundation is Ba
 
 ## Rules for building
 - Tokens only. Use the token utilities (`bg-panel`, `text-ink-2`, `text-statement`, `rounded-panel`, `border-hairline`, `bg-action`) — never a hex value or a one-off size for something a token covers.
+- One composed column: wrap page content in `mi-frame` (`layout-column`: 1440px on laptops, growing to 1920px on big monitors) and size the POV headline with `layout-hero` so it keeps its stack. Galleries keep fixed column counts; reading text and fields stop at `layout-measure`. Never run page content edge to edge (DEC-013).
 - Every colour token has a value in Paper and Ink. Check contrast in both: text 4.5:1, large text, control edges and focus 3:1.
 - The logo is always the `Logo` component in `color-logo` (black on Paper, white on Ink) — never recoloured, retyped or a PNG. One wordmark per page.
 - Violet is the signal: one per exhibit. The primary button (`bg-action`) appears once per view.

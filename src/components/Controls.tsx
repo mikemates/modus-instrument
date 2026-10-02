@@ -27,7 +27,7 @@ export interface TextFieldProps {
 /** A labelled input on Base UI Field. Errors sit under the field, say what to do, and keep the input. */
 export function TextField({ label, hideLabel, placeholder, description, error, defaultValue, value, onValueChange, search, className }: TextFieldProps) {
   return (
-    <Field.Root invalid={!!error} className={cn('flex flex-col gap-1.5', className)}>
+    <Field.Root invalid={!!error} className={cn('flex max-w-[var(--layout-measure)] flex-col gap-1.5', className)}>
       <Field.Label className={cn('text-xs font-medium text-ink-2', hideLabel && 'sr-only')}>{label}</Field.Label>
       <span className="flex h-9 items-center gap-2 rounded-control border border-control-edge bg-panel px-3 text-ink-3 focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-focus data-[invalid]:border-negative">
         {search ? <Search /> : null}

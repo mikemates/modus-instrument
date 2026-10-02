@@ -39,6 +39,16 @@
 }
 @utility tabular { font-variant-numeric: tabular-nums; }
 
+/* Layout (tokens: layout-*). Every page is one composed column (layout-column), centred, that grows on
+   big monitors so its proportions hold. Reading text and fields keep layout-measure. */
+@utility mi-frame {
+  width: 100%;
+  max-width: var(--layout-column);
+  margin-inline: auto;
+  padding-inline: var(--layout-gutter);
+}
+@utility mi-measure { max-width: var(--layout-measure); }
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
