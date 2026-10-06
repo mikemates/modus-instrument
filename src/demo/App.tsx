@@ -1,15 +1,18 @@
 import {
-  AskPalette, BenchmarkBars, Button, CapabilityMatrix, Card, ChapterRail, EmptyState, ErrorState, Figure, Icons, InsightCard,
-  Label, Logo, OpportunityCard, RoiModel, SegmentedTabs, ServiceBlueprint, Skeleton, StatTile, Switch, TextField, ThemeToggle, TopBar, ValueStream,
+  AskPalette, BenchmarkBars, Button, CapabilityMatrix, Card, ChapterClose, ChapterRail, EmptyState, ErrorState, Figure, GoLink, Icons, InsightCard,
+  Label, LinkButton, Logo, ModeSwitch, OpportunityCard, RoiModel, SegmentedTabs, ServiceBlueprint, Skeleton, Switch, Tag, TextField, TopBar, ValueStream,
 } from '../index';
 import * as s from '../data/sample';
+import { LeadTime } from './LeadTime';
 
-function Section({ id, eyebrow, title, children }: { id: string; eyebrow: string; title: string; children: React.ReactNode }) {
+/** A section of the walkthrough: a hairline, then its claim at display-m in one tone. No eyebrow: the chapter rail
+    already numbers and names it. */
+function Section({ id, claim, intro, children }: { id: string; claim: string; intro?: string; children: React.ReactNode }) {
   return (
     <section id={id} className="flex scroll-mt-24 flex-col gap-8">
-      <div className="flex flex-col gap-2.5 border-t border-hairline pt-8">
-        <Label>{eyebrow}</Label>
-        <h2 className="m-0 text-display-m text-ink">{title}</h2>
+      <div className="flex flex-col gap-4 border-t border-hairline pt-8">
+        <h2 className="m-0 max-w-[24ch] text-display-m text-ink">{claim}</h2>
+        {intro ? <p className="m-0 mi-measure text-body-l text-ink-2">{intro}</p> : null}
       </div>
       {children}
     </section>
@@ -25,7 +28,7 @@ export function App() {
         sections={[{ label: 'Brief', current: true }, { label: 'Insights' }, { label: 'Maps' }, { label: 'Benchmarks' }, { label: 'Opportunities' }]}
         actions={
           <>
-            <ThemeToggle />
+            <ModeSwitch />
             <AskPalette items={s.askItems} answer={s.askAnswer} />
             <Button size="sm">Share</Button>
           </>
@@ -36,7 +39,7 @@ export function App() {
         {/* Hero: A's shared-border panel on B's paper */}
         <Card as="section" className="mi-dots grid grid-cols-1 overflow-hidden lg:grid-cols-[minmax(0,2fr)_minmax(0,1fr)]">
           <div className="flex flex-col gap-6 border-b border-hairline bg-panel/80 p-6 sm:p-10 lg:border-b-0 lg:border-r">
-            <div className="flex justify-between"><Label>Fig 1.0 — POV headline</Label><Label>Illustrative data</Label></div>
+            <div className="flex justify-end"><Label>Illustrative data</Label></div>
             <h1 className="m-0 text-[length:var(--layout-hero)] font-normal leading-[1.03] tracking-[-0.04em] text-ink">
               Claims start fast and finish slow. <span className="text-ink-3">21 of 22 days are waiting, not work.</span>
             </h1>
@@ -49,20 +52,14 @@ export function App() {
               <Button variant="ghost" iconEnd={<Icons.ArrowRight />}>Copy share link</Button>
             </div>
           </div>
-          <div className="flex flex-col justify-between gap-6 bg-panel p-6 sm:p-10">
-            <StatTile size="xl" label="Lead time · FNOL → payment" value="22.4" unit="days" />
-            <div className="grid grid-cols-2 border-t border-hairline">
-              <StatTile size="m" label="Flow efficiency" value="6.2%" className="border-r border-hairline pr-4 pt-4" />
-              <StatTile size="m" label="Hand-offs" value="11" className="pl-4 pt-4" />
-            </div>
-            <StatTile size="m" label="Against peers" value="+9.6 d" delta={{ text: 'slower than the peer median', direction: 'down', good: false }} />
-          </div>
+          {/* What we heard, drawn: the lead time to scale from the value stream, work in violet. */}
+          <div className="flex flex-col justify-center gap-5 bg-panel p-6 sm:p-10"><LeadTime steps={s.valueStream} /></div>
         </Card>
 
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-[var(--layout-rail)_minmax(0,1fr)]">
           <aside className="lg:sticky lg:top-24 lg:self-start"><ChapterRail chapters={s.chapters} /></aside>
           <div className="flex min-w-0 flex-col gap-24">
-            <Section id="heard" eyebrow="01 · What we heard" title="Three insights carry the story">
+            <Section id="heard" claim="Simple claims wait behind complex ones.">
               <div className="flex flex-wrap items-end justify-between gap-4">
                 <SegmentedTabs label="Content type" items={[{ value: 'insights', label: 'Insights' }, { value: 'maps', label: 'Maps' }, { value: 'opps', label: 'Opportunities' }]} />
                 <TextField label="Search insights" hideLabel search placeholder="Search insights" className="w-60" />
@@ -81,28 +78,27 @@ export function App() {
               </div>
             </Section>
 
-            <Section id="today" eyebrow="02 · How it works today" title="Service blueprint, commercial property claim">
-              <Figure title="Five phases, four lanes" fig="Fig 2.1 · illustrative"><ServiceBlueprint phases={s.blueprintPhases} lanes={s.blueprintLanes} /></Figure>
+            <Section id="today" claim="Most of a claim happens out of the policyholder’s sight.">
+              <Figure title="One commercial property claim, from first notice to payment" tag={<Tag>Illustrative</Tag>}><ServiceBlueprint phases={s.blueprintPhases} lanes={s.blueprintLanes} /></Figure>
             </Section>
 
-            <Section id="leaks" eyebrow="03 · Where value leaks" title="Value stream, first notice to payment">
-              <Figure title="Seven steps, one queue that matters" fig="Fig 3.1 · median"><ValueStream steps={s.valueStream} /></Figure>
+            <Section id="leaks" claim="Investigation waits eight days for six hours of work.">
+              <Figure title="First notice to payment, step by step" tag={<Tag>Illustrative</Tag>} caption="Median days per step"><ValueStream steps={s.valueStream} /></Figure>
             </Section>
 
-            <Section id="compare" eyebrow="04 · How you compare" title="Capability and speed against peers">
+            <Section id="compare" claim="Peers pay in 12.8 days; [Prospect] takes 22.4.">
               <div className="grid grid-cols-1 gap-10 2xl:grid-cols-[minmax(0,7fr)_minmax(0,5fr)]">
                 <CapabilityMatrix caption={s.matrix.caption} players={s.matrix.players} rows={s.matrix.rows} />
                 <div className="flex flex-col gap-7">
                   <BenchmarkBars title={s.benchmark.title} source={s.benchmark.source} items={s.benchmark.items} max={25} />
-                  <div className="flex flex-col gap-2.5 rounded-panel bg-raised p-5">
-                    <Label>What this says</Label>
+                  <div className="rounded-panel bg-raised p-5">
                     <p className="m-0 text-statement text-ink">[Prospect] pays 9.6 days slower than the peer median — and almost all of the gap is queue time, not work.</p>
                   </div>
                 </div>
               </div>
             </Section>
 
-            <Section id="build" eyebrow="05 · What to build" title="Three opportunities, two kinds">
+            <Section id="build" claim="Start with the claims that shouldn’t wait at all.">
               <div className="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3">
                 {s.opportunities.map((op) => <OpportunityCard key={op.id} opportunity={op} />)}
               </div>
@@ -111,9 +107,10 @@ export function App() {
                 <h3 className="m-0 text-title text-ink">What straight-through processing could be worth</h3>
               </div>
               <RoiModel defaults={s.roiDefaults} />
+              <ChapterClose question="Which of these should the workshop test first?" action={<LinkButton href="#build" size="lg">Book the readout</LinkButton>} next={<GoLink href="#controls">See the kit</GoLink>} />
             </Section>
 
-            <Section id="controls" eyebrow="Kit" title="Controls and states">
+            <Section id="controls" claim="Controls and states">
               <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
                 <div className="flex flex-col gap-4">
                   <Label>Buttons</Label>
@@ -134,7 +131,7 @@ export function App() {
       </main>
 
       <footer className="border-t border-hairline">
-        <div className="mi-frame flex flex-wrap justify-between gap-3 py-6 text-xs text-ink-2">
+        <div className="mi-frame flex flex-wrap justify-between gap-3 py-6 text-ink-2">
           <span className="flex items-center gap-2.5"><Logo variant="glyph" className="h-4" />Modus Instrument 0.1 · Confidential — prepared for [Prospect]</span>
           <span>Sample content — figures are illustrative</span>
         </div>

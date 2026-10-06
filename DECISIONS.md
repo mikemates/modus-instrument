@@ -7,7 +7,7 @@ Append-only. When something changes, mark the old entry SUPERSEDED (don't delete
 Replaces the Standards v0.1 default of shadcn-style components on Radix (a Starting point, so this is a logged deviation, not a breach). shadcn and HeroUI had started to feel fiddly and recognisably AI-generated. Base UI (`@base-ui/react`, from the Radix, Floating UI and MUI team) gives unstyled, accessible primitives — keyboard, focus management, ARIA — with no visual opinion, so 100% of the look comes from Modus Instrument tokens. Trade-off: no copy-paste styled kit; we maintain the styled layer ourselves (15 foundation components so far). Proposed for the next version of the Standards.
 
 ## DEC-002 — Visual direction: "Instrument on paper" [Brand]
-**Status:** decided · **Date:** 2026-10-01
+**Status:** decided (FIG labels and the dot grid now go only where they mark something, DEC-015) · **Date:** 2026-10-01
 Direction A's dense, shared-border panels, annotated exhibits (FIG labels) and dot grid, set in Direction B's warm paper palette, type and colour treatment. Chosen by Mike from four directions on the Look & Feel canvas.
 
 ## DEC-003 — Manrope is the only typeface [Brand]
@@ -40,7 +40,7 @@ Mike asked for a default standard beyond the Insight Center. Every new Modus pro
 Mike chose a folder on his Mac: `~/Projects/modus-instrument` is the working copy, and new projects go beside it in `~/Projects/`. Copies built in a Claude cloud session are scratch; the Mac copy wins when they differ.
 
 ## DEC-010 — One documented contrast exception: ink-3 on inset [Accessibility]
-**Status:** decided · **Date:** 2026-10-01 (logged 2026-10-02)
+**Status:** decided (a second exception, ink-3 on signal-soft, added by DEC-019) · **Date:** 2026-10-01 (logged 2026-10-02)
 In Paper, `color-ink-3` on `color-inset` measures 4.26:1, below the 4.5:1 text floor. No component puts text on inset, so the palette stays as it is and the rule lives in the token's usage note and the brand book: text on inset is `color-ink` or `color-ink-2` only. Every other text pair passes in both themes.
 
 ## DEC-011 — Backed up to GitHub [Engineering]
@@ -60,6 +60,111 @@ Replaces DEC-012. On seeing full width, Mike said it "lost some of its intention
 **Status:** decided · **Date:** 2026-10-02
 Mike asked for Paper's primary button colour to be as bright as Ink's. The variable was one token: Paper's `color-action` was violet 900 (#26035D), which reads close to black on warm paper, so the brand violet only appeared in small marks. `color-action` is now violet 500 (#8135F9) in both themes, and `color-action-hover` is #6A24E0 in both (one step darker). Checked: white text 5.5:1 on the button and 7.1:1 on hover; the focus ring keeps its 3px gap and 4.8:1 against the paper; rendered the hero, states and kit in Paper beside Ink at 1440px. Knock-on: the Design System cover used `color-action` for its dark slab, which would have matched the violet block beside it, so the slab now uses `color-violet-900` directly.
 
+## DEC-015 — Restraint: each house device marks something [Brand] [Content]
+**Status:** decided · **Date:** 2026-10-05
+Mike asked to check the system against its first real use, a client hub built on it, and to fold what the hub learned back in (SOP D). The hub had just been scrubbed for signs of an AI-made prototype: devices applied by default, whatever the content. Several came from this system's own habits: the book asked for eyebrows, two-tone headlines and FIG labels throughout. Mike took the rules forward, then stepped through how the demo, the starter and the previews should show them (DEC-016, DEC-023).
+- **Two tones for the page's point of view only:** the one display-l headline. Every other heading is one tone.
+- **A label over a heading only when it adds something:** an ID and a status, or a qualifier ("Illustrative data"). Never the section's name again. Headlines and section titles make the claim; navigation names the thing.
+- **FIG numbers only where the text refers to the figure.**
+- **The dot grid behind the page's opening panel only.**
+- **One big number per view.** When numbers relate, draw how (blocks to scale, a timeline) instead of a row of stat tiles. A model's results, read together, are the exception.
+- **A caveat once, where it changes the reading:** an evidence tag at the figure's foot, not the same sentence under every exhibit.
+- **Each chapter closes on its own question** (ChapterClose, DEC-021), not the same band on every page.
+- **Where it lives:** a Restraint section in the book; the Label, Card, StatTile, Figure and Button entries and previews in the catalogue; the notes on display-l, display-m, title, label and figure-l.
+- **Refines DEC-002:** the annotated, dotted look stays, with its devices where they mark something.
+
+Checked: the catalogue's previews no longer show a FIG label, an eyebrow, a row of stat tiles or two filled buttons side by side.
+
+## DEC-016 — The demo opens on claims and draws its lead time [Experience] [Content]
+**Status:** decided · **Date:** 2026-10-05
+Each question was rendered on the demo in Paper, Ink and on a phone, and Mike chose:
+- **Section openers, A (claim only):** each section opens on its claim at display-m in one tone, with no label above it ("Investigation waits eight days for six hours of work."). The kit keeps its name, "Controls and states".
+- **The hero's second column, B (lead time drawn):** one drawing replaces the numbers (`src/demo/LeadTime.tsx`). The value stream's steps are blocks to scale, work in violet and waiting in grey, the bottleneck's wait at full strength. Its title gives the total; screen readers hear one summary line. The panel keeps "Illustrative data" and the two-tone point of view.
+- **Figures, A (no numbers):** nothing cites the demo's figures, so they carry no FIG number. Their evidence moves to the foot: an Illustrative tag and a one-line caption on the left, the source on the right. Figure gains `tag` and `caption` for this (DEC-021).
+- **Also:** the comparison's "What this says" label is gone, and the build section ends on a ChapterClose ("Which of these should the workshop test first?").
+
+Checked: the build matches the chosen renders pixel for pixel: the hero in Paper, Ink and on a phone, the openers, and the figures in Paper and Ink. On a phone the figure matches once moved by half a pixel, because the hero above it changed height. The kit moved up by its removed label and is otherwise the same.
+
+## DEC-017 — Filled violet on every main action [Brand]
+**Status:** decided · **Date:** 2026-10-05
+The book had one primary button per view. In the hub, Mike asked for the filled violet on more of the actions a reader takes, and the rule that came out of it fits the system: filled violet means "you can act here".
+- **Filled violet (`color-action`)** on each main action: the bar's, the hero's, each chapter's close. The RowMark that opens a row (DEC-020) is filled too.
+- **Where two buttons sit together, only one is filled;** the other is secondary.
+- **Second-tier links** (GoLink, DEC-020) stay in ink and turn violet on hover. Violet text, lines and rings still mark the one thing to look at in an exhibit.
+- **Replaces** the book's "single primary button per view" (in the book, CLAUDE.md and the Button entry since the first build, never logged). DEC-014's colour stands.
+
+## DEC-018 — Three interface type steps, and a guard against sizes that draw nothing [Brand] [Engineering]
+**Status:** decided · **Date:** 2026-10-05
+Two findings in the type. The book jumps from caption (12px) to body (14), body-l (16) and statement (20), so components reached for one-off sizes: 31 of them at 13, 15 and 17px across nine files, and 86 in the hub. And 46 Tailwind sizes (`text-sm`, `text-xs`, `text-base`, `text-lg`) sat in ten files drawing nothing: the token theme switches them off, so the text took its size from its parent.
+- **Three interface steps:** `ui-s` 13px (links, legends, metadata, table cells, tabs), `ui-m` 15px (figure titles, row names, the product name), `ui-l` 17px (exhibit and group titles, set semibold). They take their line height from where they sit, as the one-off sizes did.
+- **A `tag` style** for the words in a Tag (10.5px, 600, +6% tracking): what Tag already drew, now a token.
+- **Swapped in, not redesigned:** every one-off size now uses its step, and the dead classes are gone. Mike chose to keep the look rather than give those places the sizes their class names suggested.
+- **The guard:** `npm run tokens`, which `dev` and `build` run first, stops on a dead size class, names the file and line and lists the book's scale. New projects get it too.
+
+Checked: the demo is the same pixel for pixel in Paper, Ink and on a phone after the swaps, the tag style and the removals, and so is every catalogue preview whose content didn't change.
+
+## DEC-019 — Contrast notes and consistency [Accessibility] [Brand]
+**Status:** decided · **Date:** 2026-10-05
+The hub's accessibility check found small text in ink-3 on the violet highlight failing in Paper, where the tokens promised 4.6:1 on every surface.
+- **A second exception:** in Paper, ink-3 is 4.47:1 on `color-signal-soft` over the ground (4.81:1 over a panel). Small text on signal-soft is ink, ink-2 (Label's `strong` tone) or signal-text. The notes on ink-3 and signal-soft and the book's Colour section say so. Extends DEC-010.
+- **Tints by role:** violet, mist and sage each group one kind of content, always with a word or an icon too, and mean one thing per project. The book had named only OpportunityCard's two; sage was in the tokens but not the book.
+- **Card padding:** InsightCard and Figure now use the book's 24px. They had 22px.
+
+Checked: ink-3 in Paper is 5.01:1 on the ground, 5.42:1 on a panel, 4.63:1 on raised and about 4.8:1 on the tints, and 4.26:1 on inset (DEC-010). Everything passes in Ink. Signal-text on signal-soft is 7.1:1 or better. The two cards are 4px taller; nothing else moved.
+
+## DEC-020 — The small kit, from the field [Experience]
+**Status:** decided · **Date:** 2026-10-05
+Pieces the hub built for itself, now in the system so other projects get them and they can't drift:
+- **LinkButton:** a link drawn as a Button, sharing its classes. Base UI keeps links out of Button.
+- **GoLink:** the second-tier action, words and an arrow in ink, violet on hover, with `back` and `current`.
+- **ModeSwitch:** light and dark as one on/off switch, named "Dark mode" (on is Ink). A 60 × 32px pill cut to sit beside a small button: the same edge, hover fill and focus ring, 12px apart. The solid ink knob carries the current mode's icon. Sun and Moon join the icon set; ThemeToggle stays for settings panels.
+- **AccordionList and RowMark:** closed rows with the name after a violet mark and a one-line preview, opening in place.
+- **useFitSticky:** keeps a sticky side panel's last line in reach on short windows.
+- **TopBar:** `badge`, a tag after the product name that marks the whole site ("Example", "Draft"), with `brandLabel` for screen readers. On phones a long product name wraps onto two lines. `context` only when the name doesn't say who it's for.
+
+Checked: on a phone the bar's product name sits 1–2px differently; the demo is otherwise unchanged by the kit.
+
+## DEC-021 — Reading patterns [Experience]
+**Status:** decided · **Date:** 2026-10-05
+How the hub's chapters open, close and show where you are, as patterns:
+- **ChapterHeader:** the claim at display-m in one tone, then one sentence of intro at the reading measure.
+- **ChapterClose:** a hairline, the chapter's question at title size, the main action (a LinkButton) and the way on (a GoLink). No band, no dots, no label.
+- **SectionRail:** the sticky "On this page" index for a page people dip into. It is ChapterRail's look without the "Read · Reading now · Up next" words, which suit a walkthrough.
+- **Figure's foot:** `tag` and `caption` join `source`, the tag and caption on the left and the source on the right. `fig` is optional, for figures the text cites.
+
+Checked: the new previews render in Paper and Ink without errors.
+
+## DEC-022 — A password page for new projects, as an option [Engineering] [Experience]
+**Status:** decided · **Date:** 2026-10-05
+`npm run new -- ../<folder> --gate` adds the entry page the hub uses. The build encrypts the site (AES-256-GCM, with a key made from the password by PBKDF2-SHA-256 at 600,000 rounds), so a shared link shows nothing without the password, on any host.
+- **The password:** the command makes a fresh one (three groups of four letters and digits) and a salt, and prints it. Change it in `gate.config.mjs`, or with `SITE_PASSWORD` where the site is built. Anyone who can read the repository can read it, so keep the repository private.
+- **The page:** plain HTML outside React, in the book's classes: the Modus wordmark, a "Preview" tag, the claim "Prepared for [Prospect].", the password with Show, "Remember on this device" and the violet button. Help line, contents list and footer are optional. Its words are in `src/gate/copy.ts`.
+- **Where it lives:** `templates/gate/`, copied in only with `--gate`.
+
+Checked: in a new project, an empty or wrong password keeps the site closed ("…Check it and try again."), the right one opens it, and Remember keeps it open after a reload. A plain project and one with patterns and the gate both typecheck and build.
+
+## DEC-023 — New projects start calm and carry the rules [Experience]
+**Status:** decided · **Date:** 2026-10-05
+- **The starter page, A (one calm hero):** Mike chose it from three renders. One panel on the dot grid: the point of view in two tones ("Say the claim first. Then the evidence."), one paragraph, the main action and a secondary one, then an empty state that says what to build next. ThemeToggle sits in the header.
+- **CLAUDE.md for new projects** carries the type scale, the violet rule and the restraint rules, plus a note on the gate when there is one.
+- **JSON content:** new projects can import JSON (`resolveJsonModule`), as the hub does with its research file.
+- **`Claude outputs/` is ignored:** the desktop app saves renders there while you work.
+
+Checked: the starter matches the chosen render pixel for pixel in Paper, Ink and on a phone, apart from the product name, which comes from the folder's name.
+
+## DEC-024 — Older accessibility and overflow failures, fixed [Accessibility]
+**Status:** decided · **Date:** 2026-10-05
+This round's check found three failures older than the round:
+- **Sideways exhibits:** ValueStream, ServiceBlueprint and CapabilityMatrix scroll sideways but couldn't be reached by keyboard. Each is now a named region you can Tab to ("Value stream. Scroll sideways for more steps."), with the focus ring drawn inside it, as the hub's blueprint does.
+- **Skeleton** had a name but no role. It is now a status ("Loading").
+- **At 320px** the ROI model's "Reset to workshop values" pushed the page 3px sideways. It now wraps under its label when there's no room.
+- **Previews** declare their language (`lang="en"`), as the cover does.
+
+Checked:
+- No accessibility violations (axe-core, WCAG 2.2 AA, contrast included) on the demo, the starter and the entry page, in Paper and Ink, on desktop and phone, nor on the 14 new or changed previews in both themes.
+- No sideways scroll at 320, 390, 640, 768, 1024, 1280, 1440 and 1920px in both themes, on the demo, the starter and the entry page.
+- No pixels changed by these fixes, on the demo or the previews.
+
 ## Open questions
 - ~~[Open question] The official Modus logo asset~~ — resolved by DEC-007 (2026-10-02).
 - [Open question] Exact Modus violet hexes — sampled from an image (DEC-004); confirm against the Modus Create brand guidelines.
@@ -68,3 +173,5 @@ Mike asked for Paper's primary button colour to be as bright as Ink's. The varia
 - [Open question] Workshop photography for hero panels — hatched placeholders until then.
 - ~~[Open question] Where this repo lives long-term~~ — resolved by DEC-011 (2026-10-02): https://github.com/mikemates/modus-instrument
 - [Open question] Whether to fold `modus-ui-foundation` into the team plugin's init-prototype and experience-standards (DEC-008).
+- [Open question] ValueStream breaks a long step name inside the word ("Investigatio n") at the demo's width. Older than this round; left as it is for now.
+- [Open question] Still to consider from field use: an evidence-tag component with a fixed vocabulary (Early context, To test, Illustrative); pinned stage headings for wide exhibits that scroll sideways; an optional legend on ServiceBlueprint.

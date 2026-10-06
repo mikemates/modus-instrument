@@ -5,4 +5,6 @@ design-system-dist/
 *.tsbuildinfo
 .DS_Store
 .vite/
+# Renders and files the Claude desktop app saves while you work — they stay on your computer, not in the repo
+Claude outputs/
 # package-lock.json is committed on purpose: it freezes exact versions for Vercel.

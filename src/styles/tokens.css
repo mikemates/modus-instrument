@@ -75,10 +75,17 @@
   --text-caption: 12px;
   --text-caption--line-height: 1.45;
   --text-caption--font-weight: 400;
+  --text-ui-l: 17px;
+  --text-ui-m: 15px;
+  --text-ui-s: 13px;
   --text-label: 10.5px;
   --text-label--line-height: 1.4;
   --text-label--letter-spacing: 0.08em;
   --text-label--font-weight: 600;
+  --text-tag: 10.5px;
+  --text-tag--line-height: 1;
+  --text-tag--letter-spacing: 0.06em;
+  --text-tag--font-weight: 600;
   --text-figure-xl: 88px;
   --text-figure-xl--line-height: 1;
   --text-figure-xl--letter-spacing: -0.05em;

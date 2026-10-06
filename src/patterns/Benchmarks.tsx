@@ -27,14 +27,15 @@ export interface CapabilityMatrixProps {
 /** Capabilities × players, scored 0–4 with Harvey balls. A real table, so it reads row by row. */
 export function CapabilityMatrix({ caption, players, rows, highlight = 0, className }: CapabilityMatrixProps) {
   return (
-    <div className={cn('flex flex-col gap-4 overflow-x-auto', className)}>
-      <table className="w-full min-w-[640px] border-collapse text-sm">
-        <caption className="pb-3.5 text-left text-[17px] font-semibold text-ink">{caption}</caption>
+    <div tabIndex={0} role="region" aria-label={`${caption}. Scroll sideways for more players.`}
+      className={cn('flex flex-col gap-4 overflow-x-auto outline-none focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-focus', className)}>
+      <table className="w-full min-w-[640px] border-collapse">
+        <caption className="pb-3.5 text-left text-ui-l font-semibold text-ink">{caption}</caption>
         <thead>
           <tr>
             <th scope="col" className="mi-label min-w-[200px] border-b border-hairline-strong py-2.5 pr-3 text-left text-ink-3">Capability</th>
             {players.map((p, i) => (
-              <th key={p} scope="col" className={cn('w-[84px] border-b border-hairline-strong px-1.5 py-2.5 text-center text-[13px]', i === highlight ? 'bg-signal-soft font-semibold text-ink' : 'font-normal text-ink-2')}>
+              <th key={p} scope="col" className={cn('w-[84px] border-b border-hairline-strong px-1.5 py-2.5 text-center text-ui-s', i === highlight ? 'bg-signal-soft font-semibold text-ink' : 'font-normal text-ink-2')}>
                 {p}
               </th>
             ))}
@@ -53,7 +54,7 @@ export function CapabilityMatrix({ caption, players, rows, highlight = 0, classN
           ))}
         </tbody>
       </table>
-      <div className="flex flex-wrap gap-5 text-[13px] text-ink-2">
+      <div className="flex flex-wrap gap-5 text-ui-s text-ink-2">
         {SCORE_NAMES.map((n, i) => (
           <span key={n} className="inline-flex items-center gap-2"><HarveyBall score={i as 0} size={14} />{i} {n}</span>
         ))}
@@ -80,16 +81,16 @@ export function BenchmarkBars({ title, source, unit, items, max, className }: Be
   return (
     <figure className={cn('m-0 flex flex-col gap-4', className)}>
       <figcaption className="flex flex-col gap-1.5">
-        <span className="text-[17px] font-semibold text-ink">{title}</span>
-        {source ? <span className="text-[13px] text-ink-2">{source}</span> : null}
+        <span className="text-ui-l font-semibold text-ink">{title}</span>
+        {source ? <span className="text-ui-s text-ink-2">{source}</span> : null}
       </figcaption>
       <div className="flex flex-col gap-3.5">
         {items.map((it) => (
           <div key={it.label} className="grid grid-cols-[116px_minmax(0,1fr)] items-center gap-3">
-            <span className={cn('text-sm', it.highlight ? 'font-semibold text-ink' : 'text-ink-2')}>{it.label}</span>
+            <span className={cn(it.highlight ? 'font-semibold text-ink' : 'text-ink-2')}>{it.label}</span>
             <div className="flex items-center gap-2.5">
               <span className={cn('h-[18px] rounded-r-tag', it.highlight ? 'bg-signal' : 'bg-mark')} style={{ width: `${(it.value / top) * 80}%` }} />
-              <span className={cn('tabular whitespace-nowrap text-xs', it.highlight ? 'font-semibold text-ink' : 'text-ink-2')}>
+              <span className={cn('tabular whitespace-nowrap', it.highlight ? 'font-semibold text-ink' : 'text-ink-2')}>
                 {it.value.toFixed(1)}
                 {unit ? ` ${unit}` : ''}
               </span>

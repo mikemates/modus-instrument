@@ -42,7 +42,7 @@ export function RoiModel({ defaults, className }: RoiModelProps) {
   const months = r.cumulative.length - 1;
   const X = (m: number) => (m / months) * W;
   const Y = (val: number) => ((hi - val) / (hi - lo)) * H;
-  const path = r.cumulative.map((c, m) => `${m ? 'L' : 'M'}${X(m).toFixed(1)} ${Y(c).toFixed(1)}`).join(' ');
+  const path = r.cumulative.map((c, m) => `${m ? 'L' : 'M'}${X(m).toFixed(1)} ${Y(c).toFixed(1)}`).join('');
   const area = `${path} L${W} ${Y(0).toFixed(1)} L0 ${Y(0).toFixed(1)} Z`;
   const ticks: number[] = [];
   for (let t = lo; t <= hi + step / 2; t += step) ticks.push(t);
@@ -52,7 +52,7 @@ export function RoiModel({ defaults, className }: RoiModelProps) {
   return (
     <div className={cn('grid grid-cols-1 gap-8 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)]', className)}>
       <div className="flex flex-col gap-5 rounded-panel border border-hairline bg-panel p-6">
-        <div className="flex items-center justify-between gap-3">
+        <div className="flex flex-wrap items-center justify-between gap-3">
           <Label>Assumptions</Label>
           <Button variant="ghost" size="sm" onClick={() => setV(defaults)}>Reset to workshop values</Button>
         </div>
@@ -66,15 +66,15 @@ export function RoiModel({ defaults, className }: RoiModelProps) {
 
       <div className="flex flex-col gap-5">
         <div className="grid grid-cols-1 border-y border-hairline sm:grid-cols-3">
-          <div className="flex flex-col gap-2 py-4 sm:pr-4"><Label>Annual benefit, gross</Label><span className="text-figure-l text-ink">{formatMoney(r.annualBenefit)}</span><span className="text-xs text-ink-2">once adoption is complete</span></div>
-          <div className="flex flex-col gap-2 py-4 sm:border-l sm:border-hairline sm:px-4"><Label>Payback</Label><span className={cn('text-figure-l', pb ? 'text-ink' : 'text-negative')}>{pb ? `Month ${pb}` : 'Over 3 yrs'}</span><span className="text-xs text-ink-2">{pb ? `including the ${v.buildMonths ?? 3}-month build` : 'not within 36 months at these inputs'}</span></div>
-          <div className="flex flex-col gap-2 py-4 sm:border-l sm:border-hairline sm:pl-4"><Label>Net value, 3 years</Label><span className="text-figure-l text-ink">{formatMoney(r.netAtHorizon)}</span><span className="text-xs text-ink-2">after build and run costs</span></div>
+          <div className="flex flex-col gap-2 py-4 sm:pr-4"><Label>Annual benefit, gross</Label><span className="text-figure-l text-ink">{formatMoney(r.annualBenefit)}</span><span className="text-ink-2">once adoption is complete</span></div>
+          <div className="flex flex-col gap-2 py-4 sm:border-l sm:border-hairline sm:px-4"><Label>Payback</Label><span className={cn('text-figure-l', pb ? 'text-ink' : 'text-negative')}>{pb ? `Month ${pb}` : 'Over 3 yrs'}</span><span className="text-ink-2">{pb ? `including the ${v.buildMonths ?? 3}-month build` : 'not within 36 months at these inputs'}</span></div>
+          <div className="flex flex-col gap-2 py-4 sm:border-l sm:border-hairline sm:pl-4"><Label>Net value, 3 years</Label><span className="text-figure-l text-ink">{formatMoney(r.netAtHorizon)}</span><span className="text-ink-2">after build and run costs</span></div>
         </div>
 
         <figure className="m-0 flex flex-col gap-3">
           <figcaption className="flex flex-wrap justify-between gap-x-4 gap-y-1">
-            <span className="text-base font-semibold text-ink">Cumulative net value by month</span>
-            <span aria-live="polite" className="tabular text-xs font-semibold text-ink">
+            <span className="font-semibold text-ink">Cumulative net value by month</span>
+            <span aria-live="polite" className="tabular font-semibold text-ink">
               {hover !== null ? `Month ${hover} · ${r.cumulative[hover] >= 0 ? '+' : ''}${formatMoney(r.cumulative[hover])}` : 'Hover the chart for any month'}
             </span>
           </figcaption>
@@ -97,7 +97,7 @@ export function RoiModel({ defaults, className }: RoiModelProps) {
                   {hover !== null ? <span className="absolute inset-y-0 w-0 border-l border-ink-3" style={{ left: `${(hover / months) * 100}%` }} /> : null}
                   <span className="absolute -ml-1.5 -mt-1.5 size-3 rounded-full bg-signal ring-2 ring-ground" style={{ left: `${(shown / months) * 100}%`, top: `${(Y(r.cumulative[shown]) / H) * 100}%` }} />
                   {hover === null && pb ? (
-                    <span className="absolute -translate-y-[30px] translate-x-2.5 whitespace-nowrap rounded-tag bg-ground px-1.5 py-0.5 text-xs text-ink" style={{ left: `${(pb / months) * 100}%`, top: `${(Y(r.cumulative[pb]) / H) * 100}%` }}>
+                    <span className="absolute -translate-y-[30px] translate-x-2.5 whitespace-nowrap rounded-tag bg-ground px-1.5 py-0.5 text-ink" style={{ left: `${(pb / months) * 100}%`, top: `${(Y(r.cumulative[pb]) / H) * 100}%` }}>
                       Pays back in month {pb}
                     </span>
                   ) : null}
@@ -118,7 +118,7 @@ export function RoiModel({ defaults, className }: RoiModelProps) {
           </div>
         </figure>
 
-        <table className="w-full border-collapse text-[13px]">
+        <table className="w-full border-collapse text-ui-s">
           <caption className="mi-label pb-2 text-left text-ink-3">Cumulative net value · table view</caption>
           <thead>
             <tr>
@@ -134,7 +134,7 @@ export function RoiModel({ defaults, className }: RoiModelProps) {
           </tbody>
         </table>
 
-        <p className="m-0 flex gap-2 text-[13px] text-ink-2">
+        <p className="m-0 flex gap-2 text-ui-s text-ink-2">
           <Info className="mt-[3px] shrink-0" />
           <span>Illustrative model. Build runs months 1–{v.buildMonths ?? 3} with no benefit; adoption ramps to full over the next {v.rampMonths ?? 3} months. Benefit = claims ÷ 12 × eligible share × auto-approval rate × handling cost saved. Replace every input with validated client data before sharing.</span>
         </p>

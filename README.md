@@ -23,14 +23,15 @@ Use the Paper / Ink switch in the top bar to change theme. Press ⌘K to open As
 | `npm run build` | The production build (what Vercel deploys) |
 | `npm run logo` | Copies the logo artwork from `design-system/assets/Logos/` into the `Logo` component (after the files change) |
 | `npm run ds:build` | Rebuilds the Design System files into `design-system-dist/project/` |
-| `npm run new -- ../my-prototype` | Starts a new project on this foundation (`--patterns` adds the Insight Center patterns) |
+| `npm run new -- ../my-prototype` | Starts a new project on this foundation (`--patterns` adds the Insight Center patterns, `--gate` a password entry page) |
 
 ## What's inside
 
 - `tokens/tokens.json` — every colour, type style, space, radius, shadow and layout value, with a usage note; colours carry a Paper and an Ink value. Change the look here.
 - `design-system/assets/Logos/` — the official Modus Create logo files.
-- `src/components/` — Logo, Button, Label, Tag, Card, EvidenceMeter, StatTile, TextField, SegmentedTabs, Switch, Slider, ThemeToggle, Skeleton, EmptyState, ErrorState, Icons.
-- `src/patterns/` — InsightCard, OpportunityCard, Figure, TopBar, ChapterRail, AskPalette, ValueStream, ServiceBlueprint, CapabilityMatrix, HarveyBall, BenchmarkBars, RoiModel.
+- `src/components/` — Logo, Button, LinkButton, GoLink, Label, Tag, Card, EvidenceMeter, StatTile, TextField, SegmentedTabs, Switch, Slider, ModeSwitch, ThemeToggle, AccordionList, Skeleton, EmptyState, ErrorState, Icons.
+- `src/patterns/` — InsightCard, OpportunityCard, Figure, TopBar, ChapterRail, SectionRail, ChapterHeader, ChapterClose, AskPalette, ValueStream, ServiceBlueprint, CapabilityMatrix, HarveyBall, BenchmarkBars, RoiModel.
+- `templates/gate/` — the password entry page `--gate` adds to a new project.
 - `src/demo/App.tsx` — the demo page; `src/data/sample.ts` — its illustrative content.
 - `design-system/` — the brand book and cover the Design System is built from.
 
@@ -40,13 +41,17 @@ Use the Paper / Ink switch in the top bar to change theme. Press ⌘K to open As
 import { Button, Card, Label, StatTile } from '@/index';
 
 <Card className="p-6">
-  <Label>Fig 1.0 — Lead time</Label>
+  <Label>Illustrative data</Label>
   <StatTile size="xl" label="FNOL → payment" value="22.4" unit="days" />
   <Button>Start the walkthrough</Button>
 </Card>
 ```
 
 Switch theme with `<html data-theme="ink">` or `setTheme('ink')`.
+
+## A private preview
+
+`npm run new -- ../client-preview --gate` adds a password entry page. The build encrypts the site, so a shared link shows nothing without the password, on any host. The command prints the password; change it in `gate.config.mjs` (or set `SITE_PASSWORD` where it's built), rebuild and send the new one. Anyone who can open the repository can read it, so keep the repository private.
 
 ## Saving to GitHub
 

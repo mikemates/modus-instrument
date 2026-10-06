@@ -7,9 +7,14 @@ import { Label, Tag } from '../components/Primitives';
 
 /* ---------- TopBar ---------- */
 export interface TopBarProps {
-  /** The product name set beside the Modus Create logo. Default "Insight Center". */
+  /** The product name set beside the Modus Create logo. Default "Insight Center". On phones a long name wraps onto two lines. */
   product?: string;
-  /** Who the brief is for, e.g. "Prepared for [Prospect] · Commercial claims POV". */
+  /** A tag set after the product name on every page, e.g. "Example" or "Draft". Below 768px it sits under the name.
+      Decorative: put its word in `brandLabel` too. */
+  badge?: ReactNode;
+  /** The brand link's accessible name. Default "Modus Create" + the product name. */
+  brandLabel?: string;
+  /** Who it's for, e.g."Prepared for [Prospect] · Commercial claims POV", when the product name doesn't already say. */
   context?: string;
   sections?: { label: string; href?: string; current?: boolean }[];
   /** Right-hand slot: Ask, Share, presenter switch. */
@@ -18,17 +23,20 @@ export interface TopBarProps {
 }
 
 /** The product bar: Modus Create logo + product name, context, section links and actions. Wraps on narrow screens rather than scrolling. */
-export function TopBar({ product = 'Insight Center', context, sections = [], actions, className }: TopBarProps) {
+export function TopBar({ product = 'Insight Center', badge, brandLabel, context, sections = [], actions, className }: TopBarProps) {
   return (
     <header className={cn('flex flex-wrap items-center justify-between gap-x-6 gap-y-3 border-b border-hairline bg-ground px-4 py-2.5 sm:px-8', className)}>
       <div className="flex min-w-0 items-center gap-3.5">
-        <a href="#" aria-label={`Modus Create ${product}`} className="inline-flex items-center gap-3 whitespace-nowrap text-[15px] font-semibold text-ink no-underline">
+        <a href="#" aria-label={brandLabel ?? `Modus Create ${product}`} className="inline-flex items-center gap-3 text-ui-m font-semibold text-ink no-underline sm:whitespace-nowrap">
           <Logo variant="glyph" label={null} className="h-[22px] sm:hidden" />
           <Logo label={null} className="hidden h-[18px] sm:block" />
-          <span aria-hidden="true" className="h-5 w-px bg-hairline-strong" />
-          <span aria-hidden="true">{product}</span>
+          <span aria-hidden="true" className="h-5 w-px shrink-0 bg-hairline-strong" />
+          <span aria-hidden="true" className="flex flex-col items-start gap-1 md:flex-row md:items-center md:gap-3">
+            <span className="max-w-[10rem] leading-[1.15] max-[359px]:max-w-[7rem] sm:max-w-none sm:leading-normal">{product}</span>
+            {badge}
+          </span>
         </a>
-        {context ? <span className="hidden truncate text-[13px] text-ink-2 md:inline">{context}</span> : null}
+        {context ? <span className="hidden truncate text-ui-s text-ink-2 md:inline">{context}</span> : null}
       </div>
       {sections.length ? (
         <nav aria-label="Sections" className="flex flex-wrap gap-1">
@@ -37,7 +45,7 @@ export function TopBar({ product = 'Insight Center', context, sections = [], act
               key={s.label}
               href={s.href ?? '#'}
               aria-current={s.current ? 'page' : undefined}
-              className={cn('flex h-[34px] items-center rounded-pill px-3 text-[13px] no-underline', s.current ? 'bg-raised font-semibold text-ink' : 'text-ink-2 hover:text-ink')}
+              className={cn('flex h-[34px] items-center rounded-pill px-3 text-ui-s no-underline', s.current ? 'bg-raised font-semibold text-ink' : 'text-ink-2 hover:text-ink')}
             >
               {s.label}
             </a>
@@ -86,8 +94,8 @@ export function ChapterRail({ chapters, className }: { chapters: Chapter[]; clas
               <Label>
                 {c.n} · {c.status === 'done' ? 'Read' : c.status === 'current' ? 'Reading now' : 'Up next'}
               </Label>
-              <span className={cn('text-base font-semibold', c.status === 'next' ? 'text-ink-2' : 'text-ink')}>{c.title}</span>
-              {c.meta ? <span className="text-[13px] text-ink-2">{c.meta}</span> : null}
+              <span className={cn('font-semibold', c.status === 'next' ? 'text-ink-2' : 'text-ink')}>{c.title}</span>
+              {c.meta ? <span className="text-ui-s text-ink-2">{c.meta}</span> : null}
               {c.status === 'current' && c.progress !== undefined ? (
                 <span className="mt-1.5 block h-1 overflow-hidden rounded-pill bg-hairline-strong" role="progressbar" aria-valuenow={Math.round(c.progress * 100)} aria-valuemin={0} aria-valuemax={100} aria-label={`${c.title} progress`}>
                   <span className="block h-1 bg-signal" style={{ width: `${c.progress * 100}%` }} />
@@ -96,6 +104,50 @@ export function ChapterRail({ chapters, className }: { chapters: Chapter[]; clas
             </a>
           </li>
         ))}
+      </ol>
+    </nav>
+  );
+}
+
+/* ---------- SectionRail ---------- */
+/** The sticky index beside a long page you dip into rather than read in order: ChapterRail's line of dots, the current
+    one in violet, under one label ("On this page"), without its read/reading/up-next words. */
+export function SectionRail({ label = 'On this page', items, current, className }: {
+  label?: string;
+  items: { id: string; name: string; href: string }[];
+  /** Index of the section the reader is in. */
+  current: number;
+  className?: string;
+}) {
+  return (
+    <nav aria-label={label} className={cn('flex flex-col', className)}>
+      <Label className="pb-4">{label}</Label>
+      <ol className="m-0 flex list-none flex-col p-0">
+        {items.map((it, i) => {
+          const status = i < current ? 'done' : i === current ? 'current' : 'next';
+          return (
+            <li key={it.id} className="grid grid-cols-[14px_minmax(0,1fr)] gap-3.5">
+              <div className="flex flex-col items-center">
+                <span
+                  className={cn(
+                    'mt-[5px] size-3 shrink-0 rounded-full',
+                    status === 'done' && 'bg-ink',
+                    status === 'current' && 'bg-signal ring-4 ring-signal-soft',
+                    status === 'next' && 'border-2 border-hairline-strong',
+                  )}
+                />
+                {i < items.length - 1 ? <span className={cn('w-0.5 flex-1', status === 'done' ? 'bg-ink' : 'bg-hairline-strong')} /> : null}
+              </div>
+              <a
+                href={it.href}
+                aria-current={status === 'current' ? 'location' : undefined}
+                className={cn('pb-5 leading-snug no-underline', status === 'current' ? 'font-semibold text-ink' : 'text-ink-2 hover:text-ink')}
+              >
+                {it.name}
+              </a>
+            </li>
+          );
+        })}
       </ol>
     </nav>
   );
@@ -157,16 +209,16 @@ function AskPanel({ items, answer, defaultQuery = '', onSelect, onClose }: AskPa
           onChange={(e) => { setQuery(e.target.value); setActive(0); }}
           onKeyDown={onKey}
           placeholder="Ask a question or jump to an insight, map or opportunity"
-          className="min-w-0 flex-1 bg-transparent font-body text-lg text-ink outline-none placeholder:text-ink-3"
+          className="min-w-0 flex-1 bg-transparent font-body text-ink outline-none placeholder:text-ink-3"
         />
         <kbd className="rounded-tag border border-hairline-strong px-1.5 font-body text-[11px] font-semibold text-ink-3">esc</kbd>
       </label>
       {answer && query ? (
         <div className="flex flex-col gap-2.5 border-b border-hairline bg-signal-soft px-5 py-4">
           <Label>Answer</Label>
-          <p className="m-0 text-base text-ink">{answer.text}</p>
+          <p className="m-0 text-ink">{answer.text}</p>
           <div className="flex flex-wrap items-center justify-between gap-3">
-            <span className="inline-flex items-center gap-1.5 text-xs text-ink-2">
+            <span className="inline-flex items-center gap-1.5 text-ink-2">
               <Info size={13} />
               {answer.provenance} · {answer.reviewed ? 'reviewed by the team' : 'not yet reviewed by the team'}
             </span>
@@ -176,7 +228,7 @@ function AskPanel({ items, answer, defaultQuery = '', onSelect, onClose }: AskPa
       ) : null}
       <div id={listId} role="listbox" aria-label="Results" className="flex max-h-[340px] flex-col overflow-y-auto px-2 py-2.5">
         {filtered.length === 0 ? (
-          <p className="m-0 px-3 py-6 text-sm text-ink-2">Nothing matches “{query}”. Try a stage (Triage), a persona (adjuster) or an ID (OPP-01).</p>
+          <p className="m-0 px-3 py-6 text-ink-2">Nothing matches “{query}”. Try a stage (Triage), a persona (adjuster) or an ID (OPP-01).</p>
         ) : (
           groups.map((g) => (
             <div key={g} role="group" aria-label={g} className="flex flex-col py-1.5">
@@ -194,8 +246,8 @@ function AskPanel({ items, answer, defaultQuery = '', onSelect, onClose }: AskPa
                     className={cn('grid cursor-pointer grid-cols-[76px_minmax(0,1fr)_auto] items-center gap-3 rounded-control px-3 py-2.5', idx === active && 'bg-raised')}
                   >
                     <span className="text-[11px] font-semibold text-ink-3">{i.id}</span>
-                    <span className="truncate text-sm text-ink">{i.title}</span>
-                    <span className="text-xs text-ink-2">{i.where}</span>
+                    <span className="truncate text-ink">{i.title}</span>
+                    <span className="text-ink-2">{i.where}</span>
                   </div>
                 );
               })}
@@ -203,7 +255,7 @@ function AskPanel({ items, answer, defaultQuery = '', onSelect, onClose }: AskPa
           ))
         )}
       </div>
-      <div className="flex flex-wrap justify-between gap-4 border-t border-hairline px-5 py-3 text-xs text-ink-2">
+      <div className="flex flex-wrap justify-between gap-4 border-t border-hairline px-5 py-3 text-ink-2">
         <span className="flex gap-4"><span>↑ ↓ to move</span><span>↵ to open</span><span>esc to close</span></span>
         <span>Answers cite their sources</span>
       </div>
@@ -225,7 +277,7 @@ export function AskPalette(props: AskPaletteProps) {
   if (props.inline) return <div className={cn('w-full max-w-[720px]', props.className)}><AskPanel {...props} /></div>;
   return (
     <Dialog.Root open={open} onOpenChange={setOpen}>
-      <Dialog.Trigger className="inline-flex h-8 cursor-pointer items-center gap-2 rounded-pill border border-control-edge px-3.5 text-[13px] font-semibold text-ink hover:bg-raised focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-focus">
+      <Dialog.Trigger className="inline-flex h-8 cursor-pointer items-center gap-2 rounded-pill border border-control-edge px-3.5 text-ui-s font-semibold text-ink hover:bg-raised focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-focus">
         Ask
         <kbd className="rounded-tag border border-hairline-strong px-1 font-body text-[11px] text-ink-3">⌘K</kbd>
       </Dialog.Trigger>

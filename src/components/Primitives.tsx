@@ -15,7 +15,7 @@ export function Tag({ children, className, ...rest }: HTMLAttributes<HTMLSpanEle
   return (
     <span
       className={cn(
-        'inline-flex items-center whitespace-nowrap rounded-tag border border-hairline bg-raised px-[7px] py-[3px] text-[10.5px] font-semibold uppercase leading-none tracking-[0.06em] text-ink-2',
+        'inline-flex items-center whitespace-nowrap rounded-tag border border-hairline bg-raised px-[7px] py-[3px] text-tag uppercase text-ink-2',
         className,
       )}
       {...rest}
@@ -47,7 +47,7 @@ export const EVIDENCE_LEVELS = ['Anecdote', 'Emerging', 'Moderate', 'Strong', 'V
 export function EvidenceMeter({ level, detail, className }: EvidenceMeterProps) {
   const word = EVIDENCE_LEVELS[level - 1];
   return (
-    <span className={cn('inline-flex items-center gap-2 text-xs text-ink-2', className)}>
+    <span className={cn('inline-flex items-center gap-2 text-ink-2', className)}>
       <span aria-hidden="true" className="flex items-end gap-0.5">
         {[1, 2, 3, 4, 5].map((i) => (
           <span key={i} className={cn('h-3 w-1 rounded-[1px]', i <= level ? 'bg-ink' : 'bg-hairline-strong')} />
@@ -74,7 +74,7 @@ export interface StatTileProps {
   className?: string;
 }
 
-/** A headline number with its label and source. One xl tile per view at most. */
+/** A headline number with its label and source. One tile per view, unless it reads a model's results. */
 export function StatTile({ label, value, unit, note, delta, size = 'l', highlight, className }: StatTileProps) {
   const fig = size === 'xl' ? 'text-figure-xl' : size === 'l' ? 'text-figure-l' : 'text-figure-m';
   return (
@@ -84,9 +84,9 @@ export function StatTile({ label, value, unit, note, delta, size = 'l', highligh
         {value}
         {unit ? <span className="ml-1 text-[0.32em] tracking-[-0.01em] text-ink-2">{unit}</span> : null}
       </span>
-      {note ? <span className="text-[13px] text-ink-2">{note}</span> : null}
+      {note ? <span className="text-ui-s text-ink-2">{note}</span> : null}
       {delta ? (
-        <span className="inline-flex items-center gap-1.5 text-[13px] text-ink-2">
+        <span className="inline-flex items-center gap-1.5 text-ui-s text-ink-2">
           <svg width="14" height="14" viewBox="0 0 14 14" fill="none" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"
             aria-hidden="true" className={delta.good ? 'stroke-positive' : 'stroke-negative'}>
             {delta.direction === 'up' ? <path d="M7 11V3M3.5 6.5 7 3l3.5 3.5" /> : <path d="M7 3v8M3.5 7.5 7 11l3.5-3.5" />}

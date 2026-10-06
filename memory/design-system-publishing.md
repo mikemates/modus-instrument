@@ -7,11 +7,14 @@ metadata:
 
 The Design System artifact is generated from this repo by `npm run ds:build` (output in `design-system-dist/project/`) and is never edited on its own.
 - Publish the changed files with `project/design-system.json` (the index) last. Read the live index right before, and keep every key you didn't change.
+- Read the artifact itself (`read` with its url) before publishing. A read of one file, the index included, doesn't count, and the publish is refused (2026-10-05).
 - Send `components/index.d.ts` as `text/plain`; `.ts` is not a served type.
 - The logo SVGs are uploaded assets, not files: re-upload changed ones and update `assetGroups.Logos` in the index with the new blob ids.
 - The Design System page compiles colours, radii, shadows and `--font-*` itself, but turns type styles into classes rather than `--text-*` variables. That is why `tokens.reference.css` carries the text sizes as a static block; don't remove it.
 - Token families beyond colour, type, spacing, radius and shadow (the `layout` family) become plain `:root` variables, both on the Design System page and in the app's `tokens.css`. `mi-frame` and `mi-measure` in the bundle depend on them, and the page drops any value containing `var()`, so layout values are written out in full (see `layout-hero`).
 - Previews can only use Tailwind classes that appear somewhere in `src/`. Use an inline `style` for one-off sizes.
+- A new source file with exported types goes on the `srcFiles` list in `scripts/build-design-system.mjs`, or its types are missing from `components/index.d.ts` (Accordion.tsx and Chapters.tsx were added on 2026-10-05).
+- Previews model the book's rules: no FIG label, eyebrow or row of tiles unless the entry is about one (DEC-015).
 **Why it matters:** each trap either fails the publish or silently breaks the previews.
 **What to do about it:** follow these steps on every republish, then render a few previews in Paper and Ink before calling it done.
 

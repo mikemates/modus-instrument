@@ -21,8 +21,10 @@ Follows Modus Experience Standards v0.1, except: the default UI foundation is Ba
 - `tokens/tokens.json` — the ONLY place colours, type, spacing, radii, shadows and layout values are defined, each with a usage note; colours carry a Paper and an Ink value.
 - `scripts/build-tokens.mjs` — generates `src/styles/tokens.css` (the app's Tailwind theme) and `src/styles/tokens.reference.css` (for the Design System bundle). Never edit either by hand; `npm run dev` and `npm run build` regenerate them.
 - `design-system/assets/Logos/` — the official Modus Create logo SVGs (wordmark, glyph; black, white). `npm run logo` copies their geometry into `src/components/logo-paths.ts` for the `Logo` component; never edit that file or redraw the logo.
-- `src/components/` — the foundation: Logo, Button, Label, Tag, Card, EvidenceMeter, StatTile, TextField, SegmentedTabs, Switch, Slider, ThemeToggle, Skeleton, EmptyState, ErrorState, Icons.
-- `src/patterns/` — Insight Center patterns. `src/data/sample.ts` — illustrative content. `src/demo/App.tsx` — the demo page.
+- `src/components/` — the foundation: Logo, Button, LinkButton, GoLink, Label, Tag, Card, EvidenceMeter, StatTile, TextField, SegmentedTabs, Switch, Slider, ModeSwitch, ThemeToggle, AccordionList (with RowMark), Skeleton, EmptyState, ErrorState, Icons.
+- `src/patterns/` — the reading patterns (TopBar, ChapterRail, SectionRail, ChapterHeader, ChapterClose, Figure) and the Insight Center patterns. `src/lib/useFitSticky.ts` keeps a sticky side panel's last line in reach on short windows.
+- `src/data/sample.ts` — illustrative content. `src/demo/App.tsx` — the demo page.
+- `templates/gate/` — the password entry page that `npm run new -- --gate` adds to a new project.
 - `src/index.ts` — the public entry. Import from here, not from deep paths.
 - `design-system/README.md` — the brand book (usage rules). `design-system/Cover.preview.html` — the Design System cover.
 - `scripts/ds-spec.mjs` — the component catalogue (summary, when to use, avoid, preview) the Design System is built from.
@@ -30,9 +32,11 @@ Follows Modus Experience Standards v0.1, except: the default UI foundation is Ba
 ## Rules for building
 - Tokens only. Use the token utilities (`bg-panel`, `text-ink-2`, `text-statement`, `rounded-panel`, `border-hairline`, `bg-action`) — never a hex value or a one-off size for something a token covers.
 - One composed column: wrap page content in `mi-frame` (`layout-column`: 1440px on laptops, growing to 1920px on big monitors) and size the POV headline with `layout-hero` so it keeps its stack. Galleries keep fixed column counts; reading text and fields stop at `layout-measure`. Never run page content edge to edge (DEC-013).
-- Every colour token has a value in Paper and Ink. Check contrast in both: text 4.5:1, large text, control edges and focus 3:1.
+- Every colour token has a value in Paper and Ink. Check contrast in both: text 4.5:1, large text, control edges and focus 3:1. In Paper, `ink-3` falls short on `inset` and `signal-soft`: use `ink-2` there (Label's `strong` tone).
+- Type uses the token steps only (`text-body`, `text-ui-s`, `text-ui-m`, `text-ui-l`, `text-caption` and the rest). Tailwind's `text-xs`, `text-sm`, `text-base`, `text-lg` and `text-xl` and up are switched off by the theme and draw nothing; `npm run tokens` stops on them (DEC-018).
 - The logo is always the `Logo` component in `color-logo` (black on Paper, white on Ink) — never recoloured, retyped or a PNG. One wordmark per page.
-- Violet is the signal: one per exhibit. The primary button (`bg-action`) appears once per view.
+- Violet is the signal: one per exhibit. Filled violet (`bg-action`) means "you can act here": each main action (the bar's, the hero's, each chapter's close) and the RowMark that opens a row. Never two filled buttons side by side; second-tier links are GoLink, in ink (DEC-017).
+- Restraint (book, Restraint; DEC-015): two tones on the POV headline only; a label over a heading only when it adds an ID, a status or a qualifier; FIG numbers only where the text cites them; the dot grid behind the opening panel only; one big number per view, and draw how numbers relate instead of a row of tiles; a caveat once, where it changes the reading; each chapter closes on its own question.
 - Build interactive UI on Base UI parts (keyboard, focus and ARIA come with them). Style its states with its data attributes (`data-checked`, `data-active`, `data-pressed`, `data-disabled`).
 - Keep components React 18-compatible — the Design System previews run React 18. Avoid React 19-only APIs (`use`, form actions, `ref` as a plain prop).
 - Every view handles default, loading, empty, error, success and disabled-with-a-reason states.
@@ -42,7 +46,7 @@ Follows Modus Experience Standards v0.1, except: the default UI foundation is Ba
 - New or changed component: export it from `src/index.ts`, add or update its entry in `scripts/ds-spec.mjs`, run `npm run ds:build`, then ask Claude to publish `design-system-dist/project/` to the Design System artifact (index file last).
 - Token change: edit `tokens/tokens.json`, run `npm run ds:build`, republish. Log anything that changes how the system looks in DECISIONS.md.
 - Logo files changed: replace them in `design-system/assets/Logos/`, run `npm run logo`, then `npm run ds:build`, and re-upload the SVGs to the Design System's Logos group (they are uploaded assets there, not files).
-- New prototype: `npm run new -- ../<folder>` (add `--patterns` for Insight Center work).
+- New prototype: `npm run new -- ../<folder>` (add `--patterns` for Insight Center work, `--gate` for a password entry page; the command prints the password).
 
 ## Ground rules
 - Project memory: MEMORY.md indexes the notes in `memory/`. Read it at the start of a session; keep it current.

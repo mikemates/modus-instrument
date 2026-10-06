@@ -32,7 +32,7 @@ export function InsightCard({ insight: it, selected, selectedNote = 'Added to th
   return (
     <article
       className={cn(
-        'flex flex-col gap-4 rounded-panel border bg-panel p-[22px] transition-colors',
+        'flex flex-col gap-4 rounded-panel border bg-panel p-6 transition-colors',
         selected ? 'border-transparent ring-2 ring-signal' : 'border-hairline hover:border-hairline-strong hover:bg-raised/40',
         className,
       )}
@@ -45,21 +45,21 @@ export function InsightCard({ insight: it, selected, selectedNote = 'Added to th
       </div>
       <p className="m-0 text-statement text-ink">{it.statement}</p>
       {it.quote ? (
-        <p className="m-0 border-l border-hairline-strong pl-3.5 text-sm text-ink-2">
+        <p className="m-0 border-l border-hairline-strong pl-3.5 text-ink-2">
           “{it.quote}”{it.quoteBy ? ` — ${it.quoteBy}` : ''}
         </p>
       ) : null}
       <div className="mt-auto flex items-center justify-between gap-3">
         <div className="flex flex-wrap gap-1.5">{it.tags?.map((t) => <Tag key={t}>{t}</Tag>)}</div>
         {it.linkLabel ? (
-          <a href={it.href ?? '#'} className="inline-flex items-center gap-1.5 whitespace-nowrap text-[13px] font-semibold text-ink no-underline hover:text-signal-text">
+          <a href={it.href ?? '#'} className="inline-flex items-center gap-1.5 whitespace-nowrap text-ui-s font-semibold text-ink no-underline hover:text-signal-text">
             {it.linkLabel}
             <ArrowRight size={12} />
           </a>
         ) : null}
       </div>
       {selected ? (
-        <div className="flex items-center gap-2 border-t border-hairline pt-3 text-[13px] text-ink">
+        <div className="flex items-center gap-2 border-t border-hairline pt-3 text-ui-s text-ink">
           <Check className="text-signal-text" />
           {selectedNote}
         </div>
@@ -94,14 +94,14 @@ export function OpportunityCard({ opportunity: op, className }: { opportunity: O
       <div className={cn('flex flex-col gap-3.5 px-6 pb-5 pt-6', kind.tint)}>
         <div className="flex items-center justify-between gap-3">
           <Label tone="strong">{op.id}</Label>
-          <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-ink">
+          <span className="inline-flex items-center gap-1.5 font-semibold text-ink">
             <kind.Icon />
             {kind.label}
           </span>
         </div>
         <h3 className="m-0 text-title text-ink">{op.title}</h3>
       </div>
-      <dl className="m-0 grid grid-cols-[64px_minmax(0,1fr)] gap-x-3 gap-y-2.5 border-t border-hairline px-6 py-5 text-sm">
+      <dl className="m-0 grid grid-cols-[64px_minmax(0,1fr)] gap-x-3 gap-y-2.5 border-t border-hairline px-6 py-5">
         <dt className="mi-label pt-0.5 text-ink-3">Today</dt>
         <dd className="m-0 text-ink-2">{op.today}</dd>
         <dt className="mi-label pt-0.5 text-ink-3">With us</dt>
@@ -111,12 +111,12 @@ export function OpportunityCard({ opportunity: op, className }: { opportunity: O
         {op.metrics.map((m) => (
           <div key={m.label} className="flex flex-col gap-1.5 border-t border-hairline pt-3.5">
             <span className="whitespace-nowrap text-[22px] font-normal leading-none tracking-[-0.03em] text-ink">{m.value}</span>
-            <span className="text-xs leading-snug text-ink-2">{m.label}</span>
+            <span className="leading-snug text-ink-2">{m.label}</span>
           </div>
         ))}
       </div>
       <div className="mt-auto flex flex-col gap-3 border-t border-hairline px-6 py-4">
-        <div className="flex items-center justify-between gap-3 text-[13px] text-ink-2">
+        <div className="flex items-center justify-between gap-3 text-ui-s text-ink-2">
           <span className="inline-flex items-center gap-2">
             <span aria-hidden="true" className="flex gap-0.5">
               {[1, 2, 3].map((i) => (
@@ -129,7 +129,7 @@ export function OpportunityCard({ opportunity: op, className }: { opportunity: O
         </div>
         <div className="flex items-center justify-between gap-3">
           <div className="flex gap-1.5">{op.insights?.map((i) => <Tag key={i}>{i}</Tag>)}</div>
-          <a href={op.href ?? '#'} className="inline-flex items-center gap-1.5 text-[13px] font-semibold text-ink no-underline hover:text-signal-text">
+          <a href={op.href ?? '#'} className="inline-flex items-center gap-1.5 text-ui-s font-semibold text-ink no-underline hover:text-signal-text">
             Open vignette
             <ArrowRight size={12} />
           </a>
@@ -140,16 +140,37 @@ export function OpportunityCard({ opportunity: op, className }: { opportunity: O
 }
 
 /* ---------- Figure ---------- */
-/** A titled exhibit with a FIG label. Wrap every chart, map and matrix in one. */
-export function Figure({ title, fig, source, children, className }: { title: string; fig?: string; source?: string; children: ReactNode; className?: string }) {
+/** A titled exhibit: wrap every chart, map and matrix in one. The title says what is shown. `fig` numbers it, for when
+    the text refers to it. The foot carries provenance: an evidence `tag` and a one-line `caption` on the left, the
+    `source` on the right; with neither tag nor caption, the source sits alone under the exhibit. */
+export function Figure({ title, fig, tag, caption, source, children, className }: {
+  title: string;
+  fig?: string;
+  tag?: ReactNode;
+  caption?: ReactNode;
+  source?: ReactNode;
+  children: ReactNode;
+  className?: string;
+}) {
+  const foot = tag || caption;
   return (
-    <figure className={cn('m-0 flex flex-col gap-4 rounded-panel border border-hairline bg-panel p-[22px]', className)}>
+    <figure className={cn('m-0 flex flex-col gap-4 rounded-panel border border-hairline bg-panel p-6', className)}>
       <figcaption className="flex items-baseline justify-between gap-3">
-        <span className="text-[15px] font-semibold text-ink">{title}</span>
+        <span className="text-ui-m font-semibold text-ink">{title}</span>
         {fig ? <Label>{fig}</Label> : null}
       </figcaption>
       {children}
-      {source ? <span className="text-caption text-ink-3">{source}</span> : null}
+      {foot ? (
+        <div className="flex flex-wrap items-center justify-between gap-x-8 gap-y-2">
+          <p className="m-0 flex flex-wrap items-center gap-x-2.5 gap-y-1.5 text-caption text-ink-3">
+            {tag}
+            {caption ? <span>{caption}</span> : null}
+          </p>
+          {source ? <span className="text-caption text-ink-3">{source}</span> : null}
+        </div>
+      ) : source ? (
+        <span className="text-caption text-ink-3">{source}</span>
+      ) : null}
     </figure>
   );
 }

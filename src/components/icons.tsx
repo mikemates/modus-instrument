@@ -30,6 +30,10 @@ export const Evolve = (p: IconProps) => (
   <Icon {...p} strokeWidth={1.4}><path d="M11.5 5.5A4.6 4.6 0 0 0 3 4.2M2.5 8.5A4.6 4.6 0 0 0 11 9.8" /><path d="M3 1.8v2.6h2.6M11 12.2V9.6H8.4" /></Icon>
 );
 export const ChevronDown = (p: IconProps) => <Icon {...p}><path d="m3.5 5.5 3.5 3.5 3.5-3.5" /></Icon>;
+/** Light mode, for ModeSwitch. */
+export const Sun = (p: IconProps) => <Icon {...p}><circle cx="7" cy="7" r="2.6" /><path d="M7 1.2v1.3M7 11.5v1.3M1.2 7h1.3M11.5 7h1.3M2.9 2.9l.9.9M10.2 10.2l.9.9M2.9 11.1l.9-.9M10.2 3.8l.9-.9" /></Icon>;
+/** Dark mode, for ModeSwitch. */
+export const Moon = (p: IconProps) => <Icon {...p}><path d="M12.1 7.6A5.1 5.1 0 1 1 6.4 1.9a4 4 0 0 0 5.7 5.7Z" /></Icon>;
 
 /** The Insight Center mark: a lens with a violet point of focus. */
 export function Mark({ size = 22 }: { size?: number }) {

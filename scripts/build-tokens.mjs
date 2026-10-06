@@ -2,8 +2,8 @@
 //   src/styles/tokens.css            @theme static … + [data-theme="ink"] overrides  (the app)
 //   src/styles/tokens.reference.css  @theme reference …                             (the Design System bundle,
 //                                     whose page supplies colour/radius/shadow/font values; text sizes are static)
-import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
-import { dirname, resolve } from 'node:path';
+import { readFileSync, readdirSync, writeFileSync, mkdirSync } from 'node:fs';
+import { dirname, join, relative, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
@@ -61,3 +61,15 @@ mkdirSync(resolve(root, 'src/styles'), { recursive: true });
 writeFileSync(resolve(root, 'src/styles/tokens.css'), app);
 writeFileSync(resolve(root, 'src/styles/tokens.reference.css'), reference);
 console.log(`tokens: ${tokens.color.tokens.length} colours × ${tokens.color.themes.length} themes, ${tokens.type.groups.reduce((n, g) => n + g.styles.length, 0)} text styles → src/styles/tokens.css`);
+
+// Tailwind's own text sizes (text-xs, text-sm, text-base, text-lg, text-xl…) do nothing here: the theme above replaces
+// them with the book's scale, so a class like text-xs silently renders at whatever size it inherits. Stop on any.
+const DEAD = /(?<![\w-])text-(xs|sm|base|lg|[2-9]?xl)(?![\w-])/g;
+const walk = (dir) => readdirSync(dir, { withFileTypes: true }).flatMap((e) => (e.isDirectory() ? walk(join(dir, e.name)) : /\.(tsx?|css|html)$/.test(e.name) ? [join(dir, e.name)] : []));
+const dead = walk(resolve(root, 'src')).flatMap((f) => readFileSync(f, 'utf8').split('\n').flatMap((line, i) =>
+  [...line.matchAll(DEAD)].map((m) => `  ${relative(root, f)}:${i + 1}  ${m[0]}`)));
+if (dead.length) {
+  console.error(`\nThese Tailwind sizes do nothing in Modus Instrument (the token theme replaces them):\n${dead.join('\n')}\n` +
+    'Use the book\'s scale: text-caption 12px · text-ui-s 13px · text-body 14px · text-ui-m 15px · text-body-l 16px · text-ui-l 17px · text-statement 20px · text-title 26px. Nothing was built.\n');
+  process.exit(1);
+}

@@ -7,6 +7,6 @@ metadata:
 
 The working copy is `~/Projects/modus-instrument` on Mike's Mac (DEC-009). It is backed up to https://github.com/mikemates/modus-instrument (DEC-011); Mike saves and pushes with one copy-paste command. Projects made with `npm run new` go beside it in `~/Projects/`. Copies built in a Claude cloud session are scratch.
 **Why it matters:** two copies drift, and writing an old copy over the Mac one would undo Mike's edits.
-**What to do about it:** check the Mac copy first and edit it in place where possible. When a file has to be built elsewhere, compare before writing it back.
+**What to do about it:** check the Mac copy first and edit it in place where possible. When a file has to be built elsewhere, compare before writing it back: stage each round in a new folder, commit with the Mac file's modified time as the guard, then compare checksums on the Mac with the build that was checked. Tell Mike to restart `npm run dev` when a round adds new source files.
 
 Related: [[design-system-publishing]]

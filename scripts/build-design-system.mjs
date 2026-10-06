@@ -68,7 +68,7 @@ w('components/lib/react.production.min.js', readFileSync(join(pkgDir('react'), '
 w('components/lib/react-dom.production.min.js', readFileSync(join(pkgDir('react-dom'), 'umd/react-dom.production.min.js'), 'utf8'));
 
 // 6. Types as documentation: every exported interface and type alias from the source
-const srcFiles = ['components/Logo.tsx', 'components/Button.tsx', 'components/Primitives.tsx', 'components/Controls.tsx', 'components/States.tsx', 'patterns/Cards.tsx', 'patterns/Navigation.tsx', 'patterns/Maps.tsx', 'patterns/Benchmarks.tsx', 'patterns/RoiModel.tsx', 'patterns/roi.ts'];
+const srcFiles = ['components/Logo.tsx', 'components/Button.tsx', 'components/Primitives.tsx', 'components/Controls.tsx', 'components/States.tsx', 'components/Accordion.tsx', 'patterns/Cards.tsx', 'patterns/Navigation.tsx', 'patterns/Chapters.tsx', 'patterns/Maps.tsx', 'patterns/Benchmarks.tsx', 'patterns/RoiModel.tsx', 'patterns/roi.ts'];
 const decls = [];
 for (const f of srcFiles) {
   const src = readFileSync(resolve(root, 'src', f), 'utf8');
@@ -92,7 +92,7 @@ for (const c of components) {
   w(`components/${c.name}/README.md`, `# ${c.name}\n\n${c.summary}\n\n## When to use\n\n${list(c.use)}\n\n## Avoid\n\n${list(c.avoid)}\n\n## What you provide\n\n${c.provides}\n\n## Import\n\n\`\`\`tsx\nimport { ${c.name} } from '@/index'; // or window.${NAMESPACE}.${c.name} from the bundle\n\`\`\`\n`);
   w(`components/${c.name}/preview.html`, `<!-- @dsCard group="${esc(c.group)}" height=${c.height}${c.width ? ` width=${c.width}` : ''} -->
 <!doctype html>
-<html>
+<html lang="en">
 <head><meta charset="utf-8"><title>${c.name} — preview</title>
 <style>body{margin:0;padding:24px;background:var(--color-ground);color:var(--color-ink);font-family:var(--font-body)}</style>
 </head>
