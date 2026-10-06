@@ -6,5 +6,6 @@
 - [Render before wiring](memory/render-before-wiring.md) — show rendered options for visual changes, step through a batch one question at a time, then build the picks
 - [Publishing the Design System](memory/design-system-publishing.md) — the steps and traps when republishing from this repo
 - [Where the code lives](memory/code-home.md) — the Mac copy wins; cloud copies are scratch
+- [Node on Mike's Mac](memory/mac-node.md) — Homebrew, on the pinned version's formula; read before giving Node install or upgrade steps
 - [References](memory/references.md) — Design System, canvas, foundations doc, project notes
 - [Decision log](DECISIONS.md) — every settled choice and why

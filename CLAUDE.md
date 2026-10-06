@@ -15,6 +15,8 @@ Every new prototype starts here and looks like Modus, not like a stock component
 ## Stack
 Vite 8 + React 19 + TypeScript + Tailwind v4 + Base UI (`@base-ui/react`) + Manrope (`@fontsource-variable/manrope`), on Node 24 (`.nvmrc` and `engines`, DEC-027). To run it: `npm install && npm run dev`.
 
+In `package.json`, `allowScripts` lets only esbuild and @parcel/watcher run install scripts (DEC-027), and `overrides` gives Tailwind's command line the newer file watcher until it takes 2.6 itself (DEC-028). Node and dependency updates follow SOP F in `modus-project-sop`.
+
 Follows Modus Experience Standards v0.2, whose default foundation this is (DEC-026).
 
 ## Where things live
