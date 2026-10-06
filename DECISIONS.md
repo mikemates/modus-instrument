@@ -166,7 +166,7 @@ Checked:
 - No pixels changed by these fixes, on the demo or the previews.
 
 ## DEC-025 — The skills live here, as the prototype-foundations kit [Engineering] [Experience]
-**Status:** decided · **Date:** 2026-10-05
+**Status:** decided (one install for everyone since DEC-029) · **Date:** 2026-10-05
 Mike asked for a full audit of his custom skills ("make updates, consolidate, reinvent"). The audit found them out of date (init-prototype still started projects on Standards v0.1's shadcn default, against DEC-008), overlapping (three skills each explained previews and saves), and missing what real projects had taught: render checks, writing back from a cloud session, option rounds, controls that match their neighbours.
 - **One source:** `kit/` holds the skills. Mike's own skills are updated from it with review cards; the team installs the same folder as the `prototype-foundations` plugin (`kit/.claude-plugin/plugin.json`, version 0.2.0).
 - **Retired:** `init-prototype`. `modus-project-sop` starts projects now, with its coaching tone and the deploy checklist brought across.
@@ -213,7 +213,7 @@ Mike: Instrument should be the default, "however we need the ability to move bet
 The Standards will name libraries as projects use them and log how they went.
 
 ## DEC-027 — Node 24 across the foundation and new projects [Engineering]
-**Status:** decided · **Date:** 2026-10-05
+**Status:** decided (the audit findings it left are fixed, DEC-028) · **Date:** 2026-10-05
 Mike: "i want the modern node and any other platform that still ticks the boxes for vercel and other common stack choices." This repository said Node 20, which reached end of life on 2026-04-30 and which Vercel stopped building with on 2026-10-01.
 - **Node 24,** the long-term support version the hosts build with: Vercel's default (it doesn't build with 26 yet), the default on Netlify for new sites and on Cloudflare's Workers Builds since July 2026, and an AWS Lambda runtime. It's supported until 2028-04-30. Node 26 becomes the long-term support version on 2026-10-28; move when Vercel builds with it (`modus-project-sop`, SOP F).
 - **Declared in two places:** `.nvmrc` is `24` (Netlify, Cloudflare and version managers read it) and `engines.node` is `24.x` (Vercel reads it, and it overrides the project's setting). New projects copy both.
@@ -227,6 +227,21 @@ Checked on Node 24.21:
 - `npm audit` finds nothing in what ships. It reports four high-severity findings in a development-only chain (braces, under the Tailwind command line's file watcher), older than this change; the only fix on offer downgrades the Tailwind command line.
 
 Projects move to Node 24 at their next re-sync (SOP C), or sooner when they deploy before then.
+
+## DEC-028 — The audit findings fixed by taking the newer file watcher [Engineering]
+**Status:** decided · **Date:** 2026-10-05
+DEC-027 left four high-severity `npm audit` findings: braces, through micromatch, through @parcel/watcher 2.5.1, which Tailwind's command line 4.3.3 pins exactly. npm's suggested fix, `npm audit fix --force`, would have downgraded the Tailwind command line. @parcel/watcher 2.6.0 has swapped micromatch for picomatch, so `overrides` in `package.json` now gives the Tailwind command line 2.6.0. The command line only uses the watcher for `--watch`, which nothing here runs.
+
+Checked on Node 24.21: `npm audit` finds nothing, and a clean install has 65 packages instead of 72. Tests, typecheck and build pass, and the demo's build and the Design System's files are identical, file for file, to the ones before. Remove the override once Tailwind's command line takes 2.6 itself.
+
+## DEC-029 — One install of the skills: the plugin, for Mike too [Engineering]
+**Status:** decided · **Date:** 2026-10-05
+DEC-025 updated Mike's own skills with review cards and gave the team the plugin. With both installed on his account, every skill showed up twice, and the plugin's copies were older. Mike asked to install them from a single place.
+- **The plugin is the one install,** for Mike and the team alike, so everyone runs the same version.
+- **To update:** edit the skill in `kit/`, bump `version`, repackage, then **Customize → Plugins**: **Remove** the old one and upload the new file. Review cards are retired for these skills; a card can't update a plugin's skills anyway.
+- **On Mike's account:** the nine separate skills come out under **Customize → Skills**. Anthropic's own skills (docs, docx, pdf, pptx, xlsx and the rest) stay.
+
+Refines DEC-025.
 
 ## Open questions
 - ~~[Open question] The official Modus logo asset~~ — resolved by DEC-007 (2026-10-02).

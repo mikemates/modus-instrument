@@ -28,7 +28,7 @@ Follows Modus Experience Standards v0.2, whose default foundation this is (DEC-0
 - `src/index.ts` — the public entry. Import from here, not from deep paths.
 - `design-system/README.md` — the brand book (usage rules). `design-system/Cover.preview.html` — the Design System cover.
 - `scripts/ds-spec.mjs` — the component catalogue (summary, when to use, avoid, preview) the Design System is built from.
-- `kit/` — the source of the team's skills (`prototype-foundations`): Mike's own skills are updated from it with review cards, and the team installs it as a plugin (DEC-025). `kit/README.md` lists them.
+- `kit/` — the source of the skills: everyone, Mike included, installs it as the `prototype-foundations` plugin (DEC-025, DEC-029). `kit/README.md` lists them.
 
 ## Rules for building
 - Production-grade (Standards v0.2, DEC-026): strict types, tests for logic, the build as the gate, content apart from components, no hidden shortcuts. Typecheck, tests and build pass before every save.
@@ -48,7 +48,7 @@ Follows Modus Experience Standards v0.2, whose default foundation this is (DEC-0
 - New or changed component: export it from `src/index.ts`, add or update its entry in `scripts/ds-spec.mjs`, run `npm run ds:build`, then ask Claude to publish `design-system-dist/project/` to the Design System artifact (index file last).
 - Token change: edit `tokens/tokens.json`, run `npm run ds:build`, republish. Log anything that changes how the system looks in DECISIONS.md.
 - Logo files changed: replace them in `design-system/assets/Logos/`, run `npm run logo`, then `npm run ds:build`, and re-upload the SVGs to the Design System's Logos group (they are uploaded assets there, not files).
-- A rule or a way of working changed: update its skill in `kit/`, propose the card for Mike's skills, bump the plugin's version and repackage it for the team (DEC-025).
+- A rule or a way of working changed: update its skill in `kit/`, bump the plugin's version and repackage it; everyone reinstalls the new file (DEC-029).
 - New prototype: `npm run new -- ../<folder>` (add `--patterns` for Insight Center work, `--gate` for a password entry page; the command prints the password).
 
 ## Ground rules

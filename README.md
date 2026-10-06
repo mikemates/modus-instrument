@@ -54,7 +54,7 @@ Switch theme with `<html data-theme="ink">` or `setTheme('ink')`.
 
 ## The skills
 
-`kit/` holds the skills Modus prototypes are built with, from Mike's project SOP to the render checks. It's the source for Mike's own skills and for the team's `prototype-foundations` plugin; `kit/README.md` lists them and says how to change one.
+`kit/` holds the skills Modus prototypes are built with, from Mike's project SOP to the render checks. Everyone, Mike included, installs it as the `prototype-foundations` plugin (`kit/prototype-foundations.plugin`); `kit/README.md` lists the skills and says how to change one.
 
 ## A private preview
 

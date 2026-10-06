@@ -1,6 +1,6 @@
 # prototype-foundations
 
-The skills Modus prototypes are built with. This folder is their source: Mike's own skills are updated from it with review cards, and the team installs it as the `prototype-foundations` plugin.
+The skills Modus prototypes are built with. This folder is their source, and everyone, Mike included, installs it as one plugin, `prototype-foundations`, so there's one copy of each skill.
 
 | Skill | What it does |
 | --- | --- |
@@ -16,10 +16,12 @@ The skills Modus prototypes are built with. This folder is their source: Mike's 
 
 `init-prototype` was retired in 0.2.0: `modus-project-sop` starts projects now, with its coaching tone and the Vercel checklist folded in.
 
-## For the team
+## Installing it
 
-Install `prototype-foundations.plugin` in the Claude app. The skills are written from Mike's setup, but commands use your own home folder and GitHub account. The first time you start a project, Claude walks you through setting up your computer: git, Node, signing in to GitHub, and your own copy of the foundation. Ask Mike for access to the foundation repository and the Design System.
+In the Claude app: **Customize → Plugins**, upload `prototype-foundations.plugin` from this folder. The skills are written from Mike's setup, but commands use your own home folder and GitHub account. The first time you start a project, Claude walks you through setting up your computer: git, Node, signing in to GitHub, and your own copy of the foundation. Ask Mike for access to the foundation repository and the Design System.
 
 ## Changing a skill
 
-Edit its `SKILL.md` here and log the change in the repository's `DECISIONS.md`. Then propose the card for Mike's own skills, and repackage the plugin for the team (bump `version` in `.claude-plugin/plugin.json`). Install the plugin only on accounts that don't already have the individual skills, or the names clash.
+Edit its `SKILL.md` here and log the change in the repository's `DECISIONS.md`. Bump `version` in `.claude-plugin/plugin.json` and repackage `prototype-foundations.plugin`. To update, open the plugin under **Customize → Plugins**, choose **Remove**, then upload the new file.
+
+Don't also keep these as separate skills under **Customize → Skills**: the names clash, and you get two of each.

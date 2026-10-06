@@ -23,7 +23,7 @@ This skill orchestrates; the detail lives in the skills it calls:
 - Foundation repo: `<home>/Projects/modus-instrument` (GitHub: https://github.com/mikemates/modus-instrument; teammates may need Mike to give them access).
 - Projects: `<home>/Projects/<project-slug>`, one private GitHub repo each under `<github>`, or under the client's organisation when the code is going to them.
 - Design System: https://claude.ai/artifact/34AemeyKUpp1dyAc4TDoKv. Mike shares it with the team; if it won't open, the foundation's `tokens/tokens.json` and `CLAUDE.md` stand in.
-- The skills: `modus-instrument/kit/` is their source. Mike's own skills are updated from it with review cards; the team installs it as the `prototype-foundations` plugin.
+- The skills: `modus-instrument/kit/` is their source. Everyone, Mike included, installs it as the `prototype-foundations` plugin (`kit/prototype-foundations.plugin`), so there's one copy of each skill.
 
 ## Standing preferences (every session)
 
@@ -93,7 +93,7 @@ Projects are copies; system changes don't flow in on their own.
 When a project grows a component, token, rule or way of working other projects would want. SOP D is Mike's: a teammate sends him the proposal (a note naming the project and files, or a pull request), and he promotes it.
 1. Move it into `<home>/Projects/modus-instrument` (`src/components` or `src/patterns`, exported from `src/index.ts`; tokens in `tokens/tokens.json` with both theme values, a usage note and contrast checked).
 2. Add or update its entry in `scripts/ds-spec.mjs`, with a preview that follows the book's rules; run `npm run ds:build` and republish the Design System. Read the artifact itself first: a read of one of its files doesn't count, and the publish is refused. Send only the changed files, with `project/design-system.json` (every key kept, `lastChange` updated) in the same call; `components/index.d.ts` goes as `text/plain`. The foundation's `memory/design-system-publishing.md` lists the other traps.
-3. Log it in the foundation's `DECISIONS.md`, and update its brand book and `CLAUDE.md`. If a rule or a way of working changed, update the skill in `kit/`, propose the card for Mike's own skills, and repackage the `prototype-foundations` plugin for the team.
+3. Log it in the foundation's `DECISIONS.md`, and update its brand book and `CLAUDE.md`. If a rule or a way of working changed, update the skill in `kit/`, bump the plugin's version and repackage it; Mike and the team then reinstall it (**Customize → Plugins**: **Remove**, then upload the new file).
 4. Hand over the foundation's save line; offer SOP C for projects that want it.
 A one-off departure for a single client stays in that project and is logged there as an `[Experience]` decision.
 
@@ -117,7 +117,7 @@ Twice a year, when Node's long-term support version changes (late April and late
 1. **Check the hosts.** Which Node versions Vercel builds with (its docs list them) and the defaults on Netlify and Cloudflare; Node's release schedule for which versions have long-term support and until when.
 2. **Choose** the newest long-term support version that Vercel builds with.
 3. **Update the foundation** in a cloud copy, running that version: `.nvmrc` and `engines.node` (`NN.x`), then `npm outdated` for the rest. Patch and minor updates come in together; a major update gets its own round, with its migration notes read and options rendered if it changes the look. If npm lists install scripts nobody has approved (`npm install-scripts ls`), approve only the ones the build needs and log them.
-4. **Check** on the new version: a clean install, tests, typecheck and build; the demo's build compared file for file with the one before (pixel for pixel where it differs, `render-checks`); a new project with `--gate --patterns` installed, typechecked and built. Read `npm audit` and log what it finds.
+4. **Check** on the new version: a clean install, tests, typecheck and build; the demo's build compared file for file with the one before (pixel for pixel where it differs, `render-checks`); a new project with `--gate --patterns` installed, typechecked and built. Read `npm audit`: for a finding deep in the tree, look for a newer version of the package that brings it in, take it with `overrides` in `package.json` and check again, and remove the override once the parent package takes the fix itself. Never run `npm audit fix --force`: it can downgrade packages. Log what's left.
 5. **Log** it in the foundation as `[Engineering]`, change the version wherever the README or a skill in `kit/` names it, and hand over the save line (SOP D).
 6. **The person's Mac:** they install the new version once, from nodejs.org or with their version manager, then run `npm install` in each project they open.
 7. **Projects** take the new `.nvmrc` and `engines` at their next re-sync (SOP C), or straight away when they deploy before then.
