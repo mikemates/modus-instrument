@@ -212,6 +212,22 @@ Mike: Instrument should be the default, "however we need the ability to move bet
 
 The Standards will name libraries as projects use them and log how they went.
 
+## DEC-027 — Node 24 across the foundation and new projects [Engineering]
+**Status:** decided · **Date:** 2026-10-05
+Mike: "i want the modern node and any other platform that still ticks the boxes for vercel and other common stack choices." This repository said Node 20, which reached end of life on 2026-04-30 and which Vercel stopped building with on 2026-10-01.
+- **Node 24,** the long-term support version the hosts build with: Vercel's default (it doesn't build with 26 yet), the default on Netlify for new sites and on Cloudflare's Workers Builds since July 2026, and an AWS Lambda runtime. It's supported until 2028-04-30. Node 26 becomes the long-term support version on 2026-10-28; move when Vercel builds with it (`modus-project-sop`, SOP F).
+- **Declared in two places:** `.nvmrc` is `24` (Netlify, Cloudflare and version managers read it) and `engines.node` is `24.x` (Vercel reads it, and it overrides the project's setting). New projects copy both.
+- **The rest was already current:** Vite 8, React 19, TypeScript 7, Tailwind 4 and Base UI 1. Two patch updates came in: Vite 8.3.3 and its React plugin 6.1.2.
+- **Install scripts:** npm 11, which comes with Node 24, warns about dependency install scripts nobody has approved, and npm 12 will block them. `allowScripts` in `package.json` approves the two this repository needs, by name: esbuild (it checks its binary after installing) and @parcel/watcher (under the Tailwind command line). New projects need none.
+- **Run instructions:** the README's run block is one line, without `#` comments, which the Mac's shell would read as part of the command. New projects' READMEs name the Node version.
+
+Checked on Node 24.21:
+- A clean install. Tests, typecheck and build pass, and the demo's build is identical, file for file, to the one before the change.
+- A new project, plain and with `--gate --patterns`, installs with no warnings and no reported vulnerabilities, typechecks and builds.
+- `npm audit` finds nothing in what ships. It reports four high-severity findings in a development-only chain (braces, under the Tailwind command line's file watcher), older than this change; the only fix on offer downgrades the Tailwind command line.
+
+Projects move to Node 24 at their next re-sync (SOP C), or sooner when they deploy before then.
+
 ## Open questions
 - ~~[Open question] The official Modus logo asset~~ — resolved by DEC-007 (2026-10-02).
 - [Open question] Exact Modus violet hexes — sampled from an image (DEC-004); confirm against the Modus Create brand guidelines.
@@ -223,5 +239,5 @@ The Standards will name libraries as projects use them and log how they went.
 - [Open question] ValueStream breaks a long step name inside the word ("Investigatio n") at the demo's width. Older than this round; left as it is for now.
 - [Open question] Still to consider from field use: an evidence-tag component with a fixed vocabulary (Early context, To test, Illustrative); pinned stage headings for wide exhibits that scroll sideways; an optional legend on ServiceBlueprint.
 - [Open question] New projects have no test runner yet; for now Vitest goes in when a project's first logic arrives (DEC-026). Should the template carry it from the start? And should `npm run build` run the typecheck (and the tests), so a deploy can't go out with a type error? Today they are separate checks before each save.
-- [Open question] Node: `.nvmrc` says 20 and `engines` says `>=20`, but Node 20 reached end of life in April 2026, Vercel stopped building with it on 2026-10-01 (`>=20` gets its newest, 24), and this repository's own tests need 22.18 or later (they import TypeScript). Raise both to 22, with `engines` pinned to `22.x` so local and Vercel match? Mike's Mac needs Node 22 first.
+- ~~[Open question] Node: `.nvmrc` says 20 and `engines` says `>=20`, but Node 20 reached end of life in April 2026, Vercel stopped building with it on 2026-10-01 (`>=20` gets its newest, 24), and this repository's own tests need 22.18 or later (they import TypeScript). Raise both to 22, with `engines` pinned to `22.x` so local and Vercel match? Mike's Mac needs Node 22 first.~~ — resolved by DEC-027 (2026-10-05): Node 24, declared in `.nvmrc` and `engines`; the tests run on it.
 - [Open question] The brand book's Restraint section still says every headline makes a claim. Add the tools-and-forms voice (DEC-025) at the next Design System publish.

@@ -6,10 +6,13 @@ Design System (brand book, tokens, live components): https://claude.ai/artifact/
 
 ## See it
 
+Needs Node 24, the version in `.nvmrc`. From a Terminal window:
+
 ```bash
-npm install      # once — downloads the building blocks (needs Node 20 or newer)
-npm run dev      # opens a private preview at http://localhost:5173
+cd ~/Projects/modus-instrument && npm install && npm run dev
 ```
+
+The first run downloads the building blocks; then it opens a private preview at http://localhost:5173.
 
 Use the Paper / Ink switch in the top bar to change theme. Press ⌘K to open Ask.
 

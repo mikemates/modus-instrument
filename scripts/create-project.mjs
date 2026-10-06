@@ -228,6 +228,7 @@ write('README.md', `# ${title}
 
 Built on Modus Instrument.
 
+- Needs the Node version in \`.nvmrc\`.
 - \`npm install\` — once, downloads the building blocks
 - \`npm run dev\` — opens a private preview at http://localhost:5173
 - \`npm run typecheck\` — spell-check for code

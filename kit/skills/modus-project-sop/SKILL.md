@@ -1,6 +1,6 @@
 ---
 name: "modus-project-sop"
-description: "Use when someone starts, resumes or ships a Modus project or prototype (ships: deploys it, behind a password when shared outside the team, or hands the code to a client's engineers), sets up their computer for a first project, re-syncs a project with the latest Modus Instrument, promotes a component, token or rule back into Modus Instrument (the design system), or writes work back to their Mac from a cloud session. Runs the SOP step by step, calls the other kit skills at the right steps, and applies Mike's standing preferences, which are the team's defaults."
+description: "Use when someone starts, resumes or ships a Modus project or prototype (ships: deploys it, behind a password when shared outside the team, or hands the code to a client's engineers), sets up their computer for a first project, re-syncs a project with the latest Modus Instrument, promotes a component, token or rule back into Modus Instrument (the design system), writes work back to their Mac from a cloud session, or brings the platform up to date (Node and the building blocks). Runs the SOP step by step, calls the other kit skills at the right steps, and applies Mike's standing preferences, which are the team's defaults."
 ---
 
 # modus-project-sop
@@ -42,7 +42,7 @@ This skill orchestrates; the detail lives in the skills it calls:
 
 0. **First time on this computer** (skip when `<home>/Projects/modus-instrument` exists, as it does for Mike). One step at a time, each with what success looks like:
    - **Ask Mike for access first; it's the slowest step.** He adds their GitHub account to the foundation repository and shares the Design System. They accept GitHub's emailed invitation (it expires after seven days). Until then, a clone says "Repository not found".
-   - `echo "$HOME"; git --version; node -v` in Terminal. The first line is `<home>`. If git isn't installed, a window offers Apple's command line tools: install them. If Node is missing, install the LTS version from nodejs.org. Then run the line again.
+   - `echo "$HOME"; git --version; node -v` in Terminal. The first line is `<home>`. If git isn't installed, a window offers Apple's command line tools: install them. If Node is missing or older than the version Modus projects use (24 at the moment; the foundation's `.nvmrc` names it), install that version from nodejs.org. Then run the line again.
    - Git needs a name and email once: `git config --global user.name "<Name>" && git config --global user.email "<email>"`. GitHub refuses account passwords: when git asks for one, it wants a personal access token. A classic token with the `repo` scope (github.com → Settings → Developer settings) covers repositories other people share; nothing shows as it's pasted, and the Mac's keychain remembers it.
    - Clone the foundation: `mkdir -p "$HOME/Projects" && cd "$HOME/Projects" && git clone https://github.com/mikemates/modus-instrument.git`. It needs no install of its own: `npm run new` uses only what Node brings.
    - Before each later project, teammates bring their copy up to date: `cd "$HOME/Projects/modus-instrument" && git pull`.
@@ -75,14 +75,14 @@ This skill orchestrates; the detail lives in the skills it calls:
 1. Get access to `<home>/Projects/<slug>`.
 2. Read `CLAUDE.md`, `MEMORY.md` and the notes it lists, and `DECISIONS.md`, including its open questions. Don't re-argue anything marked decided; if a request would break a decision, say so first. If the request depends on an open question, ask it.
 3. Read `.git/logs/HEAD` for the last save (never run git). Files modified since then are the person's unsaved work: mention them once, and offer to save them first as their own save point (`git-workflow`).
-4. Check whether the project is behind the system: compare its `tokens/tokens.json`, `scripts/build-tokens.mjs` and `src/components/` with the foundation's, and its Standards version line with the current one. If they differ, mention it once and offer SOP C; don't re-sync unasked. The version line stays until the project is brought up to that version (SOP C). Meanwhile, new work meets the current Standards; where the book names a token step the project lacks, use its nearest and note it for the re-sync.
+4. Check whether the project is behind the system: compare its `tokens/tokens.json`, `scripts/build-tokens.mjs` and `src/components/` with the foundation's, its Standards version line with the current one, and its `.nvmrc` and `engines` with the foundation's. If they differ, mention it once and offer SOP C; don't re-sync unasked. The version line stays until the project is brought up to that version (SOP C). Meanwhile, new work meets the current Standards; where the book names a token step the project lacks, use its nearest and note it for the re-sync.
 5. Hand over the preview line (`npm install &&` only when `node_modules` is missing or `package.json` changed).
 6. Carry on with what Mike asked; ask what's next only if he didn't say.
 
 ## SOP C — Re-sync a project with the latest Modus Instrument
 
 Projects are copies; system changes don't flow in on their own.
-1. **Compare** the project's foundation files (`tokens/`, `scripts/build-tokens.mjs`, `src/styles/`, `src/components/`, `src/patterns/`, `src/lib/`, `src/index.ts`) with the foundation's. List what differs, and which differences are the project's own changes: its decision log and `memory/design-system.md` name them.
+1. **Compare** the project's foundation files (`tokens/`, `scripts/build-tokens.mjs`, `src/styles/`, `src/components/`, `src/patterns/`, `src/lib/`, `src/index.ts`, and the Node version in `.nvmrc` and `engines`) with the foundation's. List what differs, and which differences are the project's own changes: its decision log and `memory/design-system.md` name them.
 2. **Show Mike the list;** copy across only what he approves, keeping the project's own changes. Where the foundation now has a piece the project built for itself, swap it in; turning the project's file into a one-line pointer keeps its imports unchanged.
 3. **Clear what the new token build stops on** before it comes across: Tailwind's `text-xs`, `text-sm`, `text-base`, `text-lg` and `text-xl` draw nothing under the token theme. Remove them, and swap one-off sizes for the token steps, keeping the look.
 4. **Check:** regenerate tokens, typecheck, test, build. Render every page before and after at the final-check widths in each theme (`render-checks`; on Instrument that includes 1920 and 2560px), and compare pixel for pixel. Every difference must be an intended system change; prove it by setting that change back and comparing again. Run the accessibility check and the sideways sweep.
@@ -100,7 +100,7 @@ A one-off departure for a single client stays in that project and is logged ther
 ## SOP E — Share it
 
 1. Typecheck, tests and build pass; every view handles its states (`experience-standards`). Run `ai-scrubber` before it goes outside the team.
-2. On vercel.com, import the GitHub repo. The defaults work: build `npm run build`, output `dist`. Vercel takes Node's version from `engines.node` in `package.json` (or the project's settings), not from `.nvmrc`; `>=20` means its newest.
+2. On vercel.com, import the GitHub repo. The defaults work: build `npm run build`, output `dist`. The Node version comes from the project: Vercel reads `engines.node` in `package.json`, which overrides the project's setting; Netlify and Cloudflare read `.nvmrc`. Keep both on the foundation's version (SOP F).
 3. Keep it deployable:
    - **The lockfile is committed.** Vercel installs with `npm install`, which follows it; `"installCommand": "npm ci"` in `vercel.json` makes that strict.
    - **Import paths match file names exactly,** capitals included: a Mac forgives `./button` for `Button.tsx`; Vercel's Linux build fails on it.
@@ -110,6 +110,17 @@ A one-off departure for a single client stays in that project and is logged ther
 4. **Protect it.** Anything shared outside the team goes behind a password: `--gate` builds one in (the site is encrypted, so any host works); otherwise use the host's protection. Keep the repository private while it holds client names, unvalidated figures, borrowed imagery or a password.
 5. Log the live URL in the project's `CLAUDE.md`.
 6. **Code going to a client's engineers:** agree where the repository will live (their organisation, or a transfer later), and give it a README for their team: how to run, test and deploy, and what is illustrative or stubbed. Review `CLAUDE.md`, `DECISIONS.md` and `memory/` for anything internal before it goes. Protect previews with the host's password rather than `--gate`: anyone with the repository can read the gate's password. Licence and ownership are contract questions; ask, don't assume.
+
+## SOP F — Keep the platform current
+
+Twice a year, when Node's long-term support version changes (late April and late October), or when a host drops a version:
+1. **Check the hosts.** Which Node versions Vercel builds with (its docs list them) and the defaults on Netlify and Cloudflare; Node's release schedule for which versions have long-term support and until when.
+2. **Choose** the newest long-term support version that Vercel builds with.
+3. **Update the foundation** in a cloud copy, running that version: `.nvmrc` and `engines.node` (`NN.x`), then `npm outdated` for the rest. Patch and minor updates come in together; a major update gets its own round, with its migration notes read and options rendered if it changes the look. If npm lists install scripts nobody has approved (`npm install-scripts ls`), approve only the ones the build needs and log them.
+4. **Check** on the new version: a clean install, tests, typecheck and build; the demo's build compared file for file with the one before (pixel for pixel where it differs, `render-checks`); a new project with `--gate --patterns` installed, typechecked and built. Read `npm audit` and log what it finds.
+5. **Log** it in the foundation as `[Engineering]`, change the version wherever the README or a skill in `kit/` names it, and hand over the save line (SOP D).
+6. **The person's Mac:** they install the new version once, from nodejs.org or with their version manager, then run `npm install` in each project they open.
+7. **Projects** take the new `.nvmrc` and `engines` at their next re-sync (SOP C), or straight away when they deploy before then.
 
 ## Working from a cloud session
 

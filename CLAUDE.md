@@ -13,7 +13,7 @@ Code: https://github.com/mikemates/modus-instrument (backup and shared copy; the
 Every new prototype starts here and looks like Modus, not like a stock component kit.
 
 ## Stack
-Vite 8 + React 19 + TypeScript + Tailwind v4 + Base UI (`@base-ui/react`) + Manrope (`@fontsource-variable/manrope`). To run it: `npm install && npm run dev`.
+Vite 8 + React 19 + TypeScript + Tailwind v4 + Base UI (`@base-ui/react`) + Manrope (`@fontsource-variable/manrope`), on Node 24 (`.nvmrc` and `engines`, DEC-027). To run it: `npm install && npm run dev`.
 
 Follows Modus Experience Standards v0.2, whose default foundation this is (DEC-026).
 

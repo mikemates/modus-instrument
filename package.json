@@ -3,9 +3,9 @@
   "private": true,
   "version": "0.1.0",
   "type": "module",
-  "description": "Modus Instrument \u2014 UI foundation: tokens, Base UI components and Insight Center patterns.",
+  "description": "Modus Instrument — UI foundation: tokens, Base UI components and Insight Center patterns.",
   "engines": {
-    "node": ">=20"
+    "node": "24.x"
   },
   "scripts": {
     "tokens": "node scripts/build-tokens.mjs",
@@ -35,5 +35,9 @@
     "tailwindcss": "^4.3.3",
     "typescript": "^7.0.2",
     "vite": "^8.3.2"
+  },
+  "allowScripts": {
+    "esbuild": true,
+    "@parcel/watcher": true
   }
 }
