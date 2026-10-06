@@ -32,8 +32,30 @@ const copy = (p) => cpSync(join(root, p), join(dest, p), { recursive: true });
 const write = (p, s) => { mkdirSync(dirname(join(dest, p)), { recursive: true }); writeFileSync(join(dest, p), s); };
 
 mkdirSync(dest, { recursive: true });
-['tokens', 'scripts/build-tokens.mjs', 'src/components', 'src/lib', 'src/styles/base.css', 'src/styles/index.css', 'src/styles/tokens.css', 'vite.config.ts', 'tsconfig.json', '.nvmrc', '.gitignore'].forEach(copy);
+['tokens', 'scripts/build-tokens.mjs', 'src/components', 'src/lib', 'src/styles/base.css', 'src/styles/index.css', 'src/styles/tokens.css', 'vite.config.ts', 'tsconfig.json', '.nvmrc'].forEach(copy);
 if (withPatterns) ['src/patterns', 'src/data'].forEach(copy);
+
+// A project's own .gitignore (the foundation's lists files only the foundation makes). Same list as the git-workflow skill.
+write('.gitignore', `# Auto-downloaded building blocks and built output — no need to back these up
+node_modules/
+dist/
+.vite/
+*.tsbuildinfo
+
+# Mac clutter
+.DS_Store
+
+# Secrets stay on your computer (keep an example file with blank values)
+.env
+.env.*
+!.env.example
+
+# Renders and files the Claude desktop app saves while you work — they stay on your computer
+Claude outputs/
+
+# Borrowed or unlicensed images — keep these local only
+public/_incoming/
+`);
 
 // The password gate (--gate): the entry page, the build step that encrypts the site, and a fresh password and salt.
 const fill = (text) => text.replaceAll('__TITLE__', title);
@@ -155,7 +177,7 @@ Vite + React 19 + TypeScript + Tailwind v4 + Base UI (\`@base-ui/react\`) on the
 
 The site sits behind a password (\`gate.config.mjs\`): the build encrypts it, and the entry page (\`src/gate/\`) opens it. Never import the site's modules from \`src/gate/\`. Anyone who can open the repository can read the password, so keep it private.` : ''}
 
-Follows Modus Experience Standards v0.1, except: the default UI foundation is Base UI + Modus Instrument tokens instead of shadcn-style components on Radix (DEC-001).
+Follows Modus Experience Standards v0.2.
 
 ## Design system
 - Modus Instrument — the brand book, tokens and live components: https://claude.ai/artifact/34AemeyKUpp1dyAc4TDoKv (read its README before designing a screen).
@@ -164,11 +186,13 @@ Follows Modus Experience Standards v0.1, except: the default UI foundation is Ba
 - Two themes: Paper (default) and Ink (dark), set by \`data-theme\` on \`<html>\`. Check both.
 - Type: the book's scale only — \`text-caption\` 12px, \`text-ui-s\` 13px, \`text-body\` 14px, \`text-ui-m\` 15px, \`text-body-l\` 16px, \`text-ui-l\` 17px, then statement, title and display. Tailwind's \`text-xs\`/\`sm\`/\`base\`/\`lg\` do nothing here, and the build stops on them.
 - Violet: filled violet means "you can act here" — every main action is a \`bg-action\` button (LinkButton when it goes somewhere), and accordion rows carry the violet mark; second-tier links (GoLink) stay in ink. Violet text, lines and rings mark the one thing to look at in an exhibit.
-- Restraint, so it doesn't read as generated: a section opens on its claim, with no eyebrow repeating the nav; two tones only on the point-of-view headline; one number per view, and draw how numbers relate rather than tiling them; a FIG number only when the text refers to it; the dot grid behind the opening panel only; a caveat once, where it changes the reading; a chapter ends on its own question.
+- Voice: on pages that argue (insight, strategy, a point of view), headlines make a claim; in tools and forms, headings name the task and labels name things.
+- Restraint, so it doesn't read as generated: on pages that argue, a section opens on its claim, with no eyebrow repeating the nav; two tones only on the point-of-view headline; one number per view, and draw how numbers relate rather than tiling them; a FIG number only when the text refers to it; the dot grid behind the opening panel only; a caveat once, where it changes the reading; a chapter ends on its own question.
 - Pages are one composed column: wrap content in \`mi-frame\` and never run it edge to edge. Reading text and fields stop at \`mi-measure\`.
 - Build interactive UI from \`src/components\` (Base UI underneath) before hand-building anything.
 
 ## Ground rules
+- Production-grade (Modus Experience Standards v0.2): build as if this could move into production with little effort. Strict types, tests for any logic, the build as the gate, content apart from components, shortcuts visible and logged. The typecheck (and the tests, once there's logic) pass before every save.
 - The decision log is append-only. When a choice changes, mark the old one SUPERSEDED — never delete it.
 - Flag unknowns as [Open question] / [Assumption] — never a confident guess.
 - Every view handles default, loading, empty, error, success and disabled-with-a-reason states.
@@ -179,9 +203,10 @@ write('DECISIONS.md', `# Decision Log
 
 Append-only. When something changes, mark the old entry SUPERSEDED (don't delete it).
 
-## DEC-001 — Base UI + Modus Instrument tokens as the UI foundation [Experience]
+## DEC-001 — Modus Instrument as the UI foundation [Experience]
 **Status:** decided · **Date:** ${today}
-Started from the Modus Instrument foundation instead of shadcn-style components on Radix (the Standards v0.1 default, a Starting point). Base UI gives accessible, unstyled primitives (keyboard, focus, ARIA); the look comes entirely from Modus Instrument tokens, so it doesn't read as a stock component kit. Paper and Ink themes, Manrope, violet signal. Inherited from modus-instrument DEC-001.
+The default foundation in Modus Experience Standards v0.2: Base UI primitives (keyboard, focus, ARIA), with the look entirely from Modus Instrument tokens, so it doesn't read as a stock component kit. Paper and Ink themes, Manrope, violet signal. Built to the Standards' engineering bar, so it could move into production with little effort.
+[Open question] Record the answers to the foundation questions here: whose brand, the client's design system, where the code goes next, anything Instrument lacks, how long it lives.
 `);
 write('MEMORY.md', `# Memory Index
 

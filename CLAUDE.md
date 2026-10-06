@@ -15,7 +15,7 @@ Every new prototype starts here and looks like Modus, not like a stock component
 ## Stack
 Vite 8 + React 19 + TypeScript + Tailwind v4 + Base UI (`@base-ui/react`) + Manrope (`@fontsource-variable/manrope`). To run it: `npm install && npm run dev`.
 
-Follows Modus Experience Standards v0.1, except: the default UI foundation is Base UI + Modus Instrument tokens instead of shadcn-style components on Radix (DEC-001).
+Follows Modus Experience Standards v0.2, whose default foundation this is (DEC-026).
 
 ## Where things live
 - `tokens/tokens.json` — the ONLY place colours, type, spacing, radii, shadows and layout values are defined, each with a usage note; colours carry a Paper and an Ink value.
@@ -28,8 +28,10 @@ Follows Modus Experience Standards v0.1, except: the default UI foundation is Ba
 - `src/index.ts` — the public entry. Import from here, not from deep paths.
 - `design-system/README.md` — the brand book (usage rules). `design-system/Cover.preview.html` — the Design System cover.
 - `scripts/ds-spec.mjs` — the component catalogue (summary, when to use, avoid, preview) the Design System is built from.
+- `kit/` — the source of the team's skills (`prototype-foundations`): Mike's own skills are updated from it with review cards, and the team installs it as a plugin (DEC-025). `kit/README.md` lists them.
 
 ## Rules for building
+- Production-grade (Standards v0.2, DEC-026): strict types, tests for logic, the build as the gate, content apart from components, no hidden shortcuts. Typecheck, tests and build pass before every save.
 - Tokens only. Use the token utilities (`bg-panel`, `text-ink-2`, `text-statement`, `rounded-panel`, `border-hairline`, `bg-action`) — never a hex value or a one-off size for something a token covers.
 - One composed column: wrap page content in `mi-frame` (`layout-column`: 1440px on laptops, growing to 1920px on big monitors) and size the POV headline with `layout-hero` so it keeps its stack. Galleries keep fixed column counts; reading text and fields stop at `layout-measure`. Never run page content edge to edge (DEC-013).
 - Every colour token has a value in Paper and Ink. Check contrast in both: text 4.5:1, large text, control edges and focus 3:1. In Paper, `ink-3` falls short on `inset` and `signal-soft`: use `ink-2` there (Label's `strong` tone).
@@ -46,6 +48,7 @@ Follows Modus Experience Standards v0.1, except: the default UI foundation is Ba
 - New or changed component: export it from `src/index.ts`, add or update its entry in `scripts/ds-spec.mjs`, run `npm run ds:build`, then ask Claude to publish `design-system-dist/project/` to the Design System artifact (index file last).
 - Token change: edit `tokens/tokens.json`, run `npm run ds:build`, republish. Log anything that changes how the system looks in DECISIONS.md.
 - Logo files changed: replace them in `design-system/assets/Logos/`, run `npm run logo`, then `npm run ds:build`, and re-upload the SVGs to the Design System's Logos group (they are uploaded assets there, not files).
+- A rule or a way of working changed: update its skill in `kit/`, propose the card for Mike's skills, bump the plugin's version and repackage it for the team (DEC-025).
 - New prototype: `npm run new -- ../<folder>` (add `--patterns` for Insight Center work, `--gate` for a password entry page; the command prints the password).
 
 ## Ground rules

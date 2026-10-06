@@ -49,6 +49,10 @@ import { Button, Card, Label, StatTile } from '@/index';
 
 Switch theme with `<html data-theme="ink">` or `setTheme('ink')`.
 
+## The skills
+
+`kit/` holds the skills Modus prototypes are built with, from Mike's project SOP to the render checks. It's the source for Mike's own skills and for the team's `prototype-foundations` plugin; `kit/README.md` lists them and says how to change one.
+
 ## A private preview
 
 `npm run new -- ../client-preview --gate` adds a password entry page. The build encrypts the site, so a shared link shows nothing without the password, on any host. The command prints the password; change it in `gate.config.mjs` (or set `SITE_PASSWORD` where it's built), rebuild and send the new one. Anyone who can open the repository can read it, so keep the repository private.

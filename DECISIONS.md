@@ -3,7 +3,7 @@
 Append-only. When something changes, mark the old entry SUPERSEDED (don't delete it).
 
 ## DEC-001 — Base UI + our own tokens as the default UI foundation [Experience]
-**Status:** decided · **Date:** 2026-10-01
+**Status:** decided (now the default in Modus Experience Standards v0.2, DEC-026) · **Date:** 2026-10-01
 Replaces the Standards v0.1 default of shadcn-style components on Radix (a Starting point, so this is a logged deviation, not a breach). shadcn and HeroUI had started to feel fiddly and recognisably AI-generated. Base UI (`@base-ui/react`, from the Radix, Floating UI and MUI team) gives unstyled, accessible primitives — keyboard, focus management, ARIA — with no visual opinion, so 100% of the look comes from Modus Instrument tokens. Trade-off: no copy-paste styled kit; we maintain the styled layer ourselves (15 foundation components so far). Proposed for the next version of the Standards.
 
 ## DEC-002 — Visual direction: "Instrument on paper" [Brand]
@@ -32,7 +32,7 @@ Paper is the light default; Ink is a dark theme for big screens and workshop roo
 Mike supplied the official SVGs (wordmark and glyph, black and white) in `design-system/assets/Logos/`. The `Logo` component draws that exact artwork (copied by `npm run logo`, never redrawn) in a new `color-logo` token — #000000 on Paper, #FFFFFF on Ink — so one component follows the theme. The TopBar lockup is now Modus Create wordmark · divider · product name, with the glyph alone on phones; the placeholder lens mark is retired from the bar. [Open question] Clear space and minimum size, to confirm against the brand guidelines. [Open question] Whether the Insight Center is a sub-brand still stands; the lockup treats it as a Modus Create product for now.
 
 ## DEC-008 — Modus Instrument is the default for all Modus work [Experience]
-**Status:** decided · **Date:** 2026-10-01 (logged 2026-10-02)
+**Status:** decided (the team's skills follow it now, DEC-025) · **Date:** 2026-10-01 (logged 2026-10-02)
 Mike asked for a default standard beyond the Insight Center. Every new Modus prototype, page or artifact starts on Modus Instrument: code projects through `npm run new -- ../<folder>` (`--patterns` for insight work), and Claude follows the `modus-ui-foundation` skill instead of init-prototype's shadcn/Radix default. The team plugin's own skills are unchanged for now.
 
 ## DEC-009 — The working copy lives on Mike's Mac [Engineering]
@@ -165,6 +165,53 @@ Checked:
 - No sideways scroll at 320, 390, 640, 768, 1024, 1280, 1440 and 1920px in both themes, on the demo, the starter and the entry page.
 - No pixels changed by these fixes, on the demo or the previews.
 
+## DEC-025 — The skills live here, as the prototype-foundations kit [Engineering] [Experience]
+**Status:** decided · **Date:** 2026-10-05
+Mike asked for a full audit of his custom skills ("make updates, consolidate, reinvent"). The audit found them out of date (init-prototype still started projects on Standards v0.1's shadcn default, against DEC-008), overlapping (three skills each explained previews and saves), and missing what real projects had taught: render checks, writing back from a cloud session, option rounds, controls that match their neighbours.
+- **One source:** `kit/` holds the skills. Mike's own skills are updated from it with review cards; the team installs the same folder as the `prototype-foundations` plugin (`kit/.claude-plugin/plugin.json`, version 0.2.0).
+- **Retired:** `init-prototype`. `modus-project-sop` starts projects now, with its coaching tone and the deploy checklist brought across.
+- **New:** `render-checks`: serving a build, shots, comparison sheets, pixel-for-pixel proof (with the sub-pixel nudge and the set-back proof), the accessibility check and the sideways sweep. Every script was run against real builds.
+- **Updated:**
+  - `modus-project-sop`: the foundation questions (SOP A), production-grade by default, option rounds, the re-sync steps, working from a cloud session, the deploy checklist.
+  - `modus-ui-foundation`: the default in Standards v0.2; controls in a row; what changes when another library was chosen.
+  - `experience-standards`: v0.2 (DEC-026).
+  - `ai-scrubber`: its house rules are the book's restraint rules (DEC-015); screenshots and sheets come from `render-checks`.
+  - `git-workflow`: no git from a Cowork session; the checks before a save; one save line per repository.
+  - `local-preview`: the password page; restart the preview after new source files.
+  - `design-iteration-loop`: renders and proof from `render-checks`.
+  - `memory-hygiene`: unchanged.
+- **Changing a skill:** edit it in `kit/`, log it here, propose the card, bump the plugin's version and repackage (`kit/README.md`).
+- **Tested before release:** a blind routing test (24 requests, judged on the skills' descriptions alone) and five dry runs: a client project on MUI, a teammate's first project, a visual change, a write-back from the cloud, and resuming an older project. What they found, all fixed in the kit:
+  - Mike's home folder and GitHub account were written into commands a teammate would run, and nothing set up a new computer. Commands now use `<home>` and `<github>`, with Mike's as the values, and SOP A has a first-time step (git, Node, GitHub sign-in, the foundation's clone).
+  - The write-back from the cloud was too loose to protect Mike's edits. It's now eleven steps: an untouched base copy, a three-way merge for anything he changed, guards on every write, deletions handed to him, a stop when his computer drops out.
+  - Option shots overwrote each other (files were named by page only), and the one-view script couldn't set a theme. Both scripts are fixed and re-run on a real build.
+  - A client's library would have been pulled onto Modus's look and stack. `modus-ui-foundation` now lists what always travels and what stays behind.
+  - An older project's Standards line would have been bumped on resume. It now changes only when the project is brought up to that version.
+  - States were required but never rendered. Each state now gets a way to be opened on purpose, then checked like a page.
+  - Descriptions now name re-syncing, promoting work back into the design system, deploying, handing code to a client and the accessibility check, so the right skill loads.
+  - One voice rule covered every page. Claim headlines now belong to pages that argue (insight, strategy, a point of view); tools and forms name the task. The skills and the new-project `CLAUDE.md` say so.
+  - A second pass (routing again, the teammate again, and a consistency read of all nine skills against this repository) caught smaller gaps, also fixed: steps in the write-back that could still overwrite a late edit, a public-by-default GitHub repository, pasted lines that the Mac's shell would misread (`#` comments, `!` in a commit message), Vercel's Node and install behaviour described wrongly, and new projects copying this repository's `.gitignore`. New projects now get their own, the same list as `git-workflow`.
+
+Refines DEC-008: the team's skills follow the foundation too.
+
+## DEC-026 — Modus Experience Standards v0.2: Instrument by default, built to ship [Experience] [Engineering]
+**Status:** decided · **Date:** 2026-10-05
+Mike: Instrument should be the default, "however we need the ability to move between component libraries", guided by a Q&A with the operator; "we can get more opinionated about the component library / design system options as we go, but the philosophy should be set now." And: "we should always assume what we build should be to engineering standards"; the way he works should be able to "move into a production grade environment with little effort."
+- **The default foundation** is Modus Instrument: Base UI primitives and our tokens on Vite, React, TypeScript and Tailwind v4 (a Starting point). This takes DEC-001 into the Standards.
+- **The philosophy:** Instrument by default; move off it only for a reason the project can name; the floor travels with any library; the look is a chosen theme (ours or the client's), never a library's stock defaults; one component system per project, with at most one specialist library beside it, themed the same way; choose as if it will ship; log the choice (in DEC-001 on Instrument, otherwise in a DEC-002 that supersedes it).
+- **The foundation questions,** one at a time at the start of a project (SOP A, step 2): whose brand; the client's design system; where the code goes next; what Instrument lacks; how long it lives.
+- **Four outcomes:** Modus Instrument; Instrument with the client's tokens; the client's or the target stack's library at the versions engineering uses, with the client's theme (ours on Modus-branded work) and the floor and the checks unchanged; Instrument plus one specialist library.
+- **Production-grade is a Standard:**
+  - strict TypeScript, tests for logic, a build that stops on errors;
+  - content apart from components, pinned dependencies and a declared Node version;
+  - no secrets in the repository unless a logged decision accepts one (a prototype's shared password);
+  - accessible from the first commit, and documented;
+  - prototype shortcuts visible in the product and logged as assumptions.
+- **Also a Standard now:** a region that scrolls sideways can be reached by keyboard (DEC-024).
+- **New projects** say "Follows Modus Experience Standards v0.2", record their foundation answers in DEC-001, carry the engineering bar in their ground rules, and never commit `.env` files.
+
+The Standards will name libraries as projects use them and log how they went.
+
 ## Open questions
 - ~~[Open question] The official Modus logo asset~~ — resolved by DEC-007 (2026-10-02).
 - [Open question] Exact Modus violet hexes — sampled from an image (DEC-004); confirm against the Modus Create brand guidelines.
@@ -172,6 +219,9 @@ Checked:
 - [Open question] Brand stance: is the Insight Center a sub-brand, or a Modus Create product as the top-bar lockup shows now (DEC-007)?
 - [Open question] Workshop photography for hero panels — hatched placeholders until then.
 - ~~[Open question] Where this repo lives long-term~~ — resolved by DEC-011 (2026-10-02): https://github.com/mikemates/modus-instrument
-- [Open question] Whether to fold `modus-ui-foundation` into the team plugin's init-prototype and experience-standards (DEC-008).
+- ~~[Open question] Whether to fold `modus-ui-foundation` into the team plugin's init-prototype and experience-standards (DEC-008)~~ — resolved by DEC-025 (2026-10-05): the team gets it in the `prototype-foundations` plugin; init-prototype is retired.
 - [Open question] ValueStream breaks a long step name inside the word ("Investigatio n") at the demo's width. Older than this round; left as it is for now.
 - [Open question] Still to consider from field use: an evidence-tag component with a fixed vocabulary (Early context, To test, Illustrative); pinned stage headings for wide exhibits that scroll sideways; an optional legend on ServiceBlueprint.
+- [Open question] New projects have no test runner yet; for now Vitest goes in when a project's first logic arrives (DEC-026). Should the template carry it from the start? And should `npm run build` run the typecheck (and the tests), so a deploy can't go out with a type error? Today they are separate checks before each save.
+- [Open question] Node: `.nvmrc` says 20 and `engines` says `>=20`, but Node 20 reached end of life in April 2026, Vercel stopped building with it on 2026-10-01 (`>=20` gets its newest, 24), and this repository's own tests need 22.18 or later (they import TypeScript). Raise both to 22, with `engines` pinned to `22.x` so local and Vercel match? Mike's Mac needs Node 22 first.
+- [Open question] The brand book's Restraint section still says every headline makes a claim. Add the tools-and-forms voice (DEC-025) at the next Design System publish.
