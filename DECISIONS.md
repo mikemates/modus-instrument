@@ -285,3 +285,13 @@ Refines DEC-011 for this project.
 - ~~[Open question] Node: `.nvmrc` says 20 and `engines` says `>=20`, but Node 20 reached end of life in April 2026, Vercel stopped building with it on 2026-10-01 (`>=20` gets its newest, 24), and this repository's own tests need 22.18 or later (they import TypeScript). Raise both to 22, with `engines` pinned to `22.x` so local and Vercel match? Mike's Mac needs Node 22 first.~~ — resolved by DEC-027 (2026-10-05): Node 24, declared in `.nvmrc` and `engines`; the tests run on it.
 - [Open question] The brand book's Restraint section still says every headline makes a claim. Add the tools-and-forms voice (DEC-025) at the next Design System publish.
 - ~~[Open question] Should `CLAUDE.md` and the kit's git and SOP skills describe DEC-032's way of saving: for this repository only, or for everyone using the plugin?~~ — resolved by DEC-032 (2026-10-07): this repository only.
+
+## DEC-033 — Paper goes lighter and keeps its warmth [Design System]
+
+**Context:** Mike, reviewing the xd-ai guide in light mode: "I don't love how beige-ey the UI has become in light mode. I'd like to lean lighter and crisper." He saw cool-white options beside today's Paper and asked for "an option where we retain the warmth but lighten the values". He chose D, "warm, one step lighter", over a warm white with white cards and over the cool whites.
+
+**Decision:** Paper keeps its hue and gets lighter. Ground #f3f0e8 → #f8f6f1, panel #fbf9f4 → #fdfcfa, raised #ece7dc → #efece5, inset #e4ded1 → #e9e5dc, hairline #dcd5c7 → #e5e0d5, hairline-strong and mark-soft #c9c1b1 → #d3ccbe, dot 0.10 → 0.09, and the three tints a step lighter (violet #f2ecfe, mist #eaf0f6, sage #ebf1ec). Text, control edges, violet, the semantic colours and all of Ink are unchanged.
+
+Contrast in Paper: ink-3 is 5.28:1 on ground, 4.84:1 on raised, 4.54:1 on inset and 4.71:1 on signal-soft. Control edges are 3.3:1 on ground and 3.47:1 on panel. The ink-3 note is updated; the brand book's advice to use ink-2 on inset and signal-soft still holds as the safer choice.
+
+**Still to do after merge:** `npm run ds:build` and republish the Design System artifact; bump the plugin's version and repackage it, since `modus-ui-foundation` carries the Paper values inline; re-sync projects (the xd-ai guide carries the same values in its own PR).
