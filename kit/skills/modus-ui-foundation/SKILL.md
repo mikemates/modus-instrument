@@ -1,6 +1,6 @@
 ---
 name: "modus-ui-foundation"
-description: "Modus Instrument, the Modus design system and default UI foundation: tokens, Paper (light) and Ink (dark) themes, Manrope, violet signal, restraint rules, Base UI components. Use when designing, building or styling any Modus screen, page or artifact (unless the project chose another library through experience-standards), or when asked how Modus Instrument looks and works."
+description: "Modus Instrument, the Modus design system and default UI foundation: tokens, Paper (light) and Ink (dark) themes, Season Sans and Season Serif, violet signal, restraint rules, Base UI components. Use when designing, building or styling any Modus screen, page or artifact (unless the project chose another library through experience-standards), or when asked how Modus Instrument looks and works."
 ---
 
 # modus-ui-foundation
@@ -27,9 +27,9 @@ If the two ever disagree, the repo wins: the Design System is rebuilt from it.
    - core foundation: `cd "<home>/Projects/modus-instrument" && npm run new -- ../<project-slug>`
    - with the Insight Center patterns: add `--patterns`; with a password entry page: add `--gate` (they combine)
    - then: `cd "<home>/Projects/<project-slug>" && npm install && npm run dev`
-   It copies tokens, themes, Manrope, the Base UI components (Logo included), one calm starter page in the composed column with the Modus Create logo lockup, CLAUDE.md (the type, violet and restraint rules included), DECISIONS.md (DEC-001 logged), MEMORY.md with a `memory/` note, .gitignore and .nvmrc. Success: a page at http://localhost:5173 with the logo top-left, a Paper / Ink switch and one panel saying "Say the claim first. Then the evidence."
+   It copies tokens, themes, the Season fonts, the Base UI components (Logo included), one calm starter page in the composed column with the Modus Create logo lockup, CLAUDE.md (the type, violet and restraint rules included), DECISIONS.md (DEC-001 logged), MEMORY.md with a `memory/` note, .gitignore and .nvmrc. Success: a page at http://localhost:5173 with the logo top-left, a Paper / Ink switch and one panel saying "Say the claim first. Then the evidence."
 3. `--gate` is for anything shared outside the team: the build encrypts the site, so a link shows nothing without the password, on any host. The command prints a fresh password; it lives in `gate.config.mjs` (or `SITE_PASSWORD` where the site is built). Anyone who can read the repository can read it, so keep the repository private. The entry page's words are in `src/gate/copy.ts`.
-4. If the foundation repo isn't on this computer, the person sets it up first (SOP A, step 0, in `modus-project-sop`). Without it, build the same structure by hand: Vite + React 19 + TypeScript + Tailwind v4 + `@base-ui/react` + `@fontsource-variable/manrope`, a tokens file generating a Tailwind `@theme`, and the values below.
+4. If the foundation repo isn't on this computer, the person sets it up first (SOP A, step 0, in `modus-project-sop`). Without it, build the same structure by hand: Vite + React 19 + TypeScript + Tailwind v4 + `@base-ui/react` + the Season fonts from this plugin's `brand-fonts/` (loaded with `@font-face`), a tokens file generating a Tailwind `@theme`, and the values below.
 5. Make sure a new project's CLAUDE.md says: *"Follows Modus Experience Standards v0.2."*, with any project deltas after it. (An older project keeps its version line until it's brought up to date.)
 
 ## Stack
@@ -66,8 +66,8 @@ Applied everywhere, a house device marks nothing and the page reads as generated
 **Logo — Modus Create**
 - Two forms: the wordmark (glyph + MODUS CREATE) and the glyph alone. Official files: `MC_Black.svg`, `MC_White.svg`, `MC_Icon_Black.svg`, `MC_Icon_White.svg`.
 - In code, always the `Logo` component (`variant="wordmark"` default, or `"glyph"`). It draws the official artwork in `color-logo` — black on Paper, white on Ink — and follows the theme. Size it with a height class; the width follows.
-- Never redraw it, retype "Modus Create" in Manrope as a stand-in, recolour it (no violet, no ink-2, no gradient, outline or shadow), stretch it, or use a PNG.
-- Set it on `ground` or `panel`. Product lockup (TopBar): wordmark 18px tall · a 1px `hairline-strong` divider 20px tall · the product name in Manrope 600 at 15px (`ui-m`). Below 640px the glyph (22px) replaces the wordmark and a long name wraps onto two lines. A `badge` tag after the name marks the whole site ("Example", "Draft"). Footer sign-off: the glyph at 16px. One wordmark per page.
+- Never redraw it, retype "Modus Create" in Season Sans as a stand-in, recolour it (no violet, no ink-2, no gradient, outline or shadow), stretch it, or use a PNG.
+- Set it on `ground` or `panel`. Product lockup (TopBar): wordmark 18px tall · a 1px `hairline-strong` divider 20px tall · the product name in Season Sans 600 at 15px (`ui-m`). Below 640px the glyph (22px) replaces the wordmark and a long name wraps onto two lines. A `badge` tag after the name marks the whole site ("Example", "Draft"). Footer sign-off: the glyph at 16px. One wordmark per page.
 - If the logo files change, `npm run logo` in the foundation repo copies the new artwork into the component.
 
 **Colour (tokens, never hex in components)**
@@ -79,13 +79,14 @@ Applied everywhere, a house device marks nothing and the page reads as generated
 - Tints: `tint-violet`, `tint-mist` and `tint-sage` each group one kind of content, always with a word or an icon too, and mean one thing per project (OpportunityCard: violet heads Build-new, mist Evolve-ways-of-working). The violet ramp is for brand moments, not UI states.
 - No gradients, glows, stock 3D, emoji, or coloured left-border cards.
 
-**Type — Manrope only (DEC-018)**
-- display-xl 104/0.95, display-l 64/1.03, display-m 44/1.08 — weight 400, tracking −0.05 to −0.035em.
-- title 26/1.15 500, statement 20/1.3 500, body-l 16/1.6, body 14/1.55, caption 12/1.45.
+**Type — Season Sans, with Season Serif on big headlines (DEC-030)**
+- Season Sans (`--font-body`) sets everything. Season Serif (`--font-display`) sets only the display steps and the POV headline (`font-display` beside `layout-hero`); never below 44px.
+- display-xl 104/0.95, display-l 64/1.03, display-m 44/1.08 — Season Serif 400, tracking −0.025, −0.02, −0.015em.
+- title 26/1.15 500 (−0.015em), statement 20/1.3 500 (−0.01em), body-l 16/1.6, body 14/1.55, caption 12/1.45.
 - Interface steps: `ui-s` 13px (links, legends, metadata, table cells, tabs), `ui-m` 15px (figure titles, row names, the product name), `ui-l` 17px (exhibit and group titles, set semibold). They take their line height from where they sit. Never a one-off size such as `text-[15px]`.
 - Tailwind's own `text-xs`, `text-sm`, `text-base`, `text-lg` and `text-xl` and up are switched off by the token theme and draw nothing. `npm run tokens` (run first by `dev` and `build`) stops on them and names the file and line.
 - label 10.5px, 600, +0.08em, uppercase — the annotation voice for IDs, statuses, qualifiers and table heads. It replaces monospace. A Tag's words use `tag` (10.5px, 600, +0.06em).
-- Figures: figure-xl 88, figure-l 40, figure-m 26, weight 400. `tabular-nums` in tables and axes.
+- Figures: figure-xl 88, figure-l 40, figure-m 26, weight 400. The `tabular` utility in tables and axes, never Tailwind's `tabular-nums`: with Season, only `tabular` keeps the spaces narrow.
 - The two-tone headline, for the point of view only: the claim in `ink`, its consequence in `ink-3`.
 
 **Structure**
@@ -117,10 +118,10 @@ Applied everywhere, a house device marks nothing and the page reads as generated
 
 ## Outside a coded project (HTML artifacts, one-off pages)
 
-Use the same tokens as CSS variables, Manrope from Google Fonts (`family=Manrope:wght@200..800`), and the rules above, Restraint included. For the logo, inline the official SVG's paths (from the foundation repo's `design-system/assets/Logos/` or the Design System's Logos) with `fill="currentColor"` and `color: var(--color-logo)`; never retype or redraw it. For width, give the page wrapper `width:100%; max-width:var(--layout-column); margin-inline:auto; padding-inline:var(--layout-gutter)`.
+Use the same tokens as CSS variables, the Season fonts, and the rules above, Restraint included. For the logo, inline the official SVG's paths (from the foundation repo's `design-system/assets/Logos/` or the Design System's Logos) with `fill="currentColor"` and `color: var(--color-logo)`; never retype or redraw it. For the fonts, publish `SeasonSansUprightsVF.ttf`, `SeasonSansItalicsVF.ttf` and `SeasonSerifUprightsVF.ttf` beside the page, from this plugin's `brand-fonts/` folder (or the foundation's `kit/brand-fonts/`), with an `@font-face` each (`font-weight: 300 900`); family names `"Season Sans"` and `"Season Serif"`. Never substitute another face for the brand fonts. For width, give the page wrapper `width:100%; max-width:var(--layout-column); margin-inline:auto; padding-inline:var(--layout-gutter)`.
 
 ```css
-:root,[data-theme="paper"]{--color-ground:#f3f0e8;--color-panel:#fbf9f4;--color-raised:#ece7dc;--color-inset:#e4ded1;--color-hairline:#dcd5c7;--color-hairline-strong:#c9c1b1;--color-control-edge:#8e877a;--color-ink:#1c1b18;--color-ink-2:#57534b;--color-ink-3:#6b665c;--color-signal:#8135f9;--color-signal-text:#4d05c1;--color-signal-soft:rgba(129,53,249,.08);--color-signal-line:rgba(129,53,249,.40);--color-on-signal:#ffffff;--color-action:#8135f9;--color-action-hover:#6a24e0;--color-on-action:#ffffff;--color-focus:#8135f9;--color-mark:#8e877a;--color-mark-soft:#c9c1b1;--color-dot:rgba(28,27,24,.10);--color-positive:#2a6e47;--color-negative:#a83b28;--color-tint-violet:#efe8fe;--color-tint-mist:#e6edf5;--color-tint-sage:#e8efe9;--color-logo:#000000;--color-violet-900:#26035d;--color-violet-800:#370485;--color-violet-700:#4d05c1;--color-violet-500:#8135f9;--color-violet-300:#c09bfb;--color-violet-100:#e3d7fd;--radius-tag:4px;--radius-control:8px;--radius-panel:10px;--radius-pill:999px;--shadow-overlay:0 24px 64px rgba(28, 27, 24, 0.16);--font-body:"Manrope","Helvetica Neue",Arial,sans-serif;--layout-column:clamp(1440px,calc(100vw - 240px),1920px);--layout-gutter:clamp(16px,5vw,64px);--layout-measure:620px;--layout-rail:280px;--layout-hero:clamp(40px,5vw,max(64px,min((100vw - 240px) / 22.5,85px)))}
+:root,[data-theme="paper"]{--color-ground:#f3f0e8;--color-panel:#fbf9f4;--color-raised:#ece7dc;--color-inset:#e4ded1;--color-hairline:#dcd5c7;--color-hairline-strong:#c9c1b1;--color-control-edge:#8e877a;--color-ink:#1c1b18;--color-ink-2:#57534b;--color-ink-3:#6b665c;--color-signal:#8135f9;--color-signal-text:#4d05c1;--color-signal-soft:rgba(129,53,249,.08);--color-signal-line:rgba(129,53,249,.40);--color-on-signal:#ffffff;--color-action:#8135f9;--color-action-hover:#6a24e0;--color-on-action:#ffffff;--color-focus:#8135f9;--color-mark:#8e877a;--color-mark-soft:#c9c1b1;--color-dot:rgba(28,27,24,.10);--color-positive:#2a6e47;--color-negative:#a83b28;--color-tint-violet:#efe8fe;--color-tint-mist:#e6edf5;--color-tint-sage:#e8efe9;--color-logo:#000000;--color-violet-900:#26035d;--color-violet-800:#370485;--color-violet-700:#4d05c1;--color-violet-500:#8135f9;--color-violet-300:#c09bfb;--color-violet-100:#e3d7fd;--radius-tag:4px;--radius-control:8px;--radius-panel:10px;--radius-pill:999px;--shadow-overlay:0 24px 64px rgba(28, 27, 24, 0.16);--font-body:"Season Sans","Helvetica Neue",Arial,sans-serif;--font-display:"Season Serif",Georgia,serif;--layout-column:clamp(1440px,calc(100vw - 240px),1920px);--layout-gutter:clamp(16px,5vw,64px);--layout-measure:620px;--layout-rail:280px;--layout-hero:clamp(40px,5vw,max(64px,min((100vw - 240px) / 22.5,85px)))}
 [data-theme="ink"]{--color-ground:#0e0c12;--color-panel:#15131b;--color-raised:#1e1b26;--color-inset:#110f16;--color-hairline:#2a2634;--color-hairline-strong:#3b3648;--color-control-edge:#6f6882;--color-ink:#f2f0f6;--color-ink-2:#ada8ba;--color-ink-3:#918ba0;--color-signal:#9a63ff;--color-signal-text:#c09bfb;--color-signal-soft:rgba(154,99,255,.12);--color-signal-line:rgba(154,99,255,.45);--color-on-signal:#0e0c12;--color-action:#8135f9;--color-action-hover:#6a24e0;--color-on-action:#ffffff;--color-focus:#c09bfb;--color-mark:#77708a;--color-mark-soft:#3b3648;--color-dot:rgba(255,255,255,.07);--color-positive:#5cc98f;--color-negative:#f2826f;--color-tint-violet:#251b3d;--color-tint-mist:#18212c;--color-tint-sage:#18241d;--color-logo:#ffffff;--shadow-overlay:0 24px 64px rgba(0, 0, 0, 0.50);color-scheme:dark}
 ```
 
@@ -132,7 +133,7 @@ When the foundation questions picked the client's library or the stack engineeri
 - **What always travels:** the floor and the engineering bar (`experience-standards`), the decision log and docs, the checks (`render-checks`), options first for visual choices, and the preview and save lines.
 - **The look is a chosen theme, never the library's stock defaults:** the client's own theme on client-branded work; our token values mapped onto the library's theme on Modus-branded work. Keep it in one place.
 - **Match the stack engineering will keep:** their library and React versions, their theme file, their conventions. Until they arrive, log the gap as an `[Assumption]`.
-- **What stays behind on client-branded work:** Manrope, the violet rules, Paper and Ink, the composed column and the Modus logo. The restraint principle still holds (each device marks something), in the client's vocabulary.
+- **What stays behind on client-branded work:** the Season fonts, the violet rules, Paper and Ink, the composed column and the Modus logo. The restraint principle still holds (each device marks something), in the client's vocabulary.
 - Log every departure from this skill as an `[Experience]` decision in the project.
 
 ## Changing the system itself

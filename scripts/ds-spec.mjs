@@ -43,7 +43,7 @@ export const components = [
     name: 'Logo', group: 'Brand', height: 200,
     summary: 'The Modus Create logo, drawn from the official artwork; black on Paper, white on Ink.',
     use: ['Use the wordmark once per page, top-left in the TopBar; the glyph alone below 640px and as a 16px footer sign-off.', 'Size it with a height class (`h-[18px]` for the top bar); the width follows.', 'Pass `label={null}` when a visible product name already names the link.'],
-    avoid: ['Recolouring it: it always draws in `color-logo` (black or white, as supplied).', 'Retyping "Modus Create" in Manrope, or using a PNG, in place of the component.'],
+    avoid: ['Recolouring it: it always draws in `color-logo` (black or white, as supplied).', 'Retyping "Modus Create" in Season Sans, or using a PNG, in place of the component.'],
     provides: 'Optional `variant` (`wordmark` | `glyph`), `label` (accessible name, default "Modus Create"), and a height class.',
     preview: `h('div', { style: { display: 'flex', flexDirection: 'column', gap: 24 } },
   h('div', { style: { display: 'flex', gap: 40, alignItems: 'center', flexWrap: 'wrap' } },

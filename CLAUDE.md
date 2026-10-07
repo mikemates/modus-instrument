@@ -3,7 +3,7 @@
 Orientation and rules for anyone (person or AI) working on this project. This overrides defaults.
 
 ## What this is
-Modus Instrument is the house UI foundation for Modus prototypes: one token file, two themes (Paper and Ink), Manrope, Modus violet as the signal, and a set of accessible components built on Base UI. It also carries the Insight Center patterns (insight and opportunity cards, value stream, service blueprint, capability matrix, ROI model, Ask palette) and a demo page. **All demo content is illustrative** — a sample commercial-claims engagement for an unnamed [Prospect].
+Modus Instrument is the house UI foundation for Modus prototypes: one token file, two themes (Paper and Ink), the brand fonts Season Sans and Season Serif, Modus violet as the signal, and a set of accessible components built on Base UI. It also carries the Insight Center patterns (insight and opportunity cards, value stream, service blueprint, capability matrix, ROI model, Ask palette) and a demo page. **All demo content is illustrative** — a sample commercial-claims engagement for an unnamed [Prospect].
 
 It is the source of the Modus Instrument Design System artifact: https://claude.ai/artifact/34AemeyKUpp1dyAc4TDoKv
 
@@ -13,13 +13,14 @@ Code: https://github.com/mikemates/modus-instrument (backup and shared copy; the
 Every new prototype starts here and looks like Modus, not like a stock component kit.
 
 ## Stack
-Vite 8 + React 19 + TypeScript + Tailwind v4 + Base UI (`@base-ui/react`) + Manrope (`@fontsource-variable/manrope`), on Node 24 (`.nvmrc` and `engines`, DEC-027). To run it: `npm install && npm run dev`.
+Vite 8 + React 19 + TypeScript + Tailwind v4 + Base UI (`@base-ui/react`) + the Season fonts (variable TTFs in `kit/brand-fonts`, loaded by `src/styles/fonts.css`, DEC-030), on Node 24 (`.nvmrc` and `engines`, DEC-027). To run it: `npm install && npm run dev`.
 
 In `package.json`, `allowScripts` lets only esbuild and @parcel/watcher run install scripts (DEC-027), and `overrides` gives Tailwind's command line the newer file watcher until it takes 2.6 itself (DEC-028). Node and dependency updates follow SOP F in `modus-project-sop`.
 
 Follows Modus Experience Standards v0.2, whose default foundation this is (DEC-026).
 
 ## Where things live
+- `kit/brand-fonts/` — the Modus brand fonts, Season Sans and Season Serif. `tokens.json` lists the three variable files the app, the Design System and new projects use.
 - `tokens/tokens.json` — the ONLY place colours, type, spacing, radii, shadows and layout values are defined, each with a usage note; colours carry a Paper and an Ink value.
 - `scripts/build-tokens.mjs` — generates `src/styles/tokens.css` (the app's Tailwind theme) and `src/styles/tokens.reference.css` (for the Design System bundle). Never edit either by hand; `npm run dev` and `npm run build` regenerate them.
 - `design-system/assets/Logos/` — the official Modus Create logo SVGs (wordmark, glyph; black, white). `npm run logo` copies their geometry into `src/components/logo-paths.ts` for the `Logo` component; never edit that file or redraw the logo.
@@ -37,6 +38,7 @@ Follows Modus Experience Standards v0.2, whose default foundation this is (DEC-0
 - Tokens only. Use the token utilities (`bg-panel`, `text-ink-2`, `text-statement`, `rounded-panel`, `border-hairline`, `bg-action`) — never a hex value or a one-off size for something a token covers.
 - One composed column: wrap page content in `mi-frame` (`layout-column`: 1440px on laptops, growing to 1920px on big monitors) and size the POV headline with `layout-hero` so it keeps its stack. Galleries keep fixed column counts; reading text and fields stop at `layout-measure`. Never run page content edge to edge (DEC-013).
 - Every colour token has a value in Paper and Ink. Check contrast in both: text 4.5:1, large text, control edges and focus 3:1. In Paper, `ink-3` falls short on `inset` and `signal-soft`: use `ink-2` there (Label's `strong` tone).
+- Type: Season Sans for everything; Season Serif only on the display steps (`text-display-xl`, `-l`, `-m`, which set it themselves) and on the POV headline, which takes `font-display` beside `layout-hero`. Never the serif below 44px (DEC-030).
 - Type uses the token steps only (`text-body`, `text-ui-s`, `text-ui-m`, `text-ui-l`, `text-caption` and the rest). Tailwind's `text-xs`, `text-sm`, `text-base`, `text-lg` and `text-xl` and up are switched off by the theme and draw nothing; `npm run tokens` stops on them (DEC-018).
 - The logo is always the `Logo` component in `color-logo` (black on Paper, white on Ink) — never recoloured, retyped or a PNG. One wordmark per page.
 - Violet is the signal: one per exhibit. Filled violet (`bg-action`) means "you can act here": each main action (the bar's, the hero's, each chapter's close) and the RowMark that opens a row. Never two filled buttons side by side; second-tier links are GoLink, in ink (DEC-017).

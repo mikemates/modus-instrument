@@ -11,7 +11,7 @@ Replaces the Standards v0.1 default of shadcn-style components on Radix (a Start
 Direction A's dense, shared-border panels, annotated exhibits (FIG labels) and dot grid, set in Direction B's warm paper palette, type and colour treatment. Chosen by Mike from four directions on the Look & Feel canvas.
 
 ## DEC-003 — Manrope is the only typeface [Brand]
-**Status:** decided · **Date:** 2026-10-01
+**Status:** SUPERSEDED by DEC-030 (2026-10-07) · **Date:** 2026-10-01
 Manrope (variable, 200–800, OFL) for display, body and labels. Body copy is sans, not serif. Uppercase tracked labels replace a monospace for annotations.
 
 ## DEC-004 — Modus violet roles [Brand]
@@ -242,6 +242,18 @@ DEC-025 updated Mike's own skills with review cards and gave the team the plugin
 - **On Mike's account:** the nine separate skills come out under **Customize → Skills**. Anthropic's own skills (docs, docx, pdf, pptx, xlsx and the rest) stay.
 
 Refines DEC-025.
+
+## DEC-030 — The brand fonts: Season Sans, with Season Serif on big headlines [Brand]
+**Status:** decided · **Date:** 2026-10-07
+Mike asked to see the system in the Modus brand fonts (Displaay's Season), approved a rendered preview the same day and asked for it everywhere. Supersedes DEC-003.
+- **Season Sans sets everything:** body, interface, labels, buttons and figures, at the same sizes and weights as before. Variable, 300–900.
+- **Season Serif sets only the big headlines:** the three display steps (104, 64 and 44px) and the POV headline sized with `layout-hero`, which takes `font-display`. Mike finds the serif only works large, so nothing under 44px uses it.
+- **Looser tracking:** Manrope's values made Season's letters touch. Serif display −0.025, −0.02 and −0.015em (was −0.05, −0.04, −0.035); title −0.015, statement −0.01, body-l 0; figures −0.025, −0.02, −0.015 (was −0.05, −0.04, −0.03).
+- **How it's wired:** `type.families` gains `display`, and the Display group uses it. `build-tokens.mjs` gives each style in a non-body family its face with its size class, so `text-display-*` sets the serif by itself. The files live in `kit/brand-fonts` (all 30 cuts, kept as supplied). `src/styles/fonts.css` loads the three variable files `tokens.json` lists: sans upright, sans italic, serif upright. The Design System and `npm run new` copy the same three; new projects keep them in `src/fonts`. `@fontsource-variable/manrope` is gone.
+- **Tabular figures:** Season's `tnum` also swaps the space for a figure-wide one, which spread out lines like "PT 25 min". The `tabular` utility takes the difference back with negative word spacing (−0.442em), so only the digits line up.
+- **Licences:** Modus holds licences for Season, so the fonts can ship in prototypes and artifacts.
+
+Checked: tokens, typecheck, tests and build pass; a new project, plain and with `--gate --patterns`, installs, typechecks and builds with the fonts; the demo and the catalogue previews were rendered in Paper and Ink, with nothing else changed but the type.
 
 ## Open questions
 - ~~[Open question] The official Modus logo asset~~ — resolved by DEC-007 (2026-10-02).

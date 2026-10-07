@@ -37,7 +37,9 @@
   -webkit-mask-image: linear-gradient(180deg, #000 45%, transparent 96%);
   mask-image: linear-gradient(180deg, #000 45%, transparent 96%);
 }
-@utility tabular { font-variant-numeric: tabular-nums; }
+/* Season's tabular figures also swap the space for a figure-wide one (650 units, not 208), which gaps "PT 25 min".
+   The negative word spacing takes the difference back, so only the digits line up. */
+@utility tabular { font-variant-numeric: tabular-nums; word-spacing: -0.442em; }
 
 /* Layout (tokens: layout-*). Every page is one composed column (layout-column), centred, that grows on
    big monitors so its proportions hold. Reading text and fields keep layout-measure. */

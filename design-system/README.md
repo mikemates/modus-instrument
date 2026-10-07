@@ -1,4 +1,4 @@
-Modus Instrument is the house UI system for insight and strategy work: dense, annotated instruments set on warm paper, in Manrope, with Modus violet as the one signal. Paper is the default theme; Ink is the dark theme for big screens in workshop rooms. Insight Center is its first product.
+Modus Instrument is the house UI system for insight and strategy work: dense, annotated instruments set on warm paper, in the Modus brand faces (Season Sans, with Season Serif for big headlines), with Modus violet as the one signal. Paper is the default theme; Ink is the dark theme for big screens in workshop rooms. Insight Center is its first product.
 
 Build from the components in `components/bundle.js` (namespace `ModusInstrument`) and the tokens in `tokens.json`. Never hard-code a colour, size or radius that a token covers.
 
@@ -40,7 +40,7 @@ Each house device marks something. Used everywhere, it marks nothing, and the pa
 
 ### Type
 
-- One family: Manrope (`--font-body`, variable 200–800). Display at 400 with tight tracking; body at 400; labels and buttons at 600.
+- Two faces, both Displaay's Season. Season Sans (`--font-body`, variable 300–900) sets everything: body at 400, labels and buttons at 600, figures at 400. Season Serif (`--font-display`, variable 300–900) sets only the three display steps, the big headlines, at 400; at smaller sizes it loses its character, so never use it below `display-m`. The POV headline sized with `layout-hero` takes `font-display` too.
 - `display-xl` once per page for the thing's name; `display-l` for the POV headline; `display-m` for chapter and section claims; `title` for card headings and a chapter's closing question; `statement` for an insight; `body-l` for reading text at a 620px measure; `body` for UI; `caption` for sources.
 - Three interface steps fill the gaps between caption and statement: `ui-s` (13px) for links, legends, metadata, table cells and tabs; `ui-m` (15px) for figure titles, row names and the product name; `ui-l` (17px) for exhibit and group titles, set semibold. They take their line height from where they sit. Use them, never a one-off size such as `text-[15px]`.
 - `label` is the annotation voice (IDs, statuses, qualifiers, table heads): 10.5px, 600, +8% tracking, uppercase. It replaces a monospace; do not add one. A Tag sets its words in `tag`, a touch tighter.
@@ -98,10 +98,10 @@ Every view handles default, loading (Skeleton after ~400ms), empty (EmptyState w
 ## Logo
 
 - The Modus Create logo comes in two forms: the **wordmark** (glyph + MODUS CREATE) and the **glyph** alone. The official files are in Logos: `MC_Black.svg`, `MC_White.svg`, `MC_Icon_Black.svg`, `MC_Icon_White.svg`.
-- In code, use `Logo` (wordmark) or `Logo variant="glyph"`. It draws the official artwork in `color-logo` — black on Paper, white on Ink — and switches with the theme. Never redraw it, retype "Modus Create" in Manrope as a stand-in, or export a PNG of it.
+- In code, use `Logo` (wordmark) or `Logo variant="glyph"`. It draws the official artwork in `color-logo` — black on Paper, white on Ink — and switches with the theme. Never redraw it, retype "Modus Create" in Season Sans as a stand-in, or export a PNG of it.
 - Use one ink only: black or white, as supplied. Never violet, `color-ink-2`, a gradient, an outline or a shadow. Never stretch it; size it by height.
 - Set it on `color-ground` or `color-panel`. On a violet block, a tint or a photo, use the white or black file that keeps it clearly legible, or leave it off.
-- Product lockup (TopBar): wordmark at 18px tall, a 1px `color-hairline-strong` divider 20px tall, then the product name in Manrope 600 at 15px (`ui-m`) — "Insight Center". Below 640px wide, the glyph (22px) replaces the wordmark and a long product name wraps onto two lines. A tag after the name (`badge`) marks the whole site, such as "Example" or "Draft".
+- Product lockup (TopBar): wordmark at 18px tall, a 1px `color-hairline-strong` divider 20px tall, then the product name in Season Sans 600 at 15px (`ui-m`) — "Insight Center". Below 640px wide, the glyph (22px) replaces the wordmark and a long product name wraps onto two lines. A tag after the name (`badge`) marks the whole site, such as "Example" or "Draft".
 - Sign-off: the glyph at 16px beside the footer line. One wordmark per page.
 - [Open question] Clear space and minimum size: confirm against the Modus Create brand guidelines.
 

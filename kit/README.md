@@ -5,7 +5,7 @@ The skills Modus prototypes are built with. This folder is their source, and eve
 | Skill | What it does |
 | --- | --- |
 | `modus-project-sop` | Mike's operating procedure: start (with the foundation questions), resume, re-sync, promote back, share; working from a cloud session; his standing preferences |
-| `modus-ui-foundation` | The Modus Instrument look: tokens, Paper and Ink, Manrope, violet, restraint, the components |
+| `modus-ui-foundation` | The Modus Instrument look: tokens, Paper and Ink, the Season fonts, violet, restraint, the components |
 | `experience-standards` | Modus Experience Standards v0.2: the floor, production-grade engineering, and how to choose a component foundation |
 | `render-checks` | Shots, comparison sheets, pixel-for-pixel proof, the accessibility check and the sideways sweep |
 | `ai-scrubber` | Finds and fixes the signs of an AI-made build, with rendered options |
@@ -13,6 +13,8 @@ The skills Modus prototypes are built with. This folder is their source, and eve
 | `local-preview` | Hands over the exact command to run a project |
 | `git-workflow` | Never runs git; hands over one save command |
 | `memory-hygiene` | CLAUDE.md, the decision log and memory notes |
+
+`brand-fonts/` holds the Modus brand fonts, Season Sans and Season Serif. The plugin carries the three variable files the system uses, so a page built outside the foundation can load them.
 
 `init-prototype` was retired in 0.2.0: `modus-project-sop` starts projects now, with its coaching tone and the Vercel checklist folded in.
 

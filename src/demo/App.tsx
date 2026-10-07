@@ -40,7 +40,7 @@ export function App() {
         <Card as="section" className="mi-dots grid grid-cols-1 overflow-hidden lg:grid-cols-[minmax(0,2fr)_minmax(0,1fr)]">
           <div className="flex flex-col gap-6 border-b border-hairline bg-panel/80 p-6 sm:p-10 lg:border-b-0 lg:border-r">
             <div className="flex justify-end"><Label>Illustrative data</Label></div>
-            <h1 className="m-0 text-[length:var(--layout-hero)] font-normal leading-[1.03] tracking-[-0.04em] text-ink">
+            <h1 className="m-0 font-display text-[length:var(--layout-hero)] font-normal leading-[1.03] tracking-[-0.02em] text-ink">
               Claims start fast and finish slow. <span className="text-ink-3">21 of 22 days are waiting, not work.</span>
             </h1>
             <p className="m-0 mi-measure text-body-l text-ink-2">

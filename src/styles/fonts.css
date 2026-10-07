@@ -1,0 +1,4 @@
+/* The Modus brand faces, Season Sans and Season Serif (Displaay), from kit/brand-fonts. tokens.json lists the same files. */
+@font-face { font-family: "Season Sans"; src: url("../../kit/brand-fonts/SeasonSansUprightsVF.ttf") format("truetype"); font-weight: 300 900; font-style: normal; font-display: swap; }
+@font-face { font-family: "Season Sans"; src: url("../../kit/brand-fonts/SeasonSansItalicsVF.ttf") format("truetype"); font-weight: 300 900; font-style: italic; font-display: swap; }
+@font-face { font-family: "Season Serif"; src: url("../../kit/brand-fonts/SeasonSerifUprightsVF.ttf") format("truetype"); font-weight: 300 900; font-style: normal; font-display: swap; }

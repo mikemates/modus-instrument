@@ -23,8 +23,8 @@ cpSync(resolve(root, 'design-system/Cover.preview.html'), join(out, 'components/
 // Logos: the SVGs are uploaded to the artifact's asset store (the index records them); only the group's README is a file.
 cpSync(resolve(root, 'design-system/assets/Logos/README.md'), join(out, 'assets/Logos/README.md'));
 
-// 2. Fonts (Manrope Variable, latin subset, OFL)
-cpSync(resolve(root, 'node_modules/@fontsource-variable/manrope/files/manrope-latin-wght-normal.woff2'), join(out, 'fonts/manrope-latin-wght-normal.woff2'));
+// 2. Fonts: the files tokens.json lists, from kit/brand-fonts
+for (const f of JSON.parse(readFileSync(resolve(root, 'tokens/tokens.json'), 'utf8')).type.fonts) cpSync(resolve(root, 'kit/brand-fonts', f.file.replace(/^fonts\//, '')), join(out, f.file));
 
 // 3. The component bundle: one classic script assigning window.ModusInstrument, React from the page's globals
 const reactGlobals = {

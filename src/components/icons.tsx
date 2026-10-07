@@ -1,6 +1,6 @@
 import type { SVGProps } from 'react';
 
-/* A small stroke icon set drawn on a 14px grid, so icons match Manrope's weight at UI sizes.
+/* A small stroke icon set drawn on a 14px grid, so icons match Season Sans's weight at UI sizes.
    Decorative by default (aria-hidden); pass aria-label + role="img" when an icon carries meaning alone. */
 type IconProps = SVGProps<SVGSVGElement> & { size?: number };
 

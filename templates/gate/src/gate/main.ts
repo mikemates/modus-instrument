@@ -1,7 +1,7 @@
 /* The entry page: the page's first script, before the site. It asks for the password, makes the key, opens the
    encrypted site and runs it; "Remember on this device" keeps the key so the reader isn't asked again. The page's
    styles and fonts load here, so the entry page and the site share them. */
-import '@fontsource-variable/manrope';
+import '../styles/fonts.css';
 import '../styles/index.css';
 import { gateCopy as copy } from './copy';
 import { deriveKey, exportKey, importKey, sealedFrom, supported, unseal } from './crypto';

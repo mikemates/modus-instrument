@@ -1,5 +1,5 @@
 // Starts a new prototype on the Modus Instrument foundation.
-//   npm run new -- ../northstar-pdp                 core: tokens, themes, Manrope, Base UI components
+//   npm run new -- ../northstar-pdp                 core: tokens, themes, the Season fonts, Base UI components
 //   npm run new -- ../claims-pov --patterns         + Insight Center patterns and illustrative sample data
 //   npm run new -- ../client-preview --gate         + a password entry page: the build encrypts the site, so a shared
 //                                                     link shows nothing without the password, on any host
@@ -34,6 +34,13 @@ const write = (p, s) => { mkdirSync(dirname(join(dest, p)), { recursive: true })
 mkdirSync(dest, { recursive: true });
 ['tokens', 'scripts/build-tokens.mjs', 'src/components', 'src/lib', 'src/styles/base.css', 'src/styles/index.css', 'src/styles/tokens.css', 'vite.config.ts', 'tsconfig.json', '.nvmrc'].forEach(copy);
 if (withPatterns) ['src/patterns', 'src/data'].forEach(copy);
+// The brand fonts: the files tokens.json lists, from the foundation's kit/brand-fonts into src/fonts.
+for (const f of JSON.parse(readFileSync(join(root, 'tokens/tokens.json'), 'utf8')).type.fonts) {
+  const file = basename(f.file);
+  mkdirSync(join(dest, 'src/fonts'), { recursive: true });
+  cpSync(join(root, 'kit/brand-fonts', file), join(dest, 'src/fonts', file));
+}
+write('src/styles/fonts.css', readFileSync(join(root, 'src/styles/fonts.css'), 'utf8').replace(/\.\.\/\.\.\/kit\/brand-fonts\//g, '../fonts/').replace('from kit/brand-fonts', 'from src/fonts'));
 
 // A project's own .gitignore (the foundation's lists files only the foundation makes). Same list as the git-workflow skill.
 write('.gitignore', `# Auto-downloaded building blocks and built output — no need to back these up
@@ -84,7 +91,7 @@ write('package.json', JSON.stringify({
   name: slug, private: true, version: '0.1.0', type: 'module',
   engines: src.engines,
   scripts: { tokens: 'node scripts/build-tokens.mjs', dev: 'npm run tokens && vite', build: 'npm run tokens && vite build', preview: 'vite preview', typecheck: 'tsc --noEmit' },
-  dependencies: pick(src.dependencies, ['@base-ui/react', '@fontsource-variable/manrope', 'clsx', 'react', 'react-dom']),
+  dependencies: pick(src.dependencies, ['@base-ui/react', 'clsx', 'react', 'react-dom']),
   devDependencies: pick(src.devDependencies, ['@tailwindcss/vite', '@types/react', '@types/react-dom', '@vitejs/plugin-react', 'tailwindcss', 'typescript', 'vite']),
 }, null, 2) + '\n');
 
@@ -121,7 +128,7 @@ write('index.html', withGate ? `<!doctype html>
 `);
 write('src/main.tsx', `import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
-${withGate ? '// Styles and fonts load in the entry page (src/gate/main.ts), which runs first.' : "import '@fontsource-variable/manrope';\nimport './styles/index.css';"}
+${withGate ? '// Styles and fonts load in the entry page (src/gate/main.ts), which runs first.' : "import './styles/fonts.css';\nimport './styles/index.css';"}
 import { App } from './App';
 
 createRoot(document.getElementById('root')!).render(
@@ -146,10 +153,10 @@ export function App() {
       </header>
       <main className="mi-frame flex flex-col gap-10 py-10">
         <Card as="section" className="mi-dots flex flex-col gap-6 p-6 sm:p-10">
-          <h1 className="m-0 max-w-[16ch] text-[length:var(--layout-hero)] font-normal leading-[1.03] tracking-[-0.04em]">
+          <h1 className="m-0 max-w-[16ch] font-display text-[length:var(--layout-hero)] font-normal leading-[1.03] tracking-[-0.02em]">
             Say the claim first. <span className="text-ink-3">Then the evidence.</span>
           </h1>
-          <p className="m-0 mi-measure text-body-l text-ink-2">This project starts on Modus Instrument: Paper and Ink themes, Manrope, and violet as the one signal.</p>
+          <p className="m-0 mi-measure text-body-l text-ink-2">This project starts on Modus Instrument: Paper and Ink themes, the Season fonts, and violet as the one signal.</p>
           <div className="flex flex-wrap gap-3">
             <Button iconEnd={<Icons.ArrowRight />}>Start here</Button>
             <Button variant="secondary">Secondary action</Button>
@@ -205,7 +212,7 @@ Append-only. When something changes, mark the old entry SUPERSEDED (don't delete
 
 ## DEC-001 — Modus Instrument as the UI foundation [Experience]
 **Status:** decided · **Date:** ${today}
-The default foundation in Modus Experience Standards v0.2: Base UI primitives (keyboard, focus, ARIA), with the look entirely from Modus Instrument tokens, so it doesn't read as a stock component kit. Paper and Ink themes, Manrope, violet signal. Built to the Standards' engineering bar, so it could move into production with little effort.
+The default foundation in Modus Experience Standards v0.2: Base UI primitives (keyboard, focus, ARIA), with the look entirely from Modus Instrument tokens, so it doesn't read as a stock component kit. Paper and Ink themes, Season Sans with Season Serif headlines, violet signal. Built to the Standards' engineering bar, so it could move into production with little effort.
 [Open question] Record the answers to the foundation questions here: whose brand, the client's design system, where the code goes next, anything Instrument lacks, how long it lives.
 `);
 write('MEMORY.md', `# Memory Index

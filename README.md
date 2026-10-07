@@ -1,6 +1,6 @@
 # Modus Instrument
 
-The Modus UI foundation: tokens, Paper and Ink themes, Manrope, Modus violet, and accessible components on Base UI — plus the Insight Center patterns and a demo page with illustrative content.
+The Modus UI foundation: tokens, Paper and Ink themes, the Modus brand fonts (Season Sans, with Season Serif for big headlines), Modus violet, and accessible components on Base UI — plus the Insight Center patterns and a demo page with illustrative content.
 
 Design System (brand book, tokens, live components): https://claude.ai/artifact/34AemeyKUpp1dyAc4TDoKv
 
