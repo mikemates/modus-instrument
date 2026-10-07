@@ -255,6 +255,13 @@ Mike asked to see the system in the Modus brand fonts (Displaay's Season), appro
 
 Checked: tokens, typecheck, tests and build pass; a new project, plain and with `--gate --patterns`, installs, typechecks and builds with the fonts; the demo and the catalogue previews were rendered in Paper and Ink, with nothing else changed but the type.
 
+## DEC-031 — Theme names say which is light and which is dark [Design System]
+**Status:** decided · **Date:** 2026-10-07
+Mike asked for a prominent light/dark switch on the Design System page, to flip components between Paper and Ink while browsing. The page itself belongs to the Design System artifact type and can't be changed from here; it already has a theme menu at the top of Components, and it picks the preview theme to match claude.ai's appearance only when a theme's name says "dark" (or "night").
+- **The names:** `color.themes` in `tokens.json` are now "Paper (light)" and "Ink (dark)". The ids stay `paper` and `ink`, so `data-theme`, the CSS and every project are untouched.
+- **What it changes:** with claude.ai set to dark, the Design System page now shows every preview in Ink, and in Paper when set to light; the theme menu still overrides it per visit. The colour table's column heads read the same new names.
+- **Not done:** a switch that stays in view while scrolling needs the type's page to change; adding one inside every preview card would put a control in each component's picture.
+
 ## Open questions
 - ~~[Open question] The official Modus logo asset~~ — resolved by DEC-007 (2026-10-02).
 - [Open question] Exact Modus violet hexes — sampled from an image (DEC-004); confirm against the Modus Create brand guidelines.
