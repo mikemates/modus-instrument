@@ -60,4 +60,4 @@ Follows Modus Experience Standards v0.2, whose default foundation this is (DEC-0
 - The decision log is append-only. When a choice changes, mark the old one SUPERSEDED — never delete it.
 - Flag unknowns as [Open question] / [Assumption] — never a confident guess.
 - Keep these docs current: when a decision is made, log it and update the affected doc in the same pass.
-- Git: files get written for you; you run one copy-paste command to save. Nobody runs git automatically.
+- Git: in the Insight Center 2.0 Claude project, Claude saves to GitHub once the checks pass, then brings the Mac folder in line with it (DEC-032). Anywhere else, files get written for you and you run one copy-paste command to save (`git-workflow`).

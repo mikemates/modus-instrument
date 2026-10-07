@@ -267,7 +267,7 @@ Mike asked for a prominent light/dark switch on the Design System page, to flip 
 Mike asked Claude to save the Season change to GitHub itself rather than hand him a save command ("nice to have that happen here vs in terminal manually"), and made it the standing default. Later that day he chose "Yes, from now on" to letting threads run git in his Mac's modus-instrument folder, so it matches GitHub after each save and he never has to pull.
 - **Where it applies:** threads in the Insight Center 2.0 Claude project. The rule is in that project's instructions, which every new thread there reads.
 - **How:** commit and push from the cloud copy once the checks pass, then bring the Mac folder to the same commit. The Mac's shell can't reach GitHub, so the commit travels as a git bundle. Git needs the folder's delete permission for its own temporary files, asked once per thread.
-- **Not yet changed:** `CLAUDE.md` (Ground rules, Git) and the kit's `git-workflow` and `modus-project-sop` skills still describe the copy-paste save. Elsewhere, and for teammates, that is still how saving works.
+- **Written down for this repository only:** on 2026-10-07 Mike chose "This repo only". `CLAUDE.md` (Ground rules, Git) now says Claude saves in this project. The kit's `git-workflow` and `modus-project-sop` skills keep the copy-paste save, which is still how saving works elsewhere and for teammates.
 
 Refines DEC-011 for this project.
 
@@ -284,4 +284,4 @@ Refines DEC-011 for this project.
 - [Open question] New projects have no test runner yet; for now Vitest goes in when a project's first logic arrives (DEC-026). Should the template carry it from the start? And should `npm run build` run the typecheck (and the tests), so a deploy can't go out with a type error? Today they are separate checks before each save.
 - ~~[Open question] Node: `.nvmrc` says 20 and `engines` says `>=20`, but Node 20 reached end of life in April 2026, Vercel stopped building with it on 2026-10-01 (`>=20` gets its newest, 24), and this repository's own tests need 22.18 or later (they import TypeScript). Raise both to 22, with `engines` pinned to `22.x` so local and Vercel match? Mike's Mac needs Node 22 first.~~ — resolved by DEC-027 (2026-10-05): Node 24, declared in `.nvmrc` and `engines`; the tests run on it.
 - [Open question] The brand book's Restraint section still says every headline makes a claim. Add the tools-and-forms voice (DEC-025) at the next Design System publish.
-- [Open question] Should `CLAUDE.md` and the kit's git and SOP skills describe DEC-032's way of saving: for this repository only, or for everyone using the plugin? Asked 2026-10-07.
+- ~~[Open question] Should `CLAUDE.md` and the kit's git and SOP skills describe DEC-032's way of saving: for this repository only, or for everyone using the plugin?~~ — resolved by DEC-032 (2026-10-07): this repository only.
