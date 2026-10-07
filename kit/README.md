@@ -20,7 +20,7 @@ The skills Modus prototypes are built with. This folder is their source, and eve
 
 ## Installing it
 
-In the Claude app: **Customize → Plugins**, upload `prototype-foundations.plugin` from this folder. The skills are written from Mike's setup, but commands use your own home folder and GitHub account. The first time you start a project, Claude walks you through setting up your computer: git, Node, signing in to GitHub, and your own copy of the foundation. Ask Mike for access to the foundation repository and the Design System.
+In the Claude app: **Customize → Plugins**, upload `prototype-foundations.plugin` from this folder. The skills are written from Mike's setup, but commands use your own home folder and GitHub account. The first time you start a project, Claude walks you through setting up your computer: git, Node, signing in to GitHub, and your own copy of the foundation. Ask Mike for access to the foundation repository; the Design System (https://claude.ai/artifact/34AemeyKUpp1dyAc4TDoKv) opens for anyone with the link.
 
 ## Changing a skill
 

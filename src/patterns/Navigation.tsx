@@ -82,23 +82,27 @@ export function ChapterRail({ chapters, className }: { chapters: Chapter[]; clas
             <div className="flex flex-col items-center">
               <span
                 className={cn(
-                  'mt-[5px] size-3 shrink-0 rounded-full',
+                  'mt-[5px] size-3 shrink-0 rounded-full transition-[background-color,border-color,box-shadow] duration-300',
                   c.status === 'done' && 'bg-ink',
                   c.status === 'current' && 'bg-signal ring-4 ring-signal-soft',
                   c.status === 'next' && 'border-2 border-hairline-strong',
                 )}
               />
-              {i < chapters.length - 1 ? <span className={cn('w-0.5 flex-1', c.status === 'done' ? 'bg-ink' : 'bg-hairline-strong')} /> : null}
+              {i < chapters.length - 1 ? <span className={cn('w-0.5 flex-1 transition-colors duration-300', c.status === 'done' ? 'bg-ink' : 'bg-hairline-strong')} /> : null}
             </div>
-            <a href={c.href ?? '#'} aria-current={c.status === 'current' ? 'step' : undefined} className="flex flex-col gap-1 pb-5 no-underline">
+            <a
+              href={c.href ?? '#'}
+              aria-current={c.status === 'current' ? 'step' : undefined}
+              className="group -mx-2.5 -mt-1 mb-4 flex flex-col gap-1 rounded-control px-2.5 py-1 no-underline transition-colors duration-150 hover:bg-raised"
+            >
               <Label>
                 {c.n} · {c.status === 'done' ? 'Read' : c.status === 'current' ? 'Reading now' : 'Up next'}
               </Label>
-              <span className={cn('font-semibold', c.status === 'next' ? 'text-ink-2' : 'text-ink')}>{c.title}</span>
+              <span className={cn('font-semibold transition-colors duration-150', c.status === 'next' ? 'text-ink-2 group-hover:text-ink' : 'text-ink')}>{c.title}</span>
               {c.meta ? <span className="text-ui-s text-ink-2">{c.meta}</span> : null}
               {c.status === 'current' && c.progress !== undefined ? (
                 <span className="mt-1.5 block h-1 overflow-hidden rounded-pill bg-hairline-strong" role="progressbar" aria-valuenow={Math.round(c.progress * 100)} aria-valuemin={0} aria-valuemax={100} aria-label={`${c.title} progress`}>
-                  <span className="block h-1 bg-signal" style={{ width: `${c.progress * 100}%` }} />
+                  <span className="block h-1 bg-signal transition-[width] duration-500 ease-[cubic-bezier(0.2,0.8,0.2,1)]" style={{ width: `${c.progress * 100}%` }} />
                 </span>
               ) : null}
             </a>
@@ -130,18 +134,21 @@ export function SectionRail({ label = 'On this page', items, current, className 
               <div className="flex flex-col items-center">
                 <span
                   className={cn(
-                    'mt-[5px] size-3 shrink-0 rounded-full',
+                    'mt-[5px] size-3 shrink-0 rounded-full transition-[background-color,border-color,box-shadow] duration-300',
                     status === 'done' && 'bg-ink',
                     status === 'current' && 'bg-signal ring-4 ring-signal-soft',
                     status === 'next' && 'border-2 border-hairline-strong',
                   )}
                 />
-                {i < items.length - 1 ? <span className={cn('w-0.5 flex-1', status === 'done' ? 'bg-ink' : 'bg-hairline-strong')} /> : null}
+                {i < items.length - 1 ? <span className={cn('w-0.5 flex-1 transition-colors duration-300', status === 'done' ? 'bg-ink' : 'bg-hairline-strong')} /> : null}
               </div>
               <a
                 href={it.href}
                 aria-current={status === 'current' ? 'location' : undefined}
-                className={cn('pb-5 leading-snug no-underline', status === 'current' ? 'font-semibold text-ink' : 'text-ink-2 hover:text-ink')}
+                className={cn(
+                  '-mx-2.5 -mt-1 mb-4 rounded-control px-2.5 py-1 leading-snug no-underline transition-colors duration-150 hover:bg-raised',
+                  status === 'current' ? 'font-semibold text-ink' : 'text-ink-2 hover:text-ink',
+                )}
               >
                 {it.name}
               </a>

@@ -71,12 +71,14 @@ export function SegmentedTabs({ items, defaultValue, value, onValueChange, label
       onValueChange={onValueChange ? (v: unknown) => onValueChange(String(v)) : undefined}
       className={cn('flex flex-col gap-4', className)}
     >
-      <Tabs.List aria-label={label} className="inline-flex w-fit gap-0.5 rounded-pill border border-hairline bg-panel p-[3px]">
+      <Tabs.List aria-label={label} className="relative inline-flex w-fit gap-0.5 rounded-pill border border-hairline bg-panel p-[3px]">
+        {/* One fill that slides to the active tab, rather than two fills that swap (DEC-034). */}
+        <Tabs.Indicator className="absolute left-(--active-tab-left) top-(--active-tab-top) h-(--active-tab-height) w-(--active-tab-width) rounded-pill bg-raised transition-[left,width] duration-300 ease-[cubic-bezier(0.2,0.8,0.2,1)]" />
         {items.map((it) => (
           <Tabs.Tab
             key={it.value}
             value={it.value}
-            className="h-[30px] cursor-pointer rounded-pill px-3.5 text-ui-s font-medium text-ink-2 transition-colors hover:text-ink data-[active]:bg-raised data-[active]:font-semibold data-[active]:text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus"
+            className="relative h-[30px] cursor-pointer rounded-pill px-3.5 text-ui-s font-medium text-ink-2 transition-colors duration-150 hover:text-ink data-[active]:font-semibold data-[active]:text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus"
           >
             {it.label}
           </Tabs.Tab>
