@@ -115,7 +115,7 @@ export const components = [
   },
   {
     name: 'SegmentedTabs', group: 'Inputs', height: 90,
-    summary: 'Pill tabs on Base UI Tabs for switching content type.',
+    summary: 'Pill tabs on Base UI Tabs for switching content type; the fill slides to the active tab.',
     use: ['Two to five peers of the same kind: Insights · Maps · Opportunities.', 'Pass `content` per item to let the component own the panels.'],
     avoid: ['Tabs for steps in a sequence; use the ChapterRail.'],
     provides: '`label` (accessible name), `items` [{ value, label, content? }], optional controlled `value`.',
@@ -213,7 +213,7 @@ export const components = [
   },
   {
     name: 'ChapterRail', group: 'Navigation', height: 520,
-    summary: 'The walkthrough’s chapter index: what has been read and where you are.',
+    summary: 'The walkthrough’s chapter index: what has been read and where you are. Each row fills on hover.',
     use: ['Keep it sticky beside long-scroll chapters.', 'Numbered because the chapters are a real sequence.'],
     avoid: ['Using it for unordered sections; use the TopBar, or SectionRail for a page people dip into.'],
     provides: '`chapters` [{ n, title, meta?, status (done, current, next), progress?, href? }].',

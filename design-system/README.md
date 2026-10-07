@@ -73,7 +73,9 @@ Each house device marks something. Used everywhere, it marks nothing, and the pa
 
 ### Motion
 
-- 150–160ms ease-out for state changes; a 12px rise for reveals; scroll-scrubbed progress for before → after stories.
+- Motion says what changed and where it went. 150ms ease-out for state changes (a hover fill, a colour); 300ms for something that travels (a switch's thumb, the fill sliding to the active tab, a step entering from the side the reader moved towards, about 20px); up to 500ms for a progress bar filling. A reveal rises 12px. Scroll-scrubbed progress for before → after stories.
+- Hover shows what will move you: a row in a rail or list fills with `color-raised`, an arrow nudges 2px the way it points, a card that is one big link may lift 2px (still no shadow).
+- Nothing loops, bounces or glows, and a screen is readable within 320ms.
 - Honour `prefers-reduced-motion` (base.css cuts motion to a fade) and offer a visible Site motion switch on long-scroll pages.
 
 ### States

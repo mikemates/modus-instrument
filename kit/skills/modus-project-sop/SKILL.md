@@ -22,7 +22,7 @@ This skill orchestrates; the detail lives in the skills it calls:
 `<home>` is the person's home folder on their Mac (`/Users/mike` for Mike) and `<github>` their GitHub account (`mikemates` for Mike). Read `<home>` from a connected folder (`get_device_info`); ask once for anything you can't read, and never guess.
 - Foundation repo: `<home>/Projects/modus-instrument` (GitHub: https://github.com/mikemates/modus-instrument; teammates may need Mike to give them access).
 - Projects: `<home>/Projects/<project-slug>`, one private GitHub repo each under `<github>`, or under the client's organisation when the code is going to them.
-- Design System: https://claude.ai/artifact/34AemeyKUpp1dyAc4TDoKv. Mike shares it with the team; if it won't open, the foundation's `tokens/tokens.json` and `CLAUDE.md` stand in.
+- Design System: https://claude.ai/artifact/34AemeyKUpp1dyAc4TDoKv. Anyone with the link can open it; if it won't open, the foundation's `tokens/tokens.json` and `CLAUDE.md` stand in.
 - The skills: `modus-instrument/kit/` is their source. Everyone, Mike included, installs it as the `prototype-foundations` plugin (`kit/prototype-foundations.plugin`), so there's one copy of each skill.
 
 ## Standing preferences (every session)
@@ -41,7 +41,7 @@ This skill orchestrates; the detail lives in the skills it calls:
 ## SOP A — Start a new project
 
 0. **First time on this computer** (skip when `<home>/Projects/modus-instrument` exists, as it does for Mike). One step at a time, each with what success looks like:
-   - **Ask Mike for access first; it's the slowest step.** He adds their GitHub account to the foundation repository and shares the Design System. They accept GitHub's emailed invitation (it expires after seven days). Until then, a clone says "Repository not found".
+   - **Ask Mike for access first; it's the slowest step.** He adds their GitHub account to the foundation repository. The Design System needs no access: anyone with its link can open it. They accept GitHub's emailed invitation (it expires after seven days). Until then, a clone says "Repository not found".
    - `echo "$HOME"; git --version; node -v` in Terminal. The first line is `<home>`. If git isn't installed, a window offers Apple's command line tools: install them. If Node is missing or older than the version Modus projects use (24 at the moment; the foundation's `.nvmrc` names it), install that version from nodejs.org. Then run the line again.
    - Git needs a name and email once: `git config --global user.name "<Name>" && git config --global user.email "<email>"`. GitHub refuses account passwords: when git asks for one, it wants a personal access token. A classic token with the `repo` scope (github.com → Settings → Developer settings) covers repositories other people share; nothing shows as it's pasted, and the Mac's keychain remembers it.
    - Clone the foundation: `mkdir -p "$HOME/Projects" && cd "$HOME/Projects" && git clone https://github.com/mikemates/modus-instrument.git`. It needs no install of its own: `npm run new` uses only what Node brings.

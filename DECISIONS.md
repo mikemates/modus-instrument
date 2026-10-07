@@ -295,3 +295,23 @@ Refines DEC-011 for this project.
 Contrast in Paper: ink-3 is 5.28:1 on ground, 4.84:1 on raised, 4.54:1 on inset and 4.71:1 on signal-soft. Control edges are 3.3:1 on ground and 3.47:1 on panel. The ink-3 note is updated; the brand book's advice to use ink-2 on inset and signal-soft still holds as the safer choice.
 
 **Still to do after merge:** `npm run ds:build` and republish the Design System artifact; bump the plugin's version and repackage it, since `modus-ui-foundation` carries the Paper values inline; re-sync projects (the xd-ai guide carries the same values in its own PR).
+
+## DEC-034 — Rails fill on hover, tabs slide, and the motion rules the guide proved [Design System]
+
+**Context:** Mike asked whether the visual changes made to the xd-ai guide on 2026-10-07 are reflected cleanly in Instrument. A check of the guide's copied foundation found it byte-for-byte the same as Instrument's (tokens with the lighter Paper of DEC-033, the Season fonts of DEC-030, every component), so the re-syncs were clean. Three things the guide grew are the system's, not the guide's (SOP D):
+- Mike noticed that the guide's chapter rows only changed text colour on hover, which barely shows (xd-ai DEC-070). Instrument's ChapterRail and SectionRail have the same weak hover.
+- The guide's track switch slides one fill to the chosen side (xd-ai DEC-067). SegmentedTabs swapped two fills.
+- The guide's motion (xd-ai DEC-067) runs longer than the book allowed (150–160ms only): a 300ms thumb, a 320ms step slide, a 500ms progress fill. Mike asked for it and asked that it not overwhelm, which it doesn't.
+
+**Decision:**
+- ChapterRail and SectionRail rows fill with `color-raised` on hover, 150ms, padded so the text doesn't move. A ChapterRail row's title turns ink. Their dots and lines change colour over 300ms, and the progress bar fills over 500ms.
+- SegmentedTabs draws one fill (Base UI's `Tabs.Indicator`) that slides to the active tab over 300ms.
+- The book's Motion section and `modus-ui-foundation` say: 150ms for state changes, 300ms for what travels, up to 500ms for a progress fill; a row fills on hover, an arrow nudges 2px, a card that is one big link may lift 2px; nothing loops, bounces or glows; readable within 320ms; all of it off under reduced motion (base.css already does that).
+- The kit and the SOP stop telling people to ask Mike for the Design System: it opens for anyone with the link, as the guide has said since its DEC-068.
+- Plugin 0.2.5. 0.2.4 changed under the same number when DEC-033 put the lighter Paper into `modus-ui-foundation`, so anyone who installed it earlier has the old values with nothing telling them to reinstall.
+
+**Kept in the guide, not promoted:**
+- The three-pane shell (top bar, a 320px rail flush to the window's left edge, a stepper bar edge to edge; xd-ai DEC-064, DEC-065). It breaks the book's composed column on purpose, for a walk of screens rather than a long page. Promote it when a second project needs a stepper (SOP D).
+- The stepper's direction-aware step slide and its rail (GuideRail): the motion rule now covers the slide; the components stay in the guide until another project needs them.
+
+**Still to do after merge:** `npm run ds:build` and republish the Design System (the bundle, its stylesheet, the README and the two component entries); repackage the plugin and serve 0.2.5 from the guide.
